@@ -10,15 +10,14 @@
                             </div>
                         </v-col>
                         <v-col cols="2" style="min-width: 185px;">
-                            <v-card-title class="title-width">DataEditor</v-card-title>
+                            <v-card-title>DataEditor</v-card-title>
                         </v-col>
                         <v-col cols="9"
                                style="display:flex;justify-content:flex-end;align-items:center; min-width: 300px;">
-                            <v-btn v-on:click="search()" icon class="lr-m">
-                                <v-icon>mdi-magnify</v-icon>
-                            </v-btn>
-                            <v-text-field background-color="white" style="height: 35px; max-width: 250px;">Search...
-                            </v-text-field>
+                            <v-autocomplete v-on:change="redirectProject" :items="this.$parent.$parent.appData.projects"
+                                            :label="'Search'" clear-icon="" outlined dense shaped
+                                            background-color="white" style="height: 40px; max-width: 300px;">
+                            </v-autocomplete>
                         </v-col>
                     </v-card-actions>
                 </v-col>
@@ -39,8 +38,8 @@
                                 </v-card>
                             </v-col>
                             <project-card v-for="data in this.$parent.$parent.appData.recent"
-                                          v-bind:key="data.projectid" v-bind:projectid="data.projectid"
-                                          v-bind:content="data.content"></project-card>
+                                          v-bind:key="data.value" v-bind:projectid="data.value"
+                                          v-bind:content="data.text" v-bind:redirect="redirectProject"></project-card>
                         </v-row>
                     </v-card-actions>
                 </v-card>
@@ -50,9 +49,8 @@
                     <v-card-actions>
                         <v-row>
                             <project-card v-for="data in this.$parent.$parent.appData.projects"
-                                          v-bind:key="data.projectid"
-                                          v-bind:projectid="data.projectid"
-                                          v-bind:content="data.content"></project-card>
+                                          v-bind:key="data.value" v-bind:projectid="data.value"
+                                          v-bind:content="data.text" v-bind:redirect="redirectProject"></project-card>
                         </v-row>
                     </v-card-actions>
                 </v-card>
@@ -68,9 +66,8 @@
         name: "Overview",
         components: {ProjectCard},
         methods: {
-            search: function () {
-                this.$parent.$parent.appData.recent.push({projectid: "id19", content: "works"})
-                window.console.log(this.$parent.$parent.appData.recent)
+            redirectProject: function (id) {
+                this.$router.push({name: 'dataview', params: {projectid: id}})
             }
         }
     }
