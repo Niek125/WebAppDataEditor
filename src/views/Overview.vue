@@ -37,7 +37,7 @@
                                     <v-card-title class="multiline-break"> Start new project</v-card-title>
                                 </v-card>
                             </v-col>
-                            <project-card v-for="data in recent()"
+                            <project-card v-for="data in JSON.parse(this.$cookie.get('recent'))"
                                           v-bind:key="data.value" v-bind:projectid="data.value"
                                           v-bind:content="data.text" v-bind:redirect="redirectProject"></project-card>
                         </v-row>
@@ -68,27 +68,16 @@
         methods: {
             redirectProject: function (id) {
                 this.$router.push({name: 'dataview', params: {projectid: id}});
-                let cookie = this.recent();
-                for (let i = 0; i < cookie.length; i++){
-                    if ((new String(cookie[i].value).valueOf() == new String(id).valueOf()) || (i > 3)) {
-                        cookie.splice(i, 1);
-                        i--;
+                let cookie = JSON.parse(this.$cookie.get('recent'));
+                if (cookie != null) {
+                    for (let i = 0; i < cookie.length; i++) {
+                        if ((new String(cookie[i].value).valueOf() == new String(id).valueOf()) || (i > 3)) {
+                            cookie.splice(i, 1);
+                            i--;
+                        }
                     }
-                }
-                cookie.unshift(this.$parent.$parent.appData.projects.find(x => x.value == id))
-                this.$cookie.set('recent', JSON.stringify(cookie), {expires: '1M'});
-            },
-            recent: function () {
-                try {
-                    window.console.log(this.$cookie.get('recent'));
-                    let ob = JSON.parse(this.$cookie.get('recent'));
-                    if (ob == null){
-                        return new Array();
-                    }
-                    return ob;
-                } catch (e) {
-                    window.console.log(e);
-                    return new Array();
+                    cookie.unshift(this.$parent.$parent.appData.projects.find(x => x.value == id))
+                    this.$cookie.set('recent', JSON.stringify(cookie), {expires: '1M'});
                 }
             }
         }
