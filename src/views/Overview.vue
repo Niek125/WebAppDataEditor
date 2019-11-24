@@ -14,7 +14,7 @@
                         </v-col>
                         <v-col cols="9"
                                style="display:flex;justify-content:flex-end;align-items:center; min-width: 300px;">
-                            <v-autocomplete v-on:change="redirectProject" :items="this.$parent.$parent.appData.projects"
+                            <v-autocomplete v-on:change="redirectProject" :items="this.projects"
                                             :label="'Search'" clear-icon="" outlined dense shaped
                                             background-color="white" style="height: 40px; max-width: 300px;">
                             </v-autocomplete>
@@ -48,7 +48,7 @@
                 <v-card color="#5eff81" class="lr-m">
                     <v-card-actions>
                         <v-row>
-                            <project-card v-for="data in this.$parent.$parent.appData.projects"
+                            <project-card v-for="data in this.projects"
                                           v-bind:key="data.value" v-bind:projectid="data.value"
                                           v-bind:content="data.text" v-bind:redirect="redirectProject"></project-card>
                         </v-row>
@@ -61,6 +61,7 @@
 
 <script>
     import ProjectCard from "@/views/ProjectCard";
+    import ProjectService from "../Services/ProjectService";
 
     export default {
         name: "Overview",
@@ -80,6 +81,19 @@
                     this.$cookie.set('recent', JSON.stringify(cookie), {expires: '1M'});
                 }
             }
+        },
+        data() {
+            return {
+                projects: null,
+                isloaded: false
+            }
+        },
+        created() {
+            ProjectService.getProjects().then(response => {
+                this.projects = response.data;
+            })
+            // eslint-disable-next-line no-console
+                .catch(error => console.log("Oops something went wrong: " + error.response))
         }
     }
 </script>

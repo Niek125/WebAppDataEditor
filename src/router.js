@@ -10,6 +10,10 @@ export default new Router({
     base: process.env.BASE_URL,
     routes: [
         {
+            path: '/',
+            redirect: '/overview'
+        },
+        {
             path: '/overview',
             name: 'overview',
             component: Overview

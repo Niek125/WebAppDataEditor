@@ -1,20 +1,4 @@
 {
-  "test": "test",
-  "test2": "hi",
-  "recent": [
-    {
-      "value": "id1",
-      "text": "test1"
-    },
-    {
-      "value": "id2",
-      "text": "test2 test23 testtesttest"
-    },
-    {
-      "value": "id3",
-      "text": "test2testtesttesttest"
-    }
-  ],
   "projects": [
     {
       "value": "id4",

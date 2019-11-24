@@ -40,12 +40,9 @@
 </template>
 
 <script>
-    import data from './apptest'
-
     export default {
         data() {
             return {
-                appData: data,
                 visibleCookie: JSON.parse(this.$cookie.get('recent')) == null
             }
         },
