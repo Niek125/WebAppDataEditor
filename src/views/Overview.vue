@@ -4,7 +4,7 @@
             <v-row>
                 <v-col cols="12">
                     <v-card-actions>
-                        <v-col cols="1" style="min-width: 40px;">
+                        <v-col cols="1" style="min-width: 40px; max-width: 60px;">
                             <div class="center-div">
                                 <v-icon>far fa-file-alt</v-icon>
                             </div>
@@ -12,12 +12,19 @@
                         <v-col cols="2" style="min-width: 185px;">
                             <v-card-title>DataEditor</v-card-title>
                         </v-col>
-                        <v-col cols="9"
-                               style="display:flex;justify-content:flex-end;align-items:center; min-width: 300px;">
+                        <v-spacer></v-spacer>
+                        <v-col cols="4"
+                               style="min-width: 300px;">
                             <v-autocomplete v-on:change="redirectProject" :items="this.projects"
                                             :label="'Search'" clear-icon="" outlined dense shaped
                                             background-color="white" style="height: 40px; max-width: 300px;">
                             </v-autocomplete>
+                        </v-col>
+                        <v-col cols="3" style="max-width: 200px;">
+                                <v-card-title>{{this.$parent.$parent.user.displayName}}</v-card-title>
+                        </v-col>
+                        <v-col cols="1" style="max-width: 56px;">
+                            <v-img v-on:click="logOut()" v-bind:src="this.$parent.$parent.user.photoURL" max-height="32" max-width="32"></v-img>
                         </v-col>
                     </v-card-actions>
                 </v-col>
@@ -60,8 +67,8 @@
 </template>
 
 <script>
-    import ProjectCard from "@/views/ProjectCard";
-    import ProjectService from "../Services/ProjectService";
+    import ProjectCard from '../components/ProjectCard';
+    import ProjectService from "../services/ProjectService";
 
     export default {
         name: "Overview",
@@ -77,9 +84,12 @@
                             i--;
                         }
                     }
-                    cookie.unshift(this.$parent.$parent.appData.projects.find(x => x.value == id))
+                    cookie.unshift(this.projects.find(x => x.value == id))
                     this.$cookie.set('recent', JSON.stringify(cookie), {expires: '1M'});
                 }
+            },
+            logOut: function () {
+                location.reload();
             }
         },
         data() {
@@ -92,7 +102,7 @@
             ProjectService.getProjects().then(response => {
                 this.projects = response.data;
             })
-            // eslint-disable-next-line no-console
+                // eslint-disable-next-line no-console
                 .catch(error => console.log("Oops something went wrong: " + error.response))
         }
     }
