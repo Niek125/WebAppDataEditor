@@ -24,7 +24,7 @@
                                 <v-card-title>{{this.$parent.$parent.user.displayName}}</v-card-title>
                         </v-col>
                         <v-col cols="1" style="max-width: 56px;">
-                            <v-img v-on:click="logOut()" v-bind:src="this.$parent.$parent.user.photoURL" max-height="32" max-width="32"></v-img>
+                            <v-img v-on:click="logOut()" v-bind:src="this.$parent.$parent.user.photoURL" max-height="32" max-width="32" style="border-radius: 32px;"></v-img>
                         </v-col>
                     </v-card-actions>
                 </v-col>
