@@ -38,18 +38,16 @@
 
     export default {
         name: "LogIn",
-        props: {
-            setUser: Function
+        props:{
+            sessionSet: Function
         },
         methods:{
             signin: function () {
                 var provider = new firebase.auth.GoogleAuthProvider();
                 firebase.auth().signInWithPopup(provider).then(result => {
-                    this.setUser(result.user.providerData[0]);
-                    firebase.auth().signOut().then(function () {
-                    }).catch(function (error) {
-                        window.console.log(error);
-                    });
+                    this.$session.start();
+                    this.$session.set("jwt", result.user.providerData[0]);
+                    this.sessionSet();
                 }).catch(function(error) {
                     var errorCode = error.code;
                     window.console.log(errorCode);

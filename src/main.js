@@ -11,6 +11,9 @@ Vue.use(VueCookie);
 var firebase = require("firebase/app");
 Vue.use(firebase);
 
+import VueSession from 'vue-session'
+Vue.use(VueSession)
+
 // Add the Firebase products that you want to use
 var auth = require("firebase/auth");
 Vue.use(auth);

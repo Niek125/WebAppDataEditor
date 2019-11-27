@@ -1,3 +1,27 @@
 {
-  "projectname": "testname"
+  "projectname": "testname",
+  "users": [
+    {
+      "name": "Piet",
+      "id": "106468534157353098978"
+    },
+    {
+      "name": "Jan",
+      "id": "qwerty"
+    }
+  ],
+  "messages": [
+    {
+      "messageid": "test1",
+      "content": "contenttest",
+      "sendtime": "today",
+      "senderid": "106468534157353098978"
+    },
+    {
+      "messageid": "test2",
+      "content": "testcontent",
+      "sendtime": "yesterday",
+      "senderid": "qwerty"
+    }
+  ]
 }

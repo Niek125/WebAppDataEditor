@@ -16,15 +16,15 @@
                         <v-col cols="4"
                                style="min-width: 300px;">
                             <v-autocomplete v-on:change="redirectProject" :items="this.projects"
-                                            :label="'Search'" clear-icon="" outlined dense shaped
+                                            :label="'Search'" outlined dense shaped
                                             background-color="white" style="height: 40px; max-width: 300px;">
                             </v-autocomplete>
                         </v-col>
                         <v-col cols="3" style="max-width: 200px;">
-                                <v-card-title>{{this.$parent.$parent.user.displayName}}</v-card-title>
+                                <v-card-title>{{this.$session.get("jwt").displayName}}</v-card-title>
                         </v-col>
                         <v-col cols="1" style="max-width: 56px;">
-                            <v-img v-on:click="logOut()" v-bind:src="this.$parent.$parent.user.photoURL" max-height="32" max-width="32" style="border-radius: 32px;"></v-img>
+                            <v-img v-on:click="logOut()" v-bind:src="this.$session.get('jwt').photoURL" max-height="32" max-width="32" style="border-radius: 32px;"></v-img>
                         </v-col>
                     </v-card-actions>
                 </v-col>
@@ -69,6 +69,8 @@
 <script>
     import ProjectCard from '../components/ProjectCard';
     import ProjectService from "../services/ProjectService";
+    import * as firebase from "firebase";
+    import "firebase/auth";
 
     export default {
         name: "Overview",
@@ -89,7 +91,11 @@
                 }
             },
             logOut: function () {
-                location.reload();
+                this.$session.destroy();
+                firebase.auth().signOut().then(function () {
+                }).catch(function (error) {
+                    window.console.log(error);
+                });
             }
         },
         data() {
