@@ -10,7 +10,7 @@ const projectService = axios.create({
 });
 
 export default {
-    getProjects(){
+    getProjects() {
         return projectService.get('read/projects')
     }
 }

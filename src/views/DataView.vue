@@ -42,7 +42,8 @@
                                     <div class="center-div">
                                         <v-spacer></v-spacer>
                                         <v-text-field v-model="input" @keyup.enter.native="send(input)" color="white"
-                                                      placeholder="Message..."
+                                                      @click:append="send()" counter maxlength="256"
+                                                      placeholder="Message..." outlined filled dense rounded
                                                       append-icon="fas fa-paper-plane"></v-text-field>
                                         <v-spacer></v-spacer>
                                     </div>
@@ -64,6 +65,7 @@
 <script>
     import ChatMessage from "../components/ChatMessage";
     import Project from '../apptest'
+    import UpdateService from "../services/UpdateService";
 
     const uuidv1 = require('uuid/v1');
 
@@ -88,29 +90,44 @@
                 var element = document.getElementById("scroll");
                 element.scrollTop = element.scrollHeight;
             },
-            send: function (val) {
-                var message = {
-                    content: val,
-                    senderid: this.$session.get("jwt").uid,
-                    messageid: uuidv1(),
-                    sendtime: "now"
+            send: function () {
+                if (this.input.length > 0) {
+                    var message = {
+                        content: this.input,
+                        messageid: uuidv1()
+                    }
+                    var options = {
+                        object: "message",
+                        action: "CREATE"
+                    }
+                    UpdateService.sendMessage(JSON.stringify(options) + "\n" + JSON.stringify(message));
+                    this.input = "";
                 }
-                this.input = "";
-                var x = this;
-                var element = document.getElementById("scroll");
-                var scroll = (element.scrollTop - element.scrollHeight) <= this.messagedelta;
-                this.project.messages.push(message);
-                if (scroll) {
-                    setTimeout(function () {
-                        x.updateScroll()
-                    }, 50);
+            },
+            addmessage: function (message) {
+                try {
+                    window.console.log(message);
+                    var x = this;
+                    var element = document.getElementById("scroll");
+                    var scroll = (element.scrollTop - element.scrollHeight) <= this.messagedelta;
+                    this.project.messages.push(message);
+                    if (scroll) {
+                        setTimeout(function () {
+                            x.updateScroll()
+                        }, 50);
+                    }
+                }catch (e) {
+                    window.console.log(e);
                 }
+
             }
         },
         mounted() {
             var element = document.getElementById("scroll");
             this.updateScroll();
             this.messagedelta = element.scrollTop - element.scrollHeight + 1;
+
+            UpdateService.connect(this.project.projectid, this.addmessage);
         }
     }
 
