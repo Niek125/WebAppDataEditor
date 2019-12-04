@@ -1,13 +1,19 @@
 import axios from 'axios'
+import EurekaServer from "./EurekaServer";
 
-const tokenService = axios.create({
-    baseURL: 'http://localhost:8092/token',
-    withCredentials: false,
+var tokenService = null;
+EurekaServer.getInstance("token-service").then((url) => {
+    tokenService = axios.create({
+        baseURL: url.data,
+        withCredentials: false
+    });
 });
-
 export default {
     getToken(GToken, setToken) {
-        tokenService.get('/token/' + GToken).then(response => {
+        if(tokenService == null){
+            setTimeout(this.getToken(GToken, setToken), 10)
+        }
+        tokenService.get('token/token/' + GToken).then(response => {
             setToken(response.data)
         });
     }

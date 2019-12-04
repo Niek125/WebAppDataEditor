@@ -4,7 +4,7 @@
             <v-app-bar color="#5eff81">
                 <v-row>
                     <v-col cols="12">
-                        <v-card-title>{{project.projectname}}</v-card-title>
+                        <v-card-title>{{project.project.projectname}}</v-card-title>
                     </v-col>
                 </v-row>
             </v-app-bar>
@@ -52,8 +52,10 @@
                         </v-col>
                     </v-row>
                     <v-row v-else>
-                        <v-col cols="12">
-                            people
+                        <v-col cols="12" style="min-height: 80vh; max-height: 80vh;">
+                            <UserCard v-for="data in project.users" v-bind:key="data.userid" v-bind:userid="data.userid"
+                                      v-bind:username="data.username"
+                                      v-bind:profilepicture="data.profilepicture"></UserCard>
                         </v-col>
                     </v-row>
                 </v-card>
@@ -64,23 +66,34 @@
 
 <script>
     import ChatMessage from "../components/ChatMessage";
-    import Project from '../apptest'
+    import UserCard from "../components/UserCard";
+
     import UpdateService from "../services/UpdateService";
+    import ProjectService from "../services/ProjectService";
+    import RoleService from "../services/RoleService";
 
     const uuidv1 = require('uuid/v1');
 
     export default {
-        name: "Test",
+        name: "DataView",
         data() {
             return {
-                project: Project,
+                project: {
+                    project: {
+                        projectid: "",
+                        projectname: ""
+                    },
+                    chat: null,
+                    users: null
+                },
                 chatActive: true,
                 input: "",
                 messagedelta: Infinity
             }
         },
         components: {
-            ChatMessage
+            ChatMessage,
+            UserCard
         },
         methods: {
             getusers: function () {
@@ -109,23 +122,33 @@
                     window.console.log(message);
                     var x = this;
                     var element = document.getElementById("scroll");
-                    var scroll = (element.scrollTop - element.scrollHeight) <= this.messagedelta;
+                    var scroll = (element.scrollTop - element.scrollHeight) >= this.messagedelta;
+                    this.messagedelta = element.scrollTop - element.scrollHeight - 1;
                     this.project.messages.push(message);
                     if (scroll) {
                         setTimeout(function () {
                             x.updateScroll()
                         }, 50);
                     }
-                }catch (e) {
+                } catch (e) {
                     window.console.log(e);
                 }
 
             }
         },
         mounted() {
-            var element = document.getElementById("scroll");
-            this.updateScroll();
-            this.messagedelta = element.scrollTop - element.scrollHeight + 1;
+            var token = this.$session.get("jwt");
+            var projectid = this.$route.params.projectid;
+            ProjectService.getProject(projectid, token).then((request) => {
+                this.project.project = request.data;
+            });
+            RoleService.getUsers(projectid, token).then((request) => {
+                this.project.users = request.data;
+            })
+
+            //var element = document.getElementById("scroll");
+            //this.updateScroll();
+            //this.messagedelta = element.scrollTop - element.scrollHeight + 1;
 
             UpdateService.connect(this.project.projectid, this.addmessage);
         }
