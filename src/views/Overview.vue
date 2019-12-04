@@ -21,10 +21,10 @@
                             </v-autocomplete>
                         </v-col>
                         <v-col cols="3" style="max-width: 200px;">
-                                <v-card-title>{{this.$session.get("jwt").displayName}}</v-card-title>
+                                <v-card-title>{{this.$session.get("userdata").unm}}</v-card-title>
                         </v-col>
                         <v-col cols="1" style="max-width: 56px;">
-                            <v-img v-on:click="logOut()" v-bind:src="this.$session.get('jwt').photoURL" max-height="32" max-width="32" style="border-radius: 32px;"></v-img>
+                            <v-img v-on:click="logOut()" v-bind:src="this.$session.get('userdata').pfp" max-height="32" max-width="32" style="border-radius: 32px;"></v-img>
                         </v-col>
                     </v-card-actions>
                 </v-col>
@@ -105,11 +105,11 @@
             }
         },
         created() {
-            ProjectService.getProjects().then(response => {
+            ProjectService.getProjects(this.$session.get("jwt")).then(response => {
                 this.projects = response.data;
             })
                 // eslint-disable-next-line no-console
-                .catch(error => console.log("Oops something went wrong: " + error.response))
+                .catch(error => console.log(error.response))
         }
     }
 </script>

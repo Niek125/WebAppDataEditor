@@ -20,8 +20,11 @@
 </template>
 
 <script>
+    import TokenService from "../services/TokenService";
     import * as firebase from "firebase/app";
     import "firebase/auth";
+
+    const base64url = require('base64url');
 
     var firebaseConfig = {
         apiKey: "AIzaSyBKKFYSS81Jmnk2NHsHn46hLidx66PUbKc",
@@ -43,11 +46,21 @@
         },
         methods:{
             signin: function () {
+                var x = this;
                 var provider = new firebase.auth.GoogleAuthProvider();
                 firebase.auth().signInWithPopup(provider).then(result => {
+                    var user = {
+                        uid: result.user.uid,
+                        username: result.user.displayName,
+                        profilePicture: result.user.photoURL
+                    }
                     this.$session.start();
-                    this.$session.set("jwt", result.user.providerData[0]);
-                    this.sessionSet();
+                    this.$session.set("gtoken", result);
+                    TokenService.getToken(base64url(JSON.stringify(user)), function (token) {
+                        x.$session.set("jwt", token);
+                        x.$session.set("userdata", JSON.parse(base64url.decode(token.split(".")[1])));
+                        x.sessionSet();
+                    });
                 }).catch(function(error) {
                     var errorCode = error.code;
                     window.console.log(errorCode);
