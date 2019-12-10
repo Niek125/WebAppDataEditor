@@ -79,12 +79,9 @@
         data() {
             return {
                 project: {
-                    project: {
-                        projectid: "",
-                        projectname: ""
-                    },
+                    project: {},
                     chat: [],
-                    users: null
+                    users: {}
                 },
                 chatActive: true,
                 input: "",
@@ -137,10 +134,10 @@
 
             }
         },
-        mounted() {
+        async mounted() {
             var token = this.$session.get("jwt");
             var projectid = this.$route.params.projectid;
-            ProjectService.getProject(projectid, token).then((request) => {
+            await ProjectService.getProject(projectid, token).then((request) => {
                 this.project.project = request.data;
             });
             RoleService.getUsers(projectid, token).then((request) => {
@@ -151,7 +148,7 @@
             //this.updateScroll();
             //this.messagedelta = element.scrollTop - element.scrollHeight + 1;
 
-            UpdateService.connect(this.project.projectid, this.addmessage);
+            UpdateService.connect(this.project.project.projectid, this.addmessage, token);
         }
     }
 

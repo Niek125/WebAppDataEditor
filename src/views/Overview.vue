@@ -96,6 +96,7 @@
                 }).catch(function (error) {
                     window.console.log(error);
                 });
+                location.reload();
             }
         },
         data() {

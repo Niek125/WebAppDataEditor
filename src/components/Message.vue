@@ -25,8 +25,8 @@
             getuser: function () {
                 var x = this;
                 return this.getusers().find(function (user) {
-                    return (user.id).toString() == x.senderid;
-                }).name;
+                    return (user.userid).toString() == x.senderid;
+                }).username;
             }
         }
     }
