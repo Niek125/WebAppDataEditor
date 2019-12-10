@@ -13,7 +13,7 @@ export default {
         if(tokenService == null){
             setTimeout(this.getToken(GToken, setToken), 10)
         }
-        tokenService.get('token/token/' + GToken).then(response => {
+        tokenService.get('token/token', {headers: {gtoken: GToken}}).then(response => {
             setToken(response.data)
         });
     }

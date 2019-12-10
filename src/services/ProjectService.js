@@ -5,7 +5,7 @@ var projectService = null;
 EurekaServer.getInstance("project-service").then((url) => {
     projectService = axios.create({
         baseURL: url.data,
-        withCredentials: false
+        withCredentials: false,
     });
 });
 

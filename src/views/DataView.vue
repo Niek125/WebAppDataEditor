@@ -31,7 +31,7 @@
                         <v-col cols="12">
                             <v-row id="scroll" style="max-height: 64vh; min-height: 64vh; overflow-y: scroll;">
                                 <v-col cols="12">
-                                    <ChatMessage v-for="data in project.messages" v-bind:key="data.messageid"
+                                    <ChatMessage v-for="data in project.chat" v-bind:key="data.messageid"
                                                  v-bind:content="data.content" v-bind:sendtime="data.sendtime"
                                                  v-bind:senderid="data.senderid"
                                                  v-bind:getusers="getusers"></ChatMessage>
@@ -83,7 +83,7 @@
                         projectid: "",
                         projectname: ""
                     },
-                    chat: null,
+                    chat: [],
                     users: null
                 },
                 chatActive: true,
@@ -124,7 +124,8 @@
                     var element = document.getElementById("scroll");
                     var scroll = (element.scrollTop - element.scrollHeight) >= this.messagedelta;
                     this.messagedelta = element.scrollTop - element.scrollHeight - 1;
-                    this.project.messages.push(message);
+                    this.project.chat.push(message);
+                    window.console.log()
                     if (scroll) {
                         setTimeout(function () {
                             x.updateScroll()

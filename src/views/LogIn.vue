@@ -49,17 +49,16 @@
                 var x = this;
                 var provider = new firebase.auth.GoogleAuthProvider();
                 firebase.auth().signInWithPopup(provider).then(result => {
-                    var user = {
-                        uid: result.user.uid,
-                        username: result.user.displayName,
-                        profilePicture: result.user.photoURL
-                    }
-                    this.$session.start();
-                    this.$session.set("gtoken", result);
-                    TokenService.getToken(base64url(JSON.stringify(user)), function (token) {
-                        x.$session.set("jwt", token);
-                        x.$session.set("userdata", JSON.parse(base64url.decode(token.split(".")[1])));
-                        x.sessionSet();
+                    firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+                        x.$session.start();
+                        x.$session.set("gtoken", result);
+                        TokenService.getToken(idToken, function (token) {
+                            x.$session.set("jwt", token);
+                            x.$session.set("userdata", JSON.parse(base64url.decode(token.split(".")[1])));
+                            x.sessionSet();
+                        });
+                    }).catch(function(error) {
+                        window.console.log(error);
                     });
                 }).catch(function(error) {
                     var errorCode = error.code;
