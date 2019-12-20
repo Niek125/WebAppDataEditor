@@ -1,21 +1,21 @@
 <template>
     <v-row>
-        <v-card color="pink" width="80vw">
+        <v-card color="#707B83" width="80vw">
             <v-col cols="12">
                 <v-row>
                     <v-spacer></v-spacer>
-                    <v-autocomplete v-model="autocompuser"  v-bind:items="usrslike" label="Email" :search-input.sync="userinpt"
+                    <v-autocomplete v-model="autocompuser" v-bind:items="usrslike" label="Email" :search-input.sync="userinpt"
                                     @keyup="getuserslike"></v-autocomplete>
                     <v-spacer></v-spacer>
                 </v-row>
                 <v-row>
                     <v-spacer></v-spacer>
                     <v-col cols="3">
-                        <v-btn color="blue" width="100%" v-on:click="setpopup('')">Close</v-btn>
+                        <v-btn class="grey--text text--darken-1" color="#F2ECFF" width="100%" v-on:click="setpopup('')">Close</v-btn>
                     </v-col>
                     <v-spacer></v-spacer>
                     <v-col cols="3">
-                        <v-btn color="green" width="100%" v-on:click="adduser()">Add to project</v-btn>
+                        <v-btn color="#00C896" class="text--darken-1" width="100%" v-on:click="adduser()">Add to project</v-btn>
                     </v-col>
                     <v-spacer></v-spacer>
                 </v-row>
@@ -34,7 +34,8 @@
         data() {
             return {
                 userinpt: "",
-                usrslike: []
+                usrslike: [],
+                autocompuser: {}
             }
         },
         props: {

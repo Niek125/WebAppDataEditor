@@ -1,16 +1,16 @@
 <template>
     <div class="center-div" style="width: 100%; height: 100%;">
-        <v-card height="300" width="300" color="#5eff81">
+        <v-card height="300" width="300" color="#A993A6">
             <v-card-actions>
                 <v-col>
                     <v-row>
                         <v-spacer></v-spacer>
-                        <v-card-title>Log in</v-card-title>
+                        <v-card-title class="grey--text text--darken-3">Log in</v-card-title>
                         <v-spacer></v-spacer>
                     </v-row>
                     <v-row>
                         <v-spacer></v-spacer>
-                        <v-btn v-on:click="signin()">Google</v-btn>
+                        <v-btn color="#FFAE9A" class="grey--text text--darken-3" v-on:click="signin()">Google</v-btn>
                         <v-spacer></v-spacer>
                     </v-row>
                 </v-col>

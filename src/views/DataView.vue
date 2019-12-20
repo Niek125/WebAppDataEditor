@@ -1,101 +1,32 @@
 <template>
     <div>
-        <v-overlay v-if="popup == 'adduser'" opacity="0.8">
-            <AddUser v-bind:projectid="this.project.project.projectid" :setpopup="setpopup"></AddUser>
-        </v-overlay>
-        <v-overlay v-else-if="popup == 'edituser'" opacity="0.8">
-            <EditUser v-bind:userrole="edituser" :setpopup="setpopup"></EditUser>
-        </v-overlay>
-        <div>
-            <v-row>
-                <v-app-bar color="#5eff81">
-                    <v-row>
-                        <v-col cols="12">
-                            <v-card-title>{{project.project.projectname}}</v-card-title>
-                        </v-col>
-                    </v-row>
-                </v-app-bar>
-            </v-row>
-            <v-row>
-                <v-col cols="8">
-                    <v-card class="lr-m" color="red">
-                        <v-text-field label="Message" value="..." color="white" style="width: 80%"
-                                      append-icon="fas fa-paper-plane"></v-text-field>
-                    </v-card>
-                </v-col>
-                <v-col cols="4" style="padding-top: 0px;">
-                    <v-card color="orange">
-                        <v-row>
-                            <v-col class="lr-m" cols="5">
-                                <v-btn width="100%" v-on:click="chatActive = true">Chat</v-btn>
-                            </v-col>
-                            <v-spacer></v-spacer>
-                            <v-col class="lr-m" cols="5">
-                                <v-btn width="100%" v-on:click="chatActive = false">People</v-btn>
-                            </v-col>
-                        </v-row>
-                        <v-row v-if="chatActive">
-                            <v-col cols="12">
-                                <v-row id="scroll" style="max-height: 64vh; min-height: 64vh; overflow-y: scroll;">
-                                    <v-col cols="12">
-                                        <ChatMessage v-for="data in project.chat" v-bind:key="data.messageid"
-                                                     v-bind:content="data.content" v-bind:sendtime="data.sendtime"
-                                                     v-bind:senderid="data.senderid"
-                                                     v-bind:getusers="getusers"></ChatMessage>
-                                    </v-col>
-                                </v-row>
-                                <v-row>
-                                    <v-col cols="12">
-                                        <div class="center-div">
-                                            <v-spacer></v-spacer>
-                                            <v-text-field v-model="input" @keyup.enter.native="send(input)"
-                                                          color="white"
-                                                          @click:append="send()" counter maxlength="256"
-                                                          placeholder="Message..." outlined filled dense rounded
-                                                          append-icon="fas fa-paper-plane"></v-text-field>
-                                            <v-spacer></v-spacer>
-                                        </div>
-                                    </v-col>
-                                </v-row>
-                            </v-col>
-                        </v-row>
-                        <v-row v-else>
-                            <v-col cols="12" style="min-height: 80vh; max-height: 80vh;">
-                                <v-card color="pink" class="lr-m tb-m" v-on:click="setpopup('adduser')">
-                                    <v-col cols="12">
-                                        <v-row>
-                                            <v-col cols="3">
-                                                <div class="center-div">
-                                                    <v-icon max-height="32" max-width="32" style="border-radius: 32px;">
-                                                        fas fa-plus
-                                                    </v-icon>
-                                                </div>
-                                            </v-col>
-                                            <v-spacer></v-spacer>
-                                            <v-col cols="8">
-                                                <v-card-text style="padding: 0px;">Add user</v-card-text>
-                                            </v-col>
-                                        </v-row>
-                                    </v-col>
-                                </v-card>
-                                <UserCard v-for="data in project.userroles"
-                                          v-bind:key="data.user.userid"
-                                          v-bind:user="data.user" v-on:click.native="function () {edituser = data; setpopup('edituser');}"></UserCard>
-
-                            </v-col>
-                        </v-row>
-                    </v-card>
-                </v-col>
-            </v-row>
-        </div>
+        <v-row>
+            <v-col cols="8" class="pa-0">
+                <v-card class="lr-m" color="#7D7F84">
+                    <v-card-title>{{project.project.projectname}}
+                        <v-spacer></v-spacer>
+                        <v-text-field
+                                v-model="search"
+                                append-icon="fas fa-search"
+                                label="Search"
+                                single-line
+                                hide-details
+                        ></v-text-field>
+                    </v-card-title>
+                    <v-data-table style="background-color: transparent;" hide-default-footer
+                                  height="calc(100vh - 64px - 80px)" class="lr-m" :headers="project.data.headers"
+                                  :items="project.data.items"></v-data-table>
+                </v-card>
+            </v-col>
+            <v-col cols="4" style="padding-top: 0px;" class="pa-0">
+                <PeopleChatMenu v-bind:userroles="project.userroles" v-bind:chat="project.chat"></PeopleChatMenu>
+            </v-col>
+        </v-row>
     </div>
 </template>
 
 <script>
-    import ChatMessage from "../components/ChatMessage";
-    import UserCard from "../components/UserCard";
-    import AddUser from "../components/AddUser";
-    import EditUser from "../components/EditUser";
+    import PeopleChatMenu from "../components/PeopleChatMenu";
 
     import UpdateService from "../services/UpdateService";
     import ProjectService from "../services/ProjectService";
@@ -110,34 +41,25 @@
                 project: {
                     project: {},
                     chat: [],
-                    userroles: []
+                    userroles: [],
+                    data: {
+                        headers: [],
+                        items: []
+                    }
                 },
-                chatActive: true,
-                popup: "",
                 edituser: {},
-                input: "",
-                messagedelta: Infinity
+                messagedelta: Infinity,
+                search: null
             }
         },
         components: {
-            ChatMessage,
-            UserCard,
-            AddUser,
-            EditUser
+            PeopleChatMenu
         },
         methods: {
-            setpopup: function (state) {
-                this.popup = state;
-            },
-            getusers: function () {
-                return this.project.userroles.map(x => x.user);
-            }
-            ,
             updateScroll: function () {
                 var element = document.getElementById("scroll");
                 element.scrollTop = element.scrollHeight;
-            }
-            ,
+            },
             send: function () {
                 if (this.input.length > 0) {
                     const message = {
@@ -180,6 +102,97 @@
             RoleService.getusers(projectid, token).then((request) => {
                 this.project.userroles = request.data;
             })
+
+            this.project.data.headers = [
+                {text: 'Dessert (100g serving)', value: 'name'},
+                {text: 'Calories', value: 'calories'},
+                {text: 'Fat (g)', value: 'fat'},
+                {text: 'Carbs (g)', value: 'carbs'},
+                {text: 'Protein (g)', value: 'protein'},
+                {text: 'Iron (%)', value: 'iron'}]
+
+            this.project.data.items = [
+                {
+                    name: 'Frozen Yogurt',
+                    calories: 159,
+                    fat: 6.0,
+                    carbs: 24,
+                    protein: 4.0,
+                    iron: '1%',
+                },
+                {
+                    name: 'Ice cream sandwich',
+                    calories: 237,
+                    fat: 9.0,
+                    carbs: 37,
+                    protein: 4.3,
+                    iron: '1%',
+                },
+                {
+                    name: 'Eclair',
+                    calories: 262,
+                    fat: 16.0,
+                    carbs: 23,
+                    protein: 6.0,
+                    iron: '7%',
+                },
+                {
+                    name: 'Cupcake',
+                    calories: 305,
+                    fat: 3.7,
+                    carbs: 67,
+                    protein: 4.3,
+                    iron: '8%',
+                },
+                {
+                    name: 'Gingerbread',
+                    calories: 356,
+                    fat: 16.0,
+                    carbs: 49,
+                    protein: 3.9,
+                    iron: '16%',
+                },
+                {
+                    name: 'Jelly bean',
+                    calories: 375,
+                    fat: 0.0,
+                    carbs: 94,
+                    protein: 0.0,
+                    iron: '0%',
+                },
+                {
+                    name: 'Lollipop',
+                    calories: 392,
+                    fat: 0.2,
+                    carbs: 98,
+                    protein: 0,
+                    iron: '2%',
+                },
+                {
+                    name: 'Honeycomb',
+                    calories: 408,
+                    fat: 3.2,
+                    carbs: 87,
+                    protein: 6.5,
+                    iron: '45%',
+                },
+                {
+                    name: 'Donut',
+                    calories: 452,
+                    fat: 25.0,
+                    carbs: 51,
+                    protein: 4.9,
+                    iron: '22%',
+                },
+                {
+                    name: 'KitKat',
+                    calories: 518,
+                    fat: 26.0,
+                    carbs: 65,
+                    protein: 7,
+                    iron: '6%',
+                },
+            ]
 
             //var element = document.getElementById("scroll");
             //this.updateScroll();

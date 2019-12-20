@@ -1,11 +1,14 @@
 <template>
     <v-col cols="2" style="min-width: 155px; max-width: 165px;">
-        <v-card v-on:click="redirect(projectid)" class="lr-m" style="height: 150px;" color="#5e96ff">
-            <div class="center-div icon-cont">
-                <v-icon size="30">fas fa-code</v-icon>
-            </div>
-            <v-card-title class="multiline-break">{{content}}</v-card-title>
-        </v-card>
+        <v-hover v-slot:default="{ hover }">
+            <v-card v-on:click="redirectProject(projectid, comp)" class="lr-m" style="height: 150px;" color="#707B83"
+                    :elevation="hover ? 16: 8">
+                <div class="center-div icon-cont">
+                    <v-icon size="30">fas fa-code</v-icon>
+                </div>
+                <v-card-title class="multiline-break">{{content}}</v-card-title>
+            </v-card>
+        </v-hover>
     </v-col>
 </template>
 
@@ -22,12 +25,19 @@
 </style>
 
 <script>
+    import { redirectProject } from "../mixins/RedirectProject";
+
     export default {
         name: "ProjectCard",
         props: {
             content: String,
-            projectid: String,
-            redirect: Function
-        }
+            projectid: String
+        },
+        data() {
+            return{
+                comp: this
+            }
+        },
+        mixins: [redirectProject]
     }
 </script>

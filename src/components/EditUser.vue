@@ -1,6 +1,6 @@
 <template>
     <v-row>
-        <v-card color="cyan" width="80vw">
+        <v-card color="#707B83" width="80vw">
             <v-col cols="12">
                 <v-row>
                     <v-spacer></v-spacer>
@@ -28,11 +28,11 @@
                 <v-row>
                     <v-spacer></v-spacer>
                     <v-col cols="3">
-                        <v-btn color="blue" width="100%" v-on:click="setpopup('')">Close</v-btn>
+                        <v-btn class="grey--text text--darken-1" color="#F2ECFF" width="100%" v-on:click="setpopup('')">Close</v-btn>
                     </v-col>
                     <v-spacer></v-spacer>
                     <v-col cols="3">
-                        <v-btn color="green" width="100%" v-on:click="edituser">Edit role</v-btn>
+                        <v-btn color="#00C896" width="100%" v-on:click="edituser">Edit role</v-btn>
                     </v-col>
                     <v-spacer></v-spacer>
                 </v-row>
