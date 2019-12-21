@@ -1,13 +1,13 @@
 <template>
     <div>
-        <v-row v-if="senderid == this.$session.get('jwt').uid">
+        <v-row v-if="senderid == this.$session.get('userdata').uid">
             <v-spacer></v-spacer>
             <Message v-bind:content="this.content" v-bind:sendtime="this.sendtime" v-bind:senderid="this.senderid"
-                     v-bind:getusers="this.getusers"></Message>
+                     v-bind:users="this.users"></Message>
         </v-row>
         <v-row v-else>
             <Message v-bind:content="this.content" v-bind:sendtime="this.sendtime" v-bind:senderid="this.senderid"
-                     v-bind:getusers="this.getusers"></Message>
+                     v-bind:users="this.users"></Message>
             <v-spacer></v-spacer>
         </v-row>
     </div>
@@ -22,10 +22,13 @@
             content: String,
             sendtime: String,
             senderid: String,
-            getusers: Function
+            users: Array
         },
         components: {
             Message
+        },
+        created() {
+            window.console.log(this.$session.get('jwt').uid);
         }
     }
 </script>

@@ -19,12 +19,15 @@
             content: String,
             sendtime: String,
             senderid: String,
-            getusers: Function
+            users: Array
         },
         methods: {
             getuser: function () {
                 var x = this;
-                return this.getusers().find(function (user) {
+                return this.users.find(function (user) {
+                    window.console.log((user.userid).toString() == x.senderid)
+                    window.console.log((user.userid).toString() )
+                    window.console.log(x.senderid)
                     return (user.userid).toString() == x.senderid;
                 }).username;
             }

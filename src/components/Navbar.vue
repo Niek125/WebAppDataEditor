@@ -13,7 +13,7 @@
                         <v-spacer></v-spacer>
                         <v-col cols="4">
                             <v-autocomplete v-model="searchProject" v-on:change="redirectProject(searchProject, comp)"
-                                            :items="this.projects" item-text="projectname" item-value="projecid"
+                                            :items="this.projects" item-text="projectname" item-value="projectid"
                                             :label="'Search'" outlined dense shaped
                                             background-color="#A993A6" :hide-details="true">
                             </v-autocomplete>
@@ -65,16 +65,14 @@
         created() {
             const x = this;
 
-            ProjectService.getProjects(x.$session.get("jwt")).then(response => {
-                x.projects = response.data;
-            });
+            loadProject();
 
-            setTimeout(function () {
+            function loadProject () {
                 ProjectService.getProjects(x.$session.get("jwt")).then(response => {
                     x.projects = response.data;
                 });
-            }, (1000 * 60 * 5));
-
+                setTimeout(loadProject, (1000 * 60 * 5));
+            }
         }
     }
 </script>

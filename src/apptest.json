@@ -1,28 +1,14 @@
-{
-  "projectid": "240529d6-0ebb-11ea-ba3c-1062e58ec6e2",
-  "projectname": "testname",
-  "users": [
-    {
-      "name": "Piet",
-      "id": "106468534157353098978"
-    },
-    {
-      "name": "Jan",
-      "id": "qwerty"
-    }
-  ],
-  "messages": [
-    {
-      "messageid": "test1",
-      "content": "contenttest",
-      "sendtime": "today",
-      "senderid": "106468534157353098978"
-    },
-    {
-      "messageid": "test2",
-      "content": "testcontent",
-      "sendtime": "yesterday",
-      "senderid": "qwerty"
-    }
-  ]
-}
+[
+  {
+    "messageid": "test1",
+    "content": "contenttest",
+    "sendtime": "today",
+    "senderid": "m9lvWuHxJTgAOf4ugEcmea6sC0v1"
+  },
+  {
+    "messageid": "test2",
+    "content": "testcontent",
+    "sendtime": "yesterday",
+    "senderid": "ijigvJurd6ZXex45k2nXpvzKuGI2"
+  }
+]

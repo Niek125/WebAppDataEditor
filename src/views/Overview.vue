@@ -28,8 +28,8 @@
                     <v-card-actions>
                         <v-row>
                             <project-card v-for="data in this.projects"
-                                          v-bind:key="data.value" v-bind:projectid="data.value"
-                                          v-bind:content="data.text"></project-card>
+                                          v-bind:key="data.projectid" v-bind:projectid="data.projectid"
+                                          v-bind:content="data.projectname"></project-card>
                         </v-row>
                     </v-card-actions>
                 </v-card>

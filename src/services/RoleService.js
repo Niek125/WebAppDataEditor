@@ -2,20 +2,19 @@ import axios from 'axios'
 import EurekaServer from "./EurekaServer";
 
 var roleService = null;
-EurekaServer.getInstance("role-management-service").then((url) => {
+
+async function load() {
+    await EurekaServer.getInstance("role-management-service").then((url) => {
     roleService = axios.create({
         baseURL: url.data,
         withCredentials: false
     });
-});
+});}
 
 export default {
-    getusers(projectid, token) {
-        var x = this;
+    async getusers(projectid, token) {
         if (roleService == null) {
-            return setTimeout(function () {
-                x.getusers(projectid);
-            }, 10);
+            await load();
         }
         return roleService.get("user/getusers/" + projectid, {
             headers: {

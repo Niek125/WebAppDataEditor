@@ -19,7 +19,7 @@
         <v-divider></v-divider>
         <v-row>
             <v-col cols="12" style="height: calc(100vh - 64px - 84px - 1px)">
-                <Chat v-if="chatActive" v-bind:chat="chat" v-bind:users="userroles.map(x => x.user)"></Chat>
+                <Chat v-if="chatActive" v-bind:chat="chat" v-bind:users="users"></Chat>
                 <PeopleList v-else v-bind:userroles="userroles"></PeopleList>
             </v-col>
         </v-row>
@@ -29,6 +29,7 @@
 <script>
     import Chat from "./Chat";
     import PeopleList from "./PeopleList";
+    import RoleService from "../services/RoleService";
 
     export default {
         name: "PeopleChatMenu",
@@ -37,7 +38,6 @@
             PeopleList
         },
         props: {
-            userroles: Array,
             chat: Array
         },
         data() {
@@ -46,7 +46,17 @@
                 chatActive: true,
                 projectid: this.$route.params.projectid,
                 input: "",
+                userroles: [],
+                users: []
             }
+        },
+        created() {
+            const token = this.$session.get("jwt");
+            const projectid = this.$route.params.projectid;
+            RoleService.getusers(projectid, token).then((request) => {
+                this.userroles = request.data;
+                this.users = request.data.map(x => x.user);
+            })
         }
     }
 </script>
