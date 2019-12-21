@@ -26,9 +26,6 @@
         },
         components: {
             Message
-        },
-        created() {
-            window.console.log(this.$session.get('jwt').uid);
         }
     }
 </script>
