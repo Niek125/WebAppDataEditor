@@ -13,7 +13,9 @@
                             height="calc(100vh - 64px - 64px)"
                             class="lr-m"
                             :headers="project.data.headers.concat([{text: 'Actions', value: 'action', sortable: false}])"
-                            :items="project.data.items">
+                            :items="project.data.items"
+                            :items-per-page="Infinity"
+                            fixed-header>
                         <template v-slot:top>
                             <v-toolbar flat color="#7D7F84">
                                 <v-toolbar-title>{{project.project.projectname}}</v-toolbar-title>
@@ -49,6 +51,11 @@
 </template>
 
 <style>
+
+    th{
+        background-color: #7D7F84 !important;
+    }
+
     tr:hover {
         background-color: #707B83 !important;
     }
@@ -255,6 +262,62 @@
                 },
                 {
                     name: 'KitKat',
+                    calories: 518,
+                    fat: 26.0,
+                    carbs: 65,
+                    protein: 7,
+                    iron: 6
+                },
+                {
+                    name: 'KiKat',
+                    calories: 518,
+                    fat: 26.0,
+                    carbs: 65,
+                    protein: 7,
+                    iron: 6
+                },
+                {
+                    name: 'Wombat',
+                    calories: 518,
+                    fat: 26.0,
+                    carbs: 65,
+                    protein: 7,
+                    iron: 6
+                },
+                {
+                    name: 'Honeycomb',
+                    calories: 408,
+                    fat: 3.2,
+                    carbs: 87,
+                    protein: 6.5,
+                    iron: 45
+                },
+                {
+                    name: 'Donut',
+                    calories: 452,
+                    fat: 25.0,
+                    carbs: 51,
+                    protein: 4.9,
+                    iron: 22
+                },
+                {
+                    name: 'KitKat',
+                    calories: 518,
+                    fat: 26.0,
+                    carbs: 65,
+                    protein: 7,
+                    iron: 6
+                },
+                {
+                    name: 'KiKat',
+                    calories: 518,
+                    fat: 26.0,
+                    carbs: 65,
+                    protein: 7,
+                    iron: 6
+                },
+                {
+                    name: 'Wombat',
                     calories: 518,
                     fat: 26.0,
                     carbs: 65,

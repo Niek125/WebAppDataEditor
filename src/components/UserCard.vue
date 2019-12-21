@@ -1,5 +1,5 @@
 <template>
-    <v-card color="#707B83" class="lr-m tb-m">
+    <v-card color="#707B83" class="lr-m tb-m usercard">
         <v-col cols="12">
             <v-row>
                 <v-container fill-height>
@@ -21,6 +21,12 @@
         </v-col>
     </v-card>
 </template>
+
+<style>
+    .usercard:hover{
+        background-color: #62787E !important;
+    }
+</style>
 
 <script>
     export default {

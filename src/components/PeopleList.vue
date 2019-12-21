@@ -6,7 +6,7 @@
         <v-overlay v-else-if="popup == 'edituser'" opacity="0">
             <EditUser v-bind:userrole="edituser" :setpopup="setpopup"></EditUser>
         </v-overlay>
-        <v-card color="#707B83" class="lr-m tb-m" v-on:click="setpopup('adduser')">
+        <v-card color="#707B83" class="lr-m tb-m usercard" v-on:click="setpopup('adduser')">
             <v-col cols="12">
                 <v-row>
                     <v-container fill-height>
