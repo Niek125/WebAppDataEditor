@@ -4,7 +4,7 @@ import EurekaServer from "./EurekaServer";
 var tokenService = null;
 EurekaServer.getInstance("token-service").then((url) => {
     tokenService = axios.create({
-        baseURL: url.data,
+        baseURL: "http://" + url.data,
         withCredentials: false
     });
 });
