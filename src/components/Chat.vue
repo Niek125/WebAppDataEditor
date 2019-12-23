@@ -25,6 +25,9 @@
 <script>
     import ChatMessage from "../components/ChatMessage";
     import apptest from "../apptest"
+    import UpdateService from "../services/UpdateService";
+
+    const uuidv1 = require('uuid/v1');
 
     export default {
         name: "Chat",
@@ -39,6 +42,22 @@
             return {
                 input: "",
             }
+        },
+        methods: {
+        send: function () {
+            if (this.input.length > 0) {
+                const message = {
+                    content: this.input,
+                    messageid: uuidv1()
+                };
+                const options = {
+                    payload: "message",
+                    action: "CREATE"
+                };
+                UpdateService.sendMessage(JSON.stringify(options) + "\n" + JSON.stringify(message));
+                this.input = "";
+            }
+        }
         },
         created() {
             this.chat = apptest;

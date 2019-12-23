@@ -68,8 +68,6 @@
     import UpdateService from "../services/UpdateService";
     import ProjectService from "../services/ProjectService";
 
-    const uuidv1 = require('uuid/v1');
-
     export default {
         name: "DataView",
         data() {
@@ -128,20 +126,6 @@
             updateScroll: function () {
                 var element = document.getElementById("scroll");
                 element.scrollTop = element.scrollHeight;
-            },
-            send: function () {
-                if (this.input.length > 0) {
-                    const message = {
-                        content: this.input,
-                        messageid: uuidv1()
-                    };
-                    const options = {
-                        object: "message",
-                        action: "CREATE"
-                    };
-                    UpdateService.sendMessage(JSON.stringify(options) + "\n" + JSON.stringify(message));
-                    this.input = "";
-                }
             },
             addmessage: function (message) {
                 try {
