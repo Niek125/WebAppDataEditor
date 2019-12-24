@@ -19,7 +19,7 @@
         <v-divider></v-divider>
         <v-row>
             <v-col cols="12" style="height: calc(100vh - 64px - 84px - 1px)">
-                <Chat v-if="chatActive" v-bind:chat="chat" v-bind:users="userroles.map(x => x.user)"></Chat>
+                <Chat v-if="chatActive" v-bind:users="userroles.map(x => x.user)"></Chat>
                 <PeopleList v-else v-bind:userroles="userroles"></PeopleList>
             </v-col>
         </v-row>
@@ -36,9 +36,6 @@
         components: {
             Chat,
             PeopleList
-        },
-        props: {
-            chat: Array
         },
         data() {
             return {

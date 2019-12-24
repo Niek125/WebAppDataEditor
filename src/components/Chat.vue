@@ -24,8 +24,8 @@
 
 <script>
     import ChatMessage from "../components/ChatMessage";
-    import apptest from "../apptest"
     import UpdateService from "../services/UpdateService";
+    import MessageService from "../services/MessageService";
 
     const uuidv1 = require('uuid/v1');
 
@@ -35,12 +35,12 @@
             ChatMessage
         },
         props:{
-            users: Array,
-            chat: Array
+            users: Array
         },
         data() {
             return {
                 input: "",
+                chat: []
             }
         },
         methods: {
@@ -60,7 +60,12 @@
         }
         },
         created() {
-            this.chat = apptest;
+            const x = this;
+            const token = this.$session.get("jwt");
+            const projectid = this.$route.params.projectid;
+            MessageService.getmessages(projectid, token).then((res) => {
+                x.chat = res.data;
+            })
         }
     }
 </script>

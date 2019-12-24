@@ -5,11 +5,12 @@ var roleService = null;
 
 async function load() {
     await EurekaServer.getInstance("role-management-service").then((url) => {
-    roleService = axios.create({
-        baseURL: "http://" + url.data,
-        withCredentials: false
+        roleService = axios.create({
+            baseURL: "http://" + url.data,
+            withCredentials: false
+        });
     });
-});}
+}
 
 export default {
     async getusers(projectid, token) {
@@ -24,10 +25,16 @@ export default {
             }
         });
     },
-    getuserslike(start) {
+    async getuserslike(start) {
+        if (roleService == null) {
+            await load();
+        }
         return roleService.get("user/users/" + start);
     },
-    saverole(roleid, projectid, userid, role) {
+    async saverole(roleid, projectid, userid, role) {
+        if (roleService == null) {
+            await load();
+        }
         const r = {
             roleid: roleid,
             projectid: projectid,
@@ -40,7 +47,10 @@ export default {
             }
         });
     },
-    updaterole(role) {
+    async updaterole(role) {
+        if (roleService == null) {
+            await load();
+        }
         roleService.post("role/save", JSON.stringify(role), {
             headers: {
                 'Content-Type': 'application/json'

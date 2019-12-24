@@ -2,19 +2,20 @@ import axios from 'axios'
 import EurekaServer from "./EurekaServer";
 
 var projectService = null;
-EurekaServer.getInstance("project-service").then((url) => {
-    projectService = axios.create({
-        baseURL: "http://" + url.data,
-        withCredentials: false,
+
+async function load() {
+    await EurekaServer.getInstance("project-service").then((url) => {
+        projectService = axios.create({
+            baseURL: "http://" + url.data,
+            withCredentials: false,
+        });
     });
-});
+}
 
 export default {
-    getProjects(token) {
+    async getProjects(token) {
         if (projectService == null) {
-            return setTimeout(function () {
-                this.getProjects(token);
-            }, 10);
+            await load();
         }
         return projectService.get('project/read/projects', {
             headers: {
@@ -24,11 +25,9 @@ export default {
             }
         });
     },
-    getProject(projectid, token) {
+    async getProject(projectid, token) {
         if (projectService == null) {
-            return setTimeout(function () {
-                this.getProject(projectid, token);
-            }, 10);
+            await load();
         }
         return projectService.get('project/read/project/' + projectid, {
             headers: {

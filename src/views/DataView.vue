@@ -43,8 +43,7 @@
                 </v-card>
             </v-col>
             <v-col cols="4" style="padding-top: 0px;" class="pa-0">
-                <PeopleChatMenu v-bind:userroles="project.userroles"
-                                v-bind:chat="project.chat"></PeopleChatMenu>
+                <PeopleChatMenu></PeopleChatMenu>
             </v-col>
         </v-row>
     </div>
@@ -74,7 +73,6 @@
             return {
                 project: {
                     project: {},
-                    chat: [],
                     data: {
                         headers: [],
                         items: []
