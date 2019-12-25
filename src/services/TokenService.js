@@ -6,7 +6,7 @@ var tokenService = null;
 async function load() {
     await EurekaServer.getInstance("token-service").then((url) => {
         tokenService = axios.create({
-            baseURL: "http://" + url.data,
+            baseURL: "https://" + url.data,
             withCredentials: false
         });
     });

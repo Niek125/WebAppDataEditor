@@ -6,7 +6,7 @@ var roleService = null;
 async function load() {
     await EurekaServer.getInstance("role-management-service").then((url) => {
         roleService = axios.create({
-            baseURL: "http://" + url.data,
+            baseURL: "https://" + url.data,
             withCredentials: false
         });
     });
