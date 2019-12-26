@@ -6,7 +6,7 @@ var messageservice = null;
 async function load() {
     await EurekaServer.getInstance("message-service").then((url) => {
         messageservice = axios.create({
-            baseURL: "http://" + url.data,
+            baseURL: "https://" + url.data,
             withCredentials: false,
         });
     });
