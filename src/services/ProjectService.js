@@ -1,12 +1,22 @@
 import axios from 'axios'
 import EurekaServer from "./EurekaServer";
 
-var projectService = null;
+let projectService = null;
+let projectProducer = null;
 
-async function load() {
+async function loadService() {
     await EurekaServer.getInstance("project-service").then((url) => {
         projectService = axios.create({
-            baseURL: "http://" + url.data,
+            baseURL: "https://" + url.data,
+            withCredentials: false,
+        });
+    });
+}
+
+async function loadProducer() {
+    await EurekaServer.getInstance("project-producer").then((url) => {
+        projectProducer = axios.create({
+            baseURL: "https://" + url.data,
             withCredentials: false,
         });
     });
@@ -15,7 +25,7 @@ async function load() {
 export default {
     async getProjects(token) {
         if (projectService == null) {
-            await load();
+            await loadService();
         }
         return projectService.get('project/read/projects', {
             headers: {
@@ -27,12 +37,26 @@ export default {
     },
     async getProject(projectid, token) {
         if (projectService == null) {
-            await load();
+            await loadService();
         }
         return projectService.get('project/read/project/' + projectid, {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + token
+            }
+        });
+    },
+    async addProject(project, file, token) {
+        if(projectProducer == null){
+            await loadProducer();
+        }
+        const fdata = new FormData();
+        fdata.append('file', file);
+        fdata.append('project', JSON.stringify(project))
+        axios.post('https://192.168.8.106:8096/project/create', fdata, {
+            headers: {
+                contentType: false,
                 Authorization: 'Bearer ' + token
             }
         });

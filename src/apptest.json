@@ -1,14 +1,44 @@
-[
-  {
-    "messageid": "test1",
-    "content": "contenttest",
-    "sendtime": "today",
-    "senderid": "m9lvWuHxJTgAOf4ugEcmea6sC0v1"
-  },
-  {
-    "messageid": "test2",
-    "content": "testcontent",
-    "sendtime": "yesterday",
-    "senderid": "ijigvJurd6ZXex45k2nXpvzKuGI2"
-  }
-]
+{
+  "headers": [
+    {
+      "text": "Dessert (100g serving)",
+      "type": "STRING",
+      "value": "name"
+    },
+    {
+      "text": "Calories",
+      "type": "NUMBER",
+      "value": "calories"
+    },
+    {
+      "text": "Fat (g)",
+      "type": "NUMBER",
+      "value": "fat"
+    },
+    {
+      "text": "Carbs (g)",
+      "type": "NUMBER",
+      "value": "carbs"
+    },
+    {
+      "text": "Protein (g)",
+      "type": "NUMBER",
+      "value": "protein"
+    },
+    {
+      "text": "Iron (%)",
+      "type": "NUMBER",
+      "value": "iron"
+    }
+  ],
+  "items": [
+    {
+      "name": "Test",
+      "calories": 5,
+      "fat": 2,
+      "carbs": 7,
+      "protein": 4,
+      "iron": 0
+    }
+  ]
+}

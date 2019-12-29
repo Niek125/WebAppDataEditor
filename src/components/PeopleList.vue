@@ -1,12 +1,12 @@
 <template>
     <div style="overflow-y: scroll; height: 100%">
-        <v-overlay v-if="popup == 'adduser'" opacity="0">
-            <AddUser v-bind:projectid="projectid" :setpopup="setpopup"></AddUser>
-        </v-overlay>
-        <v-overlay v-else-if="popup == 'edituser'" opacity="0">
-            <EditUser v-bind:userrole="edituser" :setpopup="setpopup"></EditUser>
-        </v-overlay>
-        <v-card color="#707B83" class="lr-m tb-m usercard" v-on:click="setpopup('adduser')">
+        <v-dialog v-model="adduser" overlay-opacity="0">
+            <AddUser v-bind:dialog="closeadd"></AddUser>
+        </v-dialog>
+        <v-dialog v-model="edituser" overlay-opacity="0">
+            <EditUser v-bind:userrole="user" v-bind:dialog="closeedit"></EditUser>
+        </v-dialog>
+        <v-card color="#707B83" class="lr-m tb-m usercard" v-on:click="adduser = true">
             <v-col cols="12">
                 <v-row>
                     <v-container fill-height>
@@ -25,7 +25,7 @@
         <UserCard v-for="data in userroles"
                   v-bind:key="data.user.userid"
                   v-bind:user="data.user"
-                  v-on:click.native="function () {edituser = data; setpopup('edituser');}"></UserCard>
+                  v-on:click.native="function () {user = data; edituser = true;}"></UserCard>
     </div>
 </template>
 
@@ -46,12 +46,17 @@
         },
         data() {
             return {
-                popup: ""
+                adduser: false,
+                edituser: false,
+                user: {}
             }
         },
         methods: {
-            setpopup: function (state) {
-                this.popup = state;
+            closeedit: function()  {
+                this.edituser = false;
+            },
+            closeadd: function()  {
+                this.adduser = false;
             }
         }
     }

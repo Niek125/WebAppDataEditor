@@ -1,6 +1,6 @@
 <template>
-    <v-row>
-        <v-card color="#707B83" width="80vw">
+    <v-row class="ma-0">
+        <v-card color="#62787E" width="100%">
             <v-col cols="12">
                 <v-row>
                     <v-spacer></v-spacer>
@@ -28,7 +28,7 @@
                 <v-row>
                     <v-spacer></v-spacer>
                     <v-col cols="3">
-                        <v-btn class="grey--text text--darken-1" color="#F2ECFF" width="100%" v-on:click="setpopup('')">Close</v-btn>
+                        <v-btn class="grey--text text--darken-1" color="#F2ECFF" width="100%" v-on:click="dialog()">Close</v-btn>
                     </v-col>
                     <v-spacer></v-spacer>
                     <v-col cols="3">
@@ -48,7 +48,7 @@
         name: "EditUser",
         props: {
             userrole: Object,
-            setpopup: Function
+            dialog: Function
         },
         data() {
             return {
@@ -65,7 +65,7 @@
             edituser: function () {
                 this.userrole.role.role = this.startrole;
                 RoleService.updaterole(this.userrole.role);
-                this.setpopup('');
+                this.dialog();
             }
         },
         created() {

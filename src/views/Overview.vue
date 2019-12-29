@@ -1,5 +1,8 @@
 <template>
     <div>
+        <v-dialog v-model="dialog" overlay-opacity="0">
+            <AddProject v-bind:dialog="closedialog"></AddProject>
+        </v-dialog>
         <v-row>
             <v-col cols="12">
                 <v-card color="#7D7F84" style="margin: 10px; margin-bottom: 0px;" outlined>
@@ -7,7 +10,7 @@
                         <v-row>
                             <v-col cols="2" style="min-width: 155px; max-width: 165px;">
                                 <v-hover v-slot:default="{ hover }">
-                                    <v-card v-on:click="redirectProject(projectid)" class="lr-m justify-center"
+                                    <v-card v-on:click="dialog = true" class="lr-m justify-center"
                                             style="height: 150px;" color="#707B83" :elevation="hover ? 16: 8">
                                         <div class="center-div icon-cont">
                                             <v-icon size="30">fas fa-plus</v-icon>
@@ -16,9 +19,9 @@
                                     </v-card>
                                 </v-hover>
                             </v-col>
-<!--                            <project-card v-for="data in JSON.parse(this.$cookie.get('recent'))"-->
-<!--                                          v-bind:key="data.value" v-bind:projectid="data.value"-->
-<!--                                          v-bind:content="data.text"></project-card>-->
+                            <project-card v-for="data in JSON.parse(this.$cookie.get('recent'))"
+                                          v-bind:key="data.value" v-bind:projectid="data.value"
+                                          v-bind:content="data.text"></project-card>
                         </v-row>
                     </v-card-actions>
                 </v-card>
@@ -40,15 +43,21 @@
 
 <script>
     import ProjectCard from '../components/ProjectCard';
+    import AddProject from "../components/AddProject";
     import ProjectService from "../services/ProjectService";
 
     export default {
         name: "Overview",
-        components: {ProjectCard},
+        components: {ProjectCard, AddProject},
         data() {
             return {
                 projects: [],
-                isloaded: false
+                dialog: false
+            }
+        },
+        methods: {
+            closedialog: function () {
+                this.dialog = false;
             }
         },
         created() {

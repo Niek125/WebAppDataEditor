@@ -1,17 +1,17 @@
 <template>
-    <v-row>
-        <v-card color="#707B83" width="80vw">
+    <v-row class="ma-0">
+        <v-card color="#62787E" width="100%">
             <v-col cols="12">
                 <v-row>
                     <v-spacer></v-spacer>
-                    <v-autocomplete v-model="autocompuser" v-bind:items="usrslike" label="Email" :search-input.sync="userinpt"
+                    <v-autocomplete v-model="autocompuser" v-bind:items="usrslike" item-text="email" item-value="userid" label="Email" :search-input.sync="userinpt"
                                     @keyup="getuserslike"></v-autocomplete>
                     <v-spacer></v-spacer>
                 </v-row>
                 <v-row>
                     <v-spacer></v-spacer>
                     <v-col cols="3">
-                        <v-btn class="grey--text text--darken-1" color="#F2ECFF" width="100%" v-on:click="setpopup('')">Close</v-btn>
+                        <v-btn class="grey--text text--darken-1" color="#F2ECFF" width="100%" v-on:click="dialog()">Close</v-btn>
                     </v-col>
                     <v-spacer></v-spacer>
                     <v-col cols="3">
@@ -39,19 +39,18 @@
             }
         },
         props: {
-            projectid: String,
-            setpopup: Function
+            dialog: Function
         },
         methods: {
             getuserslike: function () {
                 var x = this;
                 RoleService.getuserslike(this.userinpt).then((req) => {
-                    x.usrslike = req.data
+                    x.usrslike = req.data;
                 });
             },
             adduser: function () {
-                RoleService.saverole(uuidv1(), this.projectid, this.autocompuser, "GUEST");
-                this.setpopup('');
+                RoleService.saverole(uuidv1(), this.$route.params.projectid, this.autocompuser, "GUEST");
+                this.dialog();
             }
         }
     }
