@@ -81,7 +81,6 @@
                 },
                 dialog: false,
                 edituser: {},
-                messagedelta: Infinity,
                 search: "",
                 loading: true,
                 dense: false,
@@ -114,45 +113,53 @@
                     this.editedIndex = -1
                 }, 300)
             },
+            editdata: function(data){
+                Object.assign(this.project.data.items[data.rownumber], data.row)
+            },
+            adddata: function(row){
+                this.project.data.items.push(row.row)
+            },
+            deletedata: function(rownumber){
+                this.project.data.items.splice(rownumber.rownumber, 1)
+            },
             save() {
                 if (this.editedIndex > -1) {
-                    Object.assign(this.project.data.items[this.editedIndex], this.editedItem)
+                    const header = {
+                        payload: "data",
+                        action: "UPDATE"
+                    }
+                    const payload = {
+                        rownumber: this.editedIndex,
+                        row: this.editedItem
+                    }
+                    UpdateService.sendMessage(JSON.stringify(header) + "\n" + JSON.stringify(payload))
                 } else {
-                    this.project.data.items.push(this.editedItem)
+                    const header = {
+                        payload: "data",
+                        action: "CREATE"
+                    }
+                    const payload = {
+                        row: this.editedItem
+                    }
+                    UpdateService.sendMessage(JSON.stringify(header) + "\n" + JSON.stringify(payload));
                 }
                 this.close()
             },
-            updateScroll: function () {
-                var element = document.getElementById("scroll");
-                element.scrollTop = element.scrollHeight;
-            },
-            addmessage: function (message) {
-                try {
-                    window.console.log(message);
-                    var x = this;
-                    var element = document.getElementById("scroll");
-                    var scroll = (element.scrollTop - element.scrollHeight) >= this.messagedelta;
-                    this.messagedelta = element.scrollTop - element.scrollHeight - 1;
-                    this.project.chat.push(message);
-                    window.console.log()
-                    if (scroll) {
-                        setTimeout(function () {
-                            x.updateScroll()
-                        }, 50);
-                    }
-                } catch (e) {
-                    window.console.log(e);
-                }
-            },
             editItem(item) {
-                this.editedIndex = this.project.data.items.indexOf(item)
-                this.editedItem = Object.assign({}, item)
-                this.dialog = true
+                this.editedIndex = this.project.data.items.indexOf(item);
+                this.editedItem = Object.assign({}, item);
+                this.dialog = true;
             },
-
             deleteItem(item) {
                 const index = this.project.data.items.indexOf(item)
-                confirm('Are you sure you want to delete this item?') && this.project.data.items.splice(index, 1)
+                const header = {
+                    payload: "data",
+                    action: "DELETE"
+                }
+                const payload = {
+                    rownumber: index,
+                }
+                UpdateService.sendMessage(JSON.stringify(header) + "\n" + JSON.stringify(payload));
             },
         },
         async mounted() {
@@ -169,11 +176,10 @@
                 x.loading = false;
             })
 
-            //var element = document.getElementById("scroll");
-            //this.updateScroll();
-            //this.messagedelta = element.scrollTop - element.scrollHeight + 1;
-
-            UpdateService.connect(this.project.project.projectid, this.addmessage, token);
+            UpdateService.connect(this.project.project.projectid, token);
+            UpdateService.setadddata(this.adddata);
+            UpdateService.setupdatedata(this.editdata);
+            UpdateService.setdeletedata(this.deletedata);
         }
     }
 </script>

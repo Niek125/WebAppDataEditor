@@ -42,7 +42,7 @@
 </template>
 
 <script>
-    import RoleService from "../services/RoleService";
+    import UpdateService from "../services/UpdateService";
 
     export default {
         name: "EditUser",
@@ -64,9 +64,24 @@
         methods: {
             edituser: function () {
                 this.userrole.role.role = this.startrole;
-                RoleService.updaterole(this.userrole.role);
+                const header = {
+                    payload: "role",
+                    action: "UPDATE"
+                }
+                const payload = {
+                    roleid: this.userrole.role.roleid,
+                    userid: this.userrole.user.userid,
+                    role: this.startrole.value
+                }
+                UpdateService.sendMessage(JSON.stringify(header) + "\n" + JSON.stringify(payload))
                 this.dialog();
             }
+        },
+        updated() {
+            const x = this;
+            this.startrole = this.roles.find(function (role) {
+                return role.value == x.userrole.role.role;
+            })
         },
         created() {
             const x = this;

@@ -26,6 +26,7 @@
 
 <script>
     import RoleService from "../services/RoleService";
+    import UpdateService from "../services/UpdateService";
 
     const uuidv1 = require('uuid/v1');
 
@@ -49,7 +50,16 @@
                 });
             },
             adduser: function () {
-                RoleService.saverole(uuidv1(), this.$route.params.projectid, this.autocompuser, "GUEST");
+                const header = {
+                    payload: "role",
+                    action: "CREATE"
+                }
+                const payload = {
+                    roleid: uuidv1(),
+                    userid: this.autocompuser,
+                    role: "GUEST"
+                }
+                UpdateService.sendMessage(JSON.stringify(header) + "\n" + JSON.stringify(payload))
                 this.dialog();
             }
         }

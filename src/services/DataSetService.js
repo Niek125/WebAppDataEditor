@@ -1,7 +1,7 @@
 import axios from 'axios'
 import EurekaServer from "./EurekaServer";
 
-var datasetservice = null;
+let datasetservice = null;
 
 async function load() {
     await EurekaServer.getInstance("dataset-service").then((url) => {

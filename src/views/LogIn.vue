@@ -61,13 +61,13 @@
                         window.console.log(error);
                     });
                 }).catch(function(error) {
-                    var errorCode = error.code;
+                    const errorCode = error.code;
                     window.console.log(errorCode);
-                    var errorMessage = error.message;
+                    const errorMessage = error.message;
                     window.console.log(errorMessage);
-                    var email = error.email;
+                    const email = error.email;
                     window.console.log(email);
-                    var credential = error.credential;
+                    const credential = error.credential;
                     window.console.log(credential);
                 });
             }

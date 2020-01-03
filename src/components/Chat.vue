@@ -31,41 +31,64 @@
 
     export default {
         name: "Chat",
-        components:{
+        components: {
             ChatMessage
         },
-        props:{
+        props: {
             users: Array
         },
         data() {
             return {
                 input: "",
-                chat: []
+                chat: [],
+                messagedelta: Infinity
             }
         },
         methods: {
-        send: function () {
-            if (this.input.length > 0) {
-                const message = {
-                    content: this.input,
-                    messageid: uuidv1()
-                };
-                const options = {
-                    payload: "message",
-                    action: "CREATE"
-                };
-                UpdateService.sendMessage(JSON.stringify(options) + "\n" + JSON.stringify(message));
-                this.input = "";
+            send: function () {
+                if (this.input.length > 0) {
+                    const message = {
+                        content: this.input,
+                        messageid: uuidv1()
+                    };
+                    const options = {
+                        payload: "message",
+                        action: "CREATE"
+                    };
+                    UpdateService.sendMessage(JSON.stringify(options) + "\n" + JSON.stringify(message));
+                    this.input = "";
+                }
+            },
+            addmessage: function (message) {
+                const x = this;
+                const element = document.getElementById("scroll");
+                const scroll = (element.scrollTop - element.scrollHeight) >= this.messagedelta;
+                x.messagedelta = element.scrollTop - element.scrollHeight - 1;
+                x.chat.push(message);
+                if (scroll) {
+                    setTimeout(function () {
+                        x.updateScroll()
+                    }, 50);
+                }
+            },
+            updateScroll: function () {
+                const element = document.getElementById("scroll");
+                element.scrollTop = element.scrollHeight;
             }
-        }
         },
-        created() {
+        async created() {
             const x = this;
             const token = this.$session.get("jwt");
             const projectid = this.$route.params.projectid;
-            MessageService.getmessages(projectid, token).then((res) => {
+            await MessageService.getmessages(projectid, token).then((res) => {
                 x.chat = res.data;
             })
+
+            const element = document.getElementById("scroll");
+            x.updateScroll();
+            x.messagedelta = element.scrollTop - element.scrollHeight + 1;
+
+            UpdateService.setaddmessage(x.addmessage);
         }
     }
 </script>

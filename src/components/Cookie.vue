@@ -50,7 +50,7 @@
         },
         methods: {
             accept: function () {
-                this.$cookie.set('recent', JSON.stringify(new Array()), {expires: '1M'});
+                this.$cookie.set('recent', "[]", {expires: '1M'});
                 this.cookiepopup();
             },
             cookiepopup: function () {

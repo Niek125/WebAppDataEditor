@@ -5,9 +5,9 @@
                 <v-col cols="6" v-for="data in this.headers" v-bind:key="data.name">
                     <v-row>
                         <v-spacer></v-spacer>
-                        <v-text-field v-if="data.type == 'String'" dark
+                        <v-text-field v-if="data.type == 'STRING'" dark
                                       :label="data.text" v-model="editedItem[data.value]"></v-text-field>
-                        <v-text-field v-else-if="data.type == 'Number'" dark type="number"
+                        <v-text-field v-else-if="data.type == 'NUMBER'" dark type="number"
                                       :label="data.text" v-model="editedItem[data.value]"></v-text-field>
                         <v-spacer></v-spacer>
                     </v-row>

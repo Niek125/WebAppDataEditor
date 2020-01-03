@@ -1,7 +1,7 @@
 import axios from 'axios'
 import EurekaServer from "./EurekaServer";
 
-var roleService = null;
+let roleService = null;
 
 async function load() {
     await EurekaServer.getInstance("role-management-service").then((url) => {

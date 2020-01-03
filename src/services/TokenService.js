@@ -1,7 +1,7 @@
 import axios from 'axios'
 import EurekaServer from "./EurekaServer";
 
-var tokenService = null;
+let tokenService = null;
 
 async function load() {
     await EurekaServer.getInstance("token-service").then((url) => {

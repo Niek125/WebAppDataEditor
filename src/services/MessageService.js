@@ -1,7 +1,7 @@
 import axios from 'axios'
 import EurekaServer from "./EurekaServer";
 
-var messageservice = null;
+let messageservice = null;
 
 async function load() {
     await EurekaServer.getInstance("message-service").then((url) => {

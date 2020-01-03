@@ -19,9 +19,9 @@
                                     </v-card>
                                 </v-hover>
                             </v-col>
-                            <project-card v-for="data in JSON.parse(this.$cookie.get('recent'))"
-                                          v-bind:key="data.value" v-bind:projectid="data.value"
-                                          v-bind:content="data.text"></project-card>
+                            <project-card v-for="data in recent"
+                                          v-bind:key="data.projectid" v-bind:projectid="data.projectid"
+                                          v-bind:content="data.projectname"></project-card>
                         </v-row>
                     </v-card-actions>
                 </v-card>
@@ -52,7 +52,8 @@
         data() {
             return {
                 projects: [],
-                dialog: false
+                dialog: false,
+                recent: []
             }
         },
         methods: {
@@ -60,12 +61,16 @@
                 this.dialog = false;
             }
         },
-        created() {
-            ProjectService.getProjects(this.$session.get("jwt")).then(response => {
+        async created() {
+            await ProjectService.getProjects(this.$session.get("jwt")).then(response => {
                 this.projects = response.data;
             })
                 // eslint-disable-next-line no-console
                 .catch(error => console.log(error.response))
+            const recs = JSON.parse(this.$cookie.get('recent'))
+            this.recent = this.projects.filter(function (x) {
+                return recs.includes(x.projectid);
+            })
         }
     }
 </script>
