@@ -86,7 +86,7 @@
 
             const element = document.getElementById("scroll");
             x.updateScroll();
-            x.messagedelta = element.scrollTop - element.scrollHeight + 1;
+            x.messagedelta = element.scrollTop - element.scrollHeight - 1;
 
             UpdateService.setaddmessage(x.addmessage);
         }

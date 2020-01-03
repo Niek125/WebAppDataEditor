@@ -40,7 +40,7 @@ export default {
             socket = null;
         }
         EurekaServer.getInstance("update-service").then((url) => {
-            socket = new WebSocket("ws://" + url.data + "/project");
+            socket = new WebSocket("wss://" + url.data + "/project");
 
             socket.onopen = function () {
                 const header = {
