@@ -69,7 +69,12 @@
                 .catch(error => console.log(error.response))
             const recs = JSON.parse(this.$cookie.get('recent'))
             this.recent = this.projects.filter(function (x) {
-                return recs.includes(x.projectid);
+                try{
+                    return recs.includes(x.projectid);
+                }catch (e) {
+                    window.console.log(e);
+                    return false;
+                }
             })
         }
     }

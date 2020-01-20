@@ -25,11 +25,17 @@ export default {
             }
         });
     },
-    async getuserslike(start) {
+    async getuserslike(start, token) {
         if (roleService == null) {
             await load();
         }
-        return roleService.get("user/users/" + start);
+        return roleService.get("user/users/" + start, {
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + token
+            }
+        });
     },
     async saverole(roleid, projectid, userid, role) {
         if (roleService == null) {

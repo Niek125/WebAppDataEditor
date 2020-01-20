@@ -54,7 +54,7 @@ export default {
         const fdata = new FormData();
         fdata.append('file', file);
         fdata.append('project', JSON.stringify(project))
-        axios.post('https://192.168.8.106:8096/project/create', fdata, {
+        await projectProducer.post('/project/create', fdata, {
             headers: {
                 contentType: false,
                 Authorization: 'Bearer ' + token

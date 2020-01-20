@@ -45,7 +45,7 @@
         methods: {
             getuserslike: function () {
                 var x = this;
-                RoleService.getuserslike(this.userinpt).then((req) => {
+                RoleService.getuserslike(this.userinpt, this.$session.get("jwt")).then((req) => {
                     x.usrslike = req.data;
                 });
             },

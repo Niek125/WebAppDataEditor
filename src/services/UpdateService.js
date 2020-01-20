@@ -43,15 +43,11 @@ export default {
             socket = new WebSocket("wss://" + url.data + "/project");
 
             socket.onopen = function () {
-                const header = {
-                    action: "UPDATE",
-                    payload: "token"
-                }
                 const pay = {
                     interest: projectid,
                     token: token
                 }
-                socket.send(JSON.stringify(header) + "\n" + JSON.stringify(pay));
+                socket.send(JSON.stringify(pay));
                 window.console.log('opened');
             }
 
