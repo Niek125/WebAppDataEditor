@@ -39,8 +39,8 @@
 <script>
     import * as firebase from "firebase";
     import "firebase/auth";
-    import ProjectService from "../services/ProjectService";
-    import {redirectProject} from "../mixins/RedirectProject";
+    import ProjectService from "../../services/ProjectService";
+    import {redirectProject} from "../../mixins/RedirectProject";
 
     export default {
         name: "Navbar",

@@ -12,14 +12,23 @@ var firebase = require("firebase/app");
 Vue.use(firebase);
 
 import VueSession from 'vue-session'
+
 Vue.use(VueSession)
 
 // Add the Firebase products that you want to use
 var auth = require("firebase/auth");
 Vue.use(auth);
 
+router.beforeEach((to, from, next) => {
+    if (!Vue.prototype.$session.exists() && to.path !== '/login') {
+        next('/login');
+    } else {
+        next();
+    }
+})
+
 new Vue({
-  router,
-  vuetify,
-  render: h => h(App)
+    router,
+    vuetify,
+    render: h => h(App)
 }).$mount('#app')
