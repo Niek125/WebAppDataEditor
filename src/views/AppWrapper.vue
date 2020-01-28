@@ -17,7 +17,7 @@
 </template>
 
 <script>
-    import Cookie from "../components/Cookie";
+    import Cookie from "../components/Cookie/Cookie";
     import Navbar from "../components/Navbar/Navbar";
 
     export default {
