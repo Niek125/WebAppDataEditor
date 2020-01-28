@@ -7,9 +7,10 @@
         <v-row>
             <v-sheet
                     height="calc(100vh - 64px)"
+                    width="100%"
                     id="scrolling-techniques-7"
                     class="overflow-y-auto"
-                    style="background-color: transparent;">
+                    style="background-color: transparent; padding: 0;">
                 <router-view></router-view>
             </v-sheet>
         </v-row>
