@@ -7,7 +7,6 @@
                     <v-col cols="2" class="pa-0"><v-icon>{{icon}}</v-icon></v-col>
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
-                    <v-spacer></v-spacer>
                     {{text}}
                     <v-spacer></v-spacer>
                 </v-btn>
