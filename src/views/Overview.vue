@@ -1,6 +1,6 @@
 <template>
     <v-container fluid class="pa-0">
-        <v-dialog v-model="dialog" overlay-opacity="0">
+        <v-dialog v-model="dialog" overlay-opacity="0.8">
             <AddProject v-bind:dialog="closedialog"></AddProject>
         </v-dialog>
         <v-row justify="center">
@@ -50,7 +50,7 @@
 
 <script>
     import ProjectCard from '../components/Overview/ProjectCard';
-    import AddProject from "../components/AddProject";
+    import AddProject from "../components/Overview/AddProject";
     import ProjectService from "../services/ProjectService";
 
     export default {
