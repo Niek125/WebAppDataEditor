@@ -1,38 +1,31 @@
 <template>
-    <v-app-bar color="#A993A6" elevate-on-scroll scroll-target="#scrolling-techniques-7">
-        <v-container fluid>
-            <v-row align="center" justify="center">
-                <v-col cols="12">
-                    <v-card-actions>
-                        <v-col cols="3">
-                            <v-row>
-                                <v-icon>far fa-file-alt</v-icon>
-                                <v-card-title>DataEditor</v-card-title>
-                            </v-row>
-                        </v-col>
-                        <v-spacer></v-spacer>
-                        <v-col cols="4">
-                            <v-autocomplete v-model="searchProject" v-on:change="redirectProject(searchProject, comp)"
-                                            :items="this.projects" item-text="projectname" item-value="projectid"
-                                            :label="'Search'" outlined dense shaped
-                                            background-color="#A993A6" :hide-details="true">
-                            </v-autocomplete>
-                        </v-col>
-                        <v-spacer></v-spacer>
-                        <v-col cols="3">
-                            <v-row align="center">
-                                <v-card-title>{{this.$session.get("userdata").unm}}</v-card-title>
-                                <v-spacer></v-spacer>
-                                <v-img v-on:click="logOut()" v-bind:src="this.$session.get('userdata').pfp"
-                                       max-height="32"
-                                       max-width="32" style="border-radius: 32px;"></v-img>
-                            </v-row>
-                        </v-col>
-                    </v-card-actions>
-                </v-col>
-            </v-row>
-        </v-container>
-
+    <v-app-bar class="black" elevate-on-scroll scroll-target="#scrolling-techniques-7">
+        <v-row align="center" justify="center">
+            <v-col cols="2" class="pa-0">
+                <v-card-title class="ml-4">
+                    <v-icon class="mr-4">far fa-file-alt</v-icon>
+                    DataEditor
+                </v-card-title>
+            </v-col>
+            <v-spacer></v-spacer>
+<!--            <v-col cols="4">-->
+<!--                <v-autocomplete id="autocomplete" v-model="searchProject"-->
+<!--                                v-on:change="redirectProject(searchProject, comp)"-->
+<!--                                :items="this.projects" item-text="projectname" item-value="projectid"-->
+<!--                                label="Search" outlined dense shaped :hide-details="true" class="grey darken-4 white&#45;&#45;text">-->
+<!--                </v-autocomplete>-->
+<!--            </v-col>-->
+            <v-col cols="3" class="pa-0">
+                <v-row justify="end">
+                    <v-card-title class="mr-4 pb-0 pt-0">
+                        {{this.$session.get("userdata").unm}}
+                        <v-avatar class="mr-4 ml-4">
+                            <v-img v-on:click="logOut()" v-bind:src="this.$session.get('userdata').pfp"></v-img>
+                        </v-avatar>
+                    </v-card-title>
+                </v-row>
+            </v-col>
+        </v-row>
     </v-app-bar>
 </template>
 
@@ -67,7 +60,7 @@
 
             loadProject();
 
-            function loadProject () {
+            function loadProject() {
                 ProjectService.getProjects(x.$session.get("jwt")).then(response => {
                     x.projects = response.data;
                 });
