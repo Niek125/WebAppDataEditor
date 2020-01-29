@@ -8,13 +8,15 @@
                 </v-card-title>
             </v-col>
             <v-spacer></v-spacer>
-<!--            <v-col cols="4">-->
-<!--                <v-autocomplete id="autocomplete" v-model="searchProject"-->
-<!--                                v-on:change="redirectProject(searchProject, comp)"-->
-<!--                                :items="this.projects" item-text="projectname" item-value="projectid"-->
-<!--                                label="Search" outlined dense shaped :hide-details="true" class="grey darken-4 white&#45;&#45;text">-->
-<!--                </v-autocomplete>-->
-<!--            </v-col>-->
+            <v-col cols="4">
+                <v-autocomplete :items="this.projects" item-text="projectname" label="Search" outlined dense shaped
+                                :hide-details="true" class="grey darken-4 white--text">
+                    <template v-slot:item="data">
+                        <v-list-item-content v-text="data.item.projectname" class="black--text"
+                                             v-on:click="redirectProject(data.item.projectid, comp)"></v-list-item-content>
+                    </template>
+                </v-autocomplete>
+            </v-col>
             <v-col cols="3" class="pa-0">
                 <v-row justify="end">
                     <v-card-title class="mr-4 pb-0 pt-0">
