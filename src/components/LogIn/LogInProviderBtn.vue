@@ -4,7 +4,9 @@
             <v-hover v-slot:default="{ btnhover }">
                 <v-btn class="grey darken-1" ripple v-on:click="signin()" :elevation="btnhover ? 4:12" width="100%">
                     <v-spacer></v-spacer>
-                    <v-col cols="2" class="pa-0"><v-icon>{{icon}}</v-icon></v-col>
+                    <v-col cols="2" class="pa-0">
+                        <v-icon>{{icon}}</v-icon>
+                    </v-col>
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
                     {{text}}
@@ -21,6 +23,7 @@
 
     const base64url = require('base64url');
 
+
     export default {
         name: "LogInProviderBtn",
         props: {
@@ -30,20 +33,27 @@
         },
         methods: {
             signin: function () {
-                var x = this;
-                firebase.auth().signInWithPopup(x.provider).then(result => {
-                    firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function (idToken) {
-                        x.$session.start();
-                        x.$session.set("gtoken", result);
-                        TokenService.getToken(idToken, function (token) {
-                            x.$session.set("jwt", token);
-                            x.$session.set("userdata", JSON.parse(base64url.decode(token.split(".")[1])));
-                            x.$router.back();
-                        });
-                    });
-                }).catch(function (error) {
+                const x = this;
+
+                firebase.auth().signInWithPopup(x.provider).catch(function (error) {
                     window.console.error(error);
                 });
+
+                firebase.auth().onIdTokenChanged(
+                    function () {
+                        if (firebase.auth().currentUser !== null) {
+                            firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function (idToken) {
+                                TokenService.getToken(idToken, function (token) {
+                                    x.$session.start();
+                                    x.$session.set("jwt", token);
+                                    x.$session.set("userdata", JSON.parse(base64url.decode(token.split(".")[1])));
+                                    x.$router.back();
+                                });
+                            })
+                        }
+                    }
+                );
+
             }
         },
     }
