@@ -35,6 +35,8 @@
             signin: function () {
                 const x = this;
 
+                firebase.auth().signOut().catch();
+
                 firebase.auth().signInWithPopup(x.provider).catch(function (error) {
                     window.console.error(error);
                 });
@@ -53,7 +55,6 @@
                         }
                     }
                 );
-
             }
         },
     }
