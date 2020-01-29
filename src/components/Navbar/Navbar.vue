@@ -89,7 +89,7 @@
                 ProjectService.getProjects(x.$session.get("jwt")).then(response => {
                     x.projects = response.data;
                 });
-                setTimeout(loadProject, (1000 * 60 * 5));
+                setTimeout(loadProject, (1000 * 60 * 60));
             }
         }
     }
