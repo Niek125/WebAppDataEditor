@@ -26,7 +26,7 @@
     import * as firebase from "firebase/app";
     import "firebase/auth";
 
-    var firebaseConfig = {
+    const firebaseConfig = {
         apiKey: "AIzaSyBKKFYSS81Jmnk2NHsHn46hLidx66PUbKc",
         authDomain: "dataeditor.firebaseapp.com",
         databaseURL: "https://dataeditor.firebaseio.com",

@@ -20,8 +20,8 @@ var auth = require("firebase/auth");
 Vue.use(auth);
 
 router.beforeEach((to, from, next) => {
-    if (!Vue.prototype.$session.exists() && to.path !== '/login') {
-        next('/login');
+    if (!Vue.prototype.$session.exists() && to.name !== 'login') {
+        next({name: 'login'});
     } else {
         next();
     }

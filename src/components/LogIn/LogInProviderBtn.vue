@@ -34,22 +34,28 @@
         methods: {
             signin: function () {
                 const x = this;
+                let first = false;
 
                 firebase.auth().signOut().catch();
 
-                firebase.auth().signInWithPopup(x.provider).catch(function (error) {
+                firebase.auth().signInWithPopup(x.provider).then(function () {
+                    first = true;
+                }).catch(function (error) {
                     window.console.error(error);
                 });
 
                 firebase.auth().onIdTokenChanged(
                     function () {
                         if (firebase.auth().currentUser !== null) {
-                            firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function (idToken) {
+                            firebase.auth().currentUser.getIdToken( true).then(function (idToken) {
                                 TokenService.getToken(idToken, function (token) {
                                     x.$session.start();
                                     x.$session.set("jwt", token);
                                     x.$session.set("userdata", JSON.parse(base64url.decode(token.split(".")[1])));
-                                    x.$router.back();
+                                    if(first){
+                                        first = false;
+                                        x.$router.back();
+                                    }
                                 });
                             })
                         }

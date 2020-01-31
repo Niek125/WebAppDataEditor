@@ -12,6 +12,10 @@ export default new Router({
     base: process.env.BASE_URL,
     routes: [
         {
+            path: '*',
+            redirect: '/overview'
+        },
+        {
             path: "/dataeditor",
             name: "appwrapper",
             component: AppWrapper,
@@ -31,11 +35,8 @@ export default new Router({
         },
         {
             path: "/login",
-            name: "login", component: LogIn
+            name: "login",
+            component: LogIn
         },
-        {
-            path: '*',
-            redirect: '/overview'
-        }
     ]
 })
