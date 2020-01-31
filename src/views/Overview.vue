@@ -14,7 +14,7 @@
                                             height="170px" width="150px"
                                             :elevation="hover ? 16: 4">
                                         <v-row justify="center" align="center">
-                                            <v-icon class="ma-4">fas fa-plus</v-icon>
+                                            <v-icon class="ma-4">mdi-plus</v-icon>
                                         </v-row>
                                         <v-divider class="white"></v-divider>
                                         <v-row>
