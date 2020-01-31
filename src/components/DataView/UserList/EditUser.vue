@@ -1,44 +1,37 @@
 <template>
-    <v-row class="ma-0">
-        <v-card color="#62787E" width="100%">
-            <v-col cols="12">
-                <v-row>
-                    <v-spacer></v-spacer>
-                    <v-col cols="8">
-                        <v-card-text>{{userrole.user.username}}</v-card-text>
-                    </v-col>
-                    <v-spacer></v-spacer>
-                </v-row>
-                <v-row>
-                    <v-spacer></v-spacer>
-                    <v-col cols="8">
-                        <v-card-text>{{userrole.user.email}}</v-card-text>
-                    </v-col>
-                    <v-spacer></v-spacer>
-                </v-row>
-                <v-row>
-                    <v-spacer></v-spacer>
-                    <v-col cols="8">
-                        <v-select
-                                v-model="startrole"
-                                :items="roles"></v-select>
-                    </v-col>
-                    <v-spacer></v-spacer>
-                </v-row>
-                <v-row>
-                    <v-spacer></v-spacer>
-                    <v-col cols="3">
-                        <v-btn class="grey--text text--darken-1" color="#F2ECFF" width="100%" v-on:click="dialog()">Close</v-btn>
-                    </v-col>
-                    <v-spacer></v-spacer>
-                    <v-col cols="3">
-                        <v-btn color="#00C896" width="100%" v-on:click="edituser">Edit role</v-btn>
-                    </v-col>
-                    <v-spacer></v-spacer>
-                </v-row>
+    <v-card class="grey darken-3">
+        <v-row align="center" justify="center">
+            <v-col cols="8">
+                <v-card-text class="px-0">{{userrole.user.username}}</v-card-text>
             </v-col>
-        </v-card>
-    </v-row>
+        </v-row>
+        <v-row align="center" justify="center">
+            <v-col cols="8">
+                <v-card-text class="px-0">{{userrole.user.email}}</v-card-text>
+            </v-col>
+        </v-row>
+        <v-row align="center" justify="center">
+            <v-col cols="8">
+                <v-select v-model="startrole" :items="roles">
+                    <template v-slot:item="data">
+                        <v-list-item-content v-text="data.item.text" class="black--text">HI</v-list-item-content>
+                    </template>
+                </v-select>
+            </v-col>
+        </v-row>
+        <v-row>
+            <v-spacer></v-spacer>
+            <v-col cols="3">
+                <v-btn class="red darken-4" width="100%" v-on:click="dialog()">Close
+                </v-btn>
+            </v-col>
+            <v-spacer></v-spacer>
+            <v-col cols="3">
+                <v-btn class="green darken-4" width="100%" v-on:click="edituser">Edit role</v-btn>
+            </v-col>
+            <v-spacer></v-spacer>
+        </v-row>
+    </v-card>
 </template>
 
 <script>
@@ -56,7 +49,7 @@
                     {text: 'Guest', value: 'GUEST'},
                     {text: 'Member', value: 'MEMBER'},
                     {text: 'Admin', value: 'ADMIN'},
-                    {text: 'Owner', value: 'OWNER'}
+                    {text: 'Owner', value: null}
                 ],
                 startrole: {}
             }
