@@ -1,5 +1,5 @@
 <template>
-    <v-app-bar class="black" elevate-on-scroll scroll-target="#scrolling-techniques-7">
+    <v-app-bar class="black" elevate-on-scroll scroll-target="#app-scroll">
         <v-row align="center" justify="center">
             <v-col cols="2" class="pa-0">
                 <v-tooltip bottom>

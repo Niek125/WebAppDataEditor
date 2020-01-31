@@ -8,9 +8,8 @@
             <v-sheet
                     height="calc(100vh - 64px)"
                     width="100%"
-                    id="scrolling-techniques-7"
-                    class="overflow-y-auto"
-                    style="background-color: transparent; padding: 0;">
+                    id="app-scroll"
+                    class="pa-0 transparent overflow-y-auto">
                 <router-view></router-view>
             </v-sheet>
         </v-row>

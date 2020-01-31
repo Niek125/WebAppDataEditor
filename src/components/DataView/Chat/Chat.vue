@@ -1,31 +1,29 @@
 <template>
-    <v-container style="padding-bottom: 0px; padding-top: 0px;">
-        <v-row id="scroll" class="pa-0" style="overflow-y: scroll; height: calc(100vh - 64px - 84px - 90px - 1px)">
+    <v-container class="pa-0">
+        <v-sheet id="scroll" tile height="calc(100vh - 64px - 66px)" width="calc(3.5 * (100vw /12))" class="transparent">
             <v-col cols="12" class="pa-0">
                 <ChatMessage v-for="data in chat" v-bind:key="data.messageid"
                              v-bind:content="data.content" v-bind:sendtime="data.sendtime"
                              v-bind:senderid="data.senderid"
                              v-bind:users="users"></ChatMessage>
             </v-col>
-        </v-row>
-        <v-row>
-            <v-spacer></v-spacer>
+        </v-sheet>
+        <v-row justify="center">
             <v-col cols="10" class="pa-0">
-                <v-text-field v-model="input" @keyup.enter.native="send(input)"
-                              color="white" full-width
+                <v-text-field v-model="input" @keyup.enter.native="send(input)" full-width
                               @click:append="send()" counter maxlength="256"
-                              placeholder="Message..." outlined filled dense rounded
+                              label="Message..." outlined filled dense rounded
                               append-icon="fas fa-paper-plane"></v-text-field>
             </v-col>
-            <v-spacer></v-spacer>
         </v-row>
     </v-container>
 </template>
 
 <script>
-    import ChatMessage from "../components/ChatMessage";
-    import UpdateService from "../services/UpdateService";
-    import MessageService from "../services/MessageService";
+    import ChatMessage from "./ChatMessage";
+    import UpdateService from "../../../services/UpdateService";
+    import MessageService from "../../../services/MessageService";
+    import RoleService from "../../../services/RoleService";
 
     const uuidv1 = require('uuid/v1');
 
@@ -80,6 +78,9 @@
             const x = this;
             const token = this.$session.get("jwt");
             const projectid = this.$route.params.projectid;
+            await RoleService.getusers(projectid, token).then((request) => {
+                x.userroles = request.data.map(x => x.user);
+            })
             await MessageService.getmessages(projectid, token).then((res) => {
                 x.chat = res.data;
             })

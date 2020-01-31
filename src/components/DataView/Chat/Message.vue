@@ -1,22 +1,15 @@
 <template>
-    <v-col cols="10" style="padding-top: 0px;">
-        <v-card class="lr-m message" color="#707B83">
-            <v-row style="margin: 0px;">
-                <v-card-title class="lr-m tb-m" style="padding: 0px;">{{content}}</v-card-title>
+    <v-hover v-slot:default="{ hover }">
+        <v-card class="grey mx-2" :class="hover ? 'darken-2': 'darken-3'">
+            <v-row class="ma-0">
+                <v-card-text class="px-1 py-0 my-1 body-1">{{content}}</v-card-text>
             </v-row>
-            <v-row style="margin: 0px;">
-                <v-card-subtitle class="lr-m" style="padding: 0px;">{{this.getuser() + ' at ' + sendtime}}
-                </v-card-subtitle>
+            <v-row class="ma-0">
+                <v-card-text class="pa-1 caption">{{getuser() + ' at ' + sendtime}}</v-card-text>
             </v-row>
         </v-card>
-    </v-col>
+    </v-hover>
 </template>
-
-<style scoped>
-    .message:hover{
-        background-color: #62787E !important;
-    }
-</style>
 
 <script>
     export default {
