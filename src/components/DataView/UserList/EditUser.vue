@@ -42,7 +42,7 @@
 </template>
 
 <script>
-    import UpdateService from "../services/UpdateService";
+    import UpdateService from "../../../services/UpdateService";
 
     export default {
         name: "EditUser",

@@ -22,12 +22,6 @@
     </v-card>
 </template>
 
-<style>
-    .usercard:hover{
-        background-color: #62787E !important;
-    }
-</style>
-
 <script>
     export default {
         name: 'UserCard',

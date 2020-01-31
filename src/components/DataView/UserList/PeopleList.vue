@@ -1,27 +1,23 @@
 <template>
-    <div style="overflow-y: scroll; height: 100%">
-        <v-dialog v-model="adduser" overlay-opacity="0">
+    <div>
+        <v-dialog v-model="adduser" overlay-opacity="0.8" width="60%">
             <AddUser v-bind:dialog="closeadd"></AddUser>
         </v-dialog>
         <v-dialog v-model="edituser" overlay-opacity="0">
             <EditUser v-bind:userrole="user" v-bind:dialog="closeedit"></EditUser>
         </v-dialog>
-        <v-card color="#707B83" class="lr-m tb-m usercard" v-on:click="adduser = true">
-            <v-col cols="12">
+            <v-card class="grey darken-3 ma-2" v-on:click="adduser = true">
                 <v-row>
-                    <v-container fill-height>
-                        <v-col cols="2" align-self="center">
-                            <v-icon max-height="32" max-width="32" style="border-radius: 32px;">
-                                fas fa-plus
-                            </v-icon>
-                        </v-col>
-                        <v-col cols="10">
-                            <v-card-text style="padding: 0px;">Add user</v-card-text>
-                        </v-col>
-                    </v-container>
+                    <v-col cols="2" class="pa-0">
+                        <v-row justify="center" align="center">
+                            <v-icon class="ma-4">mdi-plus</v-icon>
+                        </v-row>
+                    </v-col>
+                    <v-col cols="10" class="pa-0">
+                        <v-card-text>Add user</v-card-text>
+                    </v-col>
                 </v-row>
-            </v-col>
-        </v-card>
+            </v-card>
         <UserCard v-for="data in userroles"
                   v-bind:key="data.user.userid"
                   v-bind:user="data.user"
@@ -30,9 +26,9 @@
 </template>
 
 <script>
-    import UserCard from "../components/UserCard";
-    import AddUser from "../components/AddUser";
-    import EditUser from "../components/EditUser";
+    import UserCard from "./UserCard";
+    import AddUser from "./AddUser";
+    import EditUser from "./EditUser";
 
     export default {
         name: "PeopleList",
@@ -52,10 +48,10 @@
             }
         },
         methods: {
-            closeedit: function()  {
+            closeedit: function () {
                 this.edituser = false;
             },
-            closeadd: function()  {
+            closeadd: function () {
                 this.adduser = false;
             }
         }

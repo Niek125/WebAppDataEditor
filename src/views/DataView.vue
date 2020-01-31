@@ -42,7 +42,8 @@
         </v-sheet>
         <v-sheet tile height="calc(100vh - 64px)" width="calc(3.5 * (100vw /12))" v-if="tab != 'closed'"
                  class="grey darken-4">
-            <chat v-if="tab == 'chat'" v-bind:users="userroles.map(x => x.user)"></chat>
+            <chat v-if="tab == 'chat'"></chat>
+            <PeopleList v-else-if="tab == 'users'"></PeopleList>
         </v-sheet>
         <v-sheet class="black" width="64px" height="calc(100vh - 64px)" tile>
             <v-list class="black">
@@ -83,6 +84,7 @@
     // import EditRow from "../components/EditRow";
 
     import Chat from "../components/DataView/Chat/Chat";
+    import PeopleList from "../components/DataView/UserList/PeopleList";
 
     import UpdateService from "../services/UpdateService";
     import ProjectService from "../services/ProjectService";
@@ -127,7 +129,8 @@
         components: {
             // EditRow,
             // PeopleChatMenu,
-            Chat
+            Chat,
+            PeopleList
         },
         methods: {
             close: function () {

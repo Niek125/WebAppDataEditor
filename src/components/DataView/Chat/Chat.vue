@@ -79,7 +79,7 @@
             const token = this.$session.get("jwt");
             const projectid = this.$route.params.projectid;
             await RoleService.getusers(projectid, token).then((request) => {
-                x.userroles = request.data.map(x => x.user);
+                x.users = request.data.map(x => x.user);
             })
             await MessageService.getmessages(projectid, token).then((res) => {
                 x.chat = res.data;

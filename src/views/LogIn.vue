@@ -50,7 +50,7 @@
             }
         },
         created() {
-            this.providers = [{text: "Google", icon: "fab fa-google", provider: new firebase.auth.GoogleAuthProvider()}]
+            this.providers = [{text: "Google", icon: "mdi-google", provider: new firebase.auth.GoogleAuthProvider()}]
         }
     }
 </script>

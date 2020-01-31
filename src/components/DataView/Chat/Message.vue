@@ -22,7 +22,7 @@
         },
         methods: {
             getuser: function () {
-                var x = this;
+                const x = this;
                 return this.users.find(function (user) {
                     return (user.userid).toString() == x.senderid;
                 }).username;

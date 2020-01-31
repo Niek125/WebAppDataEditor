@@ -15,6 +15,9 @@
                         <v-list-item-content v-text="data.item.projectname" class="black--text"
                                              v-on:click="redirectProject(data.item.projectid, comp)"></v-list-item-content>
                     </template>
+                    <template v-slot:no-data>
+                        <v-card-text class="black--text">Start searching</v-card-text>
+                    </template>
                 </v-autocomplete>
             </v-col>
             <v-col cols="3" class="pa-0">
