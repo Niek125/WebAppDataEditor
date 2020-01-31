@@ -1,6 +1,6 @@
 <template>
     <v-container fluid class="pa-0">
-        <v-dialog v-model="dialog" overlay-opacity="0.8">
+        <v-dialog v-model="dialog" overlay-opacity="0.8" width="60%">
             <AddProject v-bind:dialog="closedialog"></AddProject>
         </v-dialog>
         <v-row justify="center">
