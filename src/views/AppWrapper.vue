@@ -1,10 +1,10 @@
 <template>
     <v-container fluid class="fill-height pa-0">
         <Cookie></Cookie>
-        <v-row>
+        <v-row class="ma-0">
             <Navbar class="navbar"></Navbar>
         </v-row>
-        <v-row>
+        <v-row class="ma-0">
             <v-sheet
                     height="calc(100vh - 64px)"
                     width="100%"

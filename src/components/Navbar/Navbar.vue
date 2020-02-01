@@ -2,7 +2,7 @@
     <v-app-bar class="black" elevate-on-scroll scroll-target="#app-scroll">
         <v-row align="center" justify="center">
             <v-col cols="2" class="pa-0">
-                <v-card-title class="ml-4" v-on:click="toOverview()">
+                <v-card-title v-on:click="toOverview()">
                     <v-icon class="mr-4">mdi-file-document-edit-outline</v-icon>
                     DataEditor
                 </v-card-title>
@@ -22,7 +22,7 @@
             </v-col>
             <v-col cols="3" class="pa-0">
                 <v-row justify="end">
-                    <v-card-title v-on:click="logOut()" class="mr-4 pb-0 pt-0">
+                    <v-card-title v-on:click="logOut()" class="py-0">
                         {{comp.$session.get("userdata").unm}}
                         <v-avatar class="mr-4 ml-4">
                             <v-img v-bind:src="comp.$session.get('userdata').pfp"></v-img>
