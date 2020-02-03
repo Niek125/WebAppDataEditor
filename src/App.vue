@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+    <v-app id="background">
         <v-container class="fill-height pa-0" fluid id="gradient">
             <router-view></router-view>
         </v-container>
@@ -23,14 +23,10 @@
 </script>
 
 <style>
-    #app {
+    #background {
         background-image: url("../public/DataEditor_BackGround.jpg");
         background-size: cover;
         background-position: bottom;
-    }
-
-    * {
-        color: white !important;
     }
 </style>
 

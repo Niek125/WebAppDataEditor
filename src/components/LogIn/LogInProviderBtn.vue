@@ -2,10 +2,10 @@
     <v-row justify="center">
         <v-col cols="8">
             <v-hover v-slot:default="{ btnhover }">
-                <v-btn class="grey darken-1" ripple v-on:click="signin()" :elevation="btnhover ? 4:12" width="100%">
+                <v-btn :class="textColor + level4" ripple v-on:click="signin()" :elevation="btnhover ? 4:12" width="100%">
                     <v-spacer></v-spacer>
                     <v-col cols="2" class="pa-0">
-                        <v-icon>{{icon}}</v-icon>
+                        <v-icon :class="textColor">{{icon}}</v-icon>
                     </v-col>
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
@@ -20,12 +20,19 @@
 <script>
     import TokenService from "../../services/TokenService";
     import * as firebase from "firebase/app";
+    import {mapGetters} from "vuex";
 
     const base64url = require('base64url');
 
 
     export default {
         name: "LogInProviderBtn",
+        computed: {
+            ...mapGetters("theme", {
+                textColor: 'textColor',
+                level4: 'level4',
+            })
+        },
         props: {
             text: String,
             icon: String,

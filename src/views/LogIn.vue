@@ -3,9 +3,9 @@
         <v-row justify="center" align="center">
             <v-col cols="3">
                 <v-hover v-slot:default="{ hover }">
-                    <v-card :elevation="hover ? 16: 4" class="grey darken-3">
-                        <v-toolbar flat class="black">
-                            <v-toolbar-title>Log in</v-toolbar-title>
+                    <v-card :elevation="hover ? 16: 4" :class="level2">
+                        <v-toolbar flat :class="level0">
+                            <v-toolbar-title :class="textColor">Log in</v-toolbar-title>
                         </v-toolbar>
                         <v-card-actions>
                             <v-col class="pa-0">
@@ -25,6 +25,7 @@
     import LogInProviderBtn from "../components/LogIn/LogInProviderBtn";
     import * as firebase from "firebase/app";
     import "firebase/auth";
+    import {mapGetters} from "vuex";
 
     const firebaseConfig = {
         apiKey: "AIzaSyBKKFYSS81Jmnk2NHsHn46hLidx66PUbKc",
@@ -41,6 +42,13 @@
     export default {
         name: "LogIn",
         components: {LogInProviderBtn},
+        computed: {
+            ...mapGetters("theme", {
+                textColor: 'textColor',
+                level0: 'level0',
+                level2: 'level2',
+            })
+        },
         props: {
             sessionSet: Function
         },

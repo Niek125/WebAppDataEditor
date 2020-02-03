@@ -3,17 +3,17 @@
         <v-col cols="12">
             <v-row align="center" justify="center">
                 <v-col cols="11">
-                    <v-row align="center" justify="center">
+                    <v-row align="center" justify="center" :class="textColor">
                         Projectname:
-                        <v-text-field v-model="name" dark class="ml-4"></v-text-field>
+                        <v-text-field v-model="name" :dark="dark" class="ml-4"></v-text-field>
                     </v-row>
                 </v-col>
             </v-row>
             <v-row align="center" justify="center">
                 <v-col cols="11">
-                    <v-row align="center" justify="center">
+                    <v-row align="center" justify="center" :class="textColor">
                         File:
-                        <v-file-input v-model="file" accept="application/json"></v-file-input>
+                        <v-file-input v-model="file" :dark="dark" accept="application/json"></v-file-input>
                     </v-row>
                 </v-col>
             </v-row>
@@ -26,7 +26,7 @@
                 </v-col>
                 <v-spacer></v-spacer>
                 <v-col cols="5">
-                    <v-btn class="green darken-4" width="100%" v-on:click="addproject()">save
+                    <v-btn class="green darken-4" width="100%" v-on:click="addProject()">save
                     </v-btn>
                 </v-col>
                 <v-spacer></v-spacer>
@@ -37,11 +37,20 @@
 
 <script>
     import ProjectService from "../../services/ProjectService";
+    import {mapGetters} from "vuex";
 
     const uuidv1 = require('uuid/v1');
 
     export default {
         name: "AddUser",
+        computed: {
+            ...mapGetters("theme", {
+                textColor: 'textColor',
+                dark: 'dark',
+                level0: 'level0',
+                level1: 'level1',
+            })
+        },
         props: {
             dialog: Function
         },
@@ -52,8 +61,7 @@
             }
         },
         methods: {
-            addproject: function () {
-                window.console.log(this.file);
+            addProject: function () {
                 ProjectService.addProject({
                     projectid: uuidv1(),
                     projectname: this.name

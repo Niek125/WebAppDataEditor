@@ -5,7 +5,7 @@
             <v-row class="ma-0">
                 <v-toolbar class="grey darken-4" flat>
                     <v-row class="ma-0">
-                        <v-toolbar-title>TESTING</v-toolbar-title>
+                        <v-toolbar-title>{{project.projectName}}</v-toolbar-title>
                     </v-row>
                 </v-toolbar>
             </v-row>
@@ -24,22 +24,6 @@
                                     <v-flex class="flex-nowrap scrollable overflow-x-auto">
                                         <input autocomplete="off" :value="rowlength" type="text"
                                                style="outline: transparent;">
-                                        <input autocomplete="off" :value="rowlength" type="text"
-                                               style="outline: transparent;">
-                                        <input autocomplete="off" :value="rowlength" type="text"
-                                               style="outline: transparent;">
-                                        <input autocomplete="off" :value="rowlength" type="text"
-                                               style="outline: transparent;">
-                                        <input autocomplete="off" :value="rowlength" type="text"
-                                               style="outline: transparent;">
-                                        <input autocomplete="off" :value="rowlength" type="text"
-                                               style="outline: transparent;">
-                                        <input autocomplete="off" :value="rowlength" type="text"
-                                               style="outline: transparent;">
-                                        <input autocomplete="off" :value="rowlength" type="text"
-                                               style="outline: transparent;">
-                                        <input autocomplete="off" :value="rowlength" type="text"
-                                               style="outline: transparent;">
                                     </v-flex>
                                 </v-chip>
                             </v-hover>
@@ -53,14 +37,6 @@
                         <v-chip :class="hover ? 'grey darken-2 my-1' : 'transparent'"
                                 class="transition-fast-out-slow-in">
                             <v-flex class="flex-nowrap scrollable overflow-x-auto">
-                                <input autocomplete="off" :value="rowlength" type="text" style="outline: transparent;">
-                                <input autocomplete="off" :value="rowlength" type="text" style="outline: transparent;">
-                                <input autocomplete="off" :value="rowlength" type="text" style="outline: transparent;">
-                                <input autocomplete="off" :value="rowlength" type="text" style="outline: transparent;">
-                                <input autocomplete="off" :value="rowlength" type="text" style="outline: transparent;">
-                                <input autocomplete="off" :value="rowlength" type="text" style="outline: transparent;">
-                                <input autocomplete="off" :value="rowlength" type="text" style="outline: transparent;">
-                                <input autocomplete="off" :value="rowlength" type="text" style="outline: transparent;">
                                 <input autocomplete="off" :value="rowlength" type="text" style="outline: transparent;">
                             </v-flex>
                         </v-chip>
@@ -111,6 +87,8 @@
     // import DataSetService from "../services/DataSetService";
     // import RoleService from "../services/RoleService";
 
+    import { mapGetters } from "vuex"
+
     export default {
         name: "DataView",
         data() {
@@ -126,6 +104,11 @@
             Chat,
             PeopleList
         },
+        computed: {
+            ...mapGetters("project", {
+                project: 'project'
+            })
+        },
         methods: {
             scrollrow: function () {
                 const rows = document.getElementsByClassName("scrollable");
@@ -134,8 +117,8 @@
                 }
             },
             setscrollwidth: function () {
-                const element = document.getElementsByClassName("scrollable").item(0);
-                this.rowlength = element.scrollWidth - element.offsetWidth;
+                // const element = document.getElementsByClassName("scrollable").item(0);
+                // this.rowlength = element.scrollWidth - element.offsetWidth;
             },
             close: function () {
                 this.dialog = false;
