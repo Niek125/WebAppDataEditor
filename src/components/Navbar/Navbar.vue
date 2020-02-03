@@ -9,7 +9,7 @@
             </v-col>
             <v-spacer></v-spacer>
             <v-col cols="4">
-                <v-autocomplete :items="this.projects" item-text="projectname" label="Search" outlined dense shaped
+                <v-autocomplete :items="projects" item-text="projectname" label="Search" outlined dense shaped
                                 :hide-details="true" class="grey darken-4 white--text">
                     <template v-slot:item="data">
                         <v-list-item-content v-text="data.item.projectname" class="black--text"
@@ -23,9 +23,9 @@
             <v-col cols="3" class="pa-0">
                 <v-row justify="end">
                     <v-card-title v-on:click="logOut()" class="py-0">
-                        {{comp.$session.get("userdata").unm}}
+                        {{uname}}
                         <v-avatar class="mr-4 ml-4">
-                            <v-img v-bind:src="comp.$session.get('userdata').pfp"></v-img>
+                            <v-img v-bind:src="pfp"></v-img>
                         </v-avatar>
                     </v-card-title>
                 </v-row>
@@ -34,16 +34,10 @@
     </v-app-bar>
 </template>
 
-<style>
-    .v-tooltip__content {
-        background-color: #9e9e9e !important;
-    }
-</style>
-
 <script>
     import * as firebase from "firebase";
     import "firebase/auth";
-    import ProjectService from "../../services/ProjectService";
+    // import ProjectService from "../../services/ProjectService";
     import {redirectProject} from "../../mixins/RedirectProject";
 
     export default {
@@ -70,20 +64,25 @@
             return {
                 projects: [],
                 comp: this,
-                searchProject: ""
+                searchProject: "",
+                uname: "Not Found",
+                pfp: "https://pbs.twimg.com/profile_images/1008735104070381570/WbceqBkX_400x400.jpg"
             }
         },
         created() {
-            const x = this;
+            // const x = this;
+            //
+            // loadProject();
+            //
+            // function loadProject() {
+            //     ProjectService.getProjects(x.$session.get("jwt")).then(response => {
+            //         x.projects = response.data;
+            //     });
+            //     setTimeout(loadProject, (1000 * 60 * 60));
+            // }
 
-            loadProject();
-
-            function loadProject() {
-                ProjectService.getProjects(x.$session.get("jwt")).then(response => {
-                    x.projects = response.data;
-                });
-                setTimeout(loadProject, (1000 * 60 * 60));
-            }
+            this.uname = this.$session.get("userdata").unm;
+            this.pfp = this.$session.get('userdata').pfp;
         }
     }
 </script>

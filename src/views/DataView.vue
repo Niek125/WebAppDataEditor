@@ -1,31 +1,72 @@
 <template>
     <v-row class="ma-0">
-        <v-sheet tile height="calc(100vh - 64px)" class="transparent"
+        <v-sheet tile height="calc(100vh - 64px)" class="transparent overflow-x-auto" id="table"
                  :width="tab != 'closed' ? 'calc(100vw - 64px - (3.5 * (100vw /12)))' : 'calc(100vw - 64px)'">
-            <v-data-table
-                    id="table"
-                    :dense="dense"
-                    :loading="loading"
-                    loading-text="Loading... Please wait"
-                    :search="search"
-                    hide-default-footer
-                    multi-sort
-                    class="transparent"
-                    height="calc(100vh - 64px - 64px)"
-                    :headers="project.data.headers"
-                    :items="project.data.items"
-                    :items-per-page="Infinity">
-                <template v-slot:top>
-                    <v-toolbar class="grey darken-4" flat>
-                        <v-col> <v-toolbar-title>{{project.project.projectname}}</v-toolbar-title></v-col>
-                        <v-spacer></v-spacer>
-                        <v-col cols="5">
-                            <v-text-field hide-details v-model="search" append-icon="mdi-magnify" label="Search"
-                                          single-line class="grey darken-3 px-3"></v-text-field>
-                        </v-col>
-                    </v-toolbar>
-                </template>
-            </v-data-table>
+            <v-row class="ma-0">
+                <v-toolbar class="grey darken-4" flat>
+                    <v-row class="ma-0">
+                        <v-toolbar-title>TESTING</v-toolbar-title>
+                    </v-row>
+                </v-toolbar>
+            </v-row>
+            <v-row class="ma-0">
+                <v-toolbar flat class="grey darken-3">
+                    <v-col cols="12" class="pa-0">
+                        <v-row class="ma-0">
+                            <v-slider v-on:input="scrollrow()" class="mx-4" dense color="white" track-color="black"
+                                      v-model="scroller" min="0" :max="rowlength" :loading="sliderload"
+                                      hide-details v-resize="setscrollwidth"></v-slider>
+                        </v-row>
+                        <v-row class="ma-0">
+                            <v-hover v-slot:default="{ hover }">
+                                <v-chip class="transparent transition-fast-out-slow-in"
+                                        :class="hover ? 'grey darken-2' : ''">
+                                    <v-flex class="flex-nowrap scrollable overflow-x-auto">
+                                        <input autocomplete="off" :value="rowlength" type="text"
+                                               style="outline: transparent;">
+                                        <input autocomplete="off" :value="rowlength" type="text"
+                                               style="outline: transparent;">
+                                        <input autocomplete="off" :value="rowlength" type="text"
+                                               style="outline: transparent;">
+                                        <input autocomplete="off" :value="rowlength" type="text"
+                                               style="outline: transparent;">
+                                        <input autocomplete="off" :value="rowlength" type="text"
+                                               style="outline: transparent;">
+                                        <input autocomplete="off" :value="rowlength" type="text"
+                                               style="outline: transparent;">
+                                        <input autocomplete="off" :value="rowlength" type="text"
+                                               style="outline: transparent;">
+                                        <input autocomplete="off" :value="rowlength" type="text"
+                                               style="outline: transparent;">
+                                        <input autocomplete="off" :value="rowlength" type="text"
+                                               style="outline: transparent;">
+                                    </v-flex>
+                                </v-chip>
+                            </v-hover>
+                        </v-row>
+                    </v-col>
+                </v-toolbar>
+            </v-row>
+            <v-row class="ma-0">
+                <v-col cols="12" class="py-0 px-4">
+                    <v-hover v-slot:default="{ hover }">
+                        <v-chip :class="hover ? 'grey darken-2 my-1' : 'transparent'"
+                                class="transition-fast-out-slow-in">
+                            <v-flex class="flex-nowrap scrollable overflow-x-auto">
+                                <input autocomplete="off" :value="rowlength" type="text" style="outline: transparent;">
+                                <input autocomplete="off" :value="rowlength" type="text" style="outline: transparent;">
+                                <input autocomplete="off" :value="rowlength" type="text" style="outline: transparent;">
+                                <input autocomplete="off" :value="rowlength" type="text" style="outline: transparent;">
+                                <input autocomplete="off" :value="rowlength" type="text" style="outline: transparent;">
+                                <input autocomplete="off" :value="rowlength" type="text" style="outline: transparent;">
+                                <input autocomplete="off" :value="rowlength" type="text" style="outline: transparent;">
+                                <input autocomplete="off" :value="rowlength" type="text" style="outline: transparent;">
+                                <input autocomplete="off" :value="rowlength" type="text" style="outline: transparent;">
+                            </v-flex>
+                        </v-chip>
+                    </v-hover>
+                </v-col>
+            </v-row>
         </v-sheet>
         <v-sheet tile height="calc(100vh - 64px)" width="calc(3.5 * (100vw /12))" v-if="tab != 'closed'"
                  class="grey darken-4">
@@ -55,75 +96,47 @@
     </v-row>
 </template>
 
-<style>
+<style scoped>
     #table {
         background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
-    }
-
-    th {
-        background-color: #424242 !important;
-    }
-
-    tr:hover {
-        background-color: #616161 !important;
     }
 </style>
 
 <script>
-    // import PeopleChatMenu from "../components/PeopleChatMenu";
-    // import EditRow from "../components/EditRow";
-
     import Chat from "../components/DataView/Chat/Chat";
     import PeopleList from "../components/DataView/UserList/PeopleList";
 
     import UpdateService from "../services/UpdateService";
-    import ProjectService from "../services/ProjectService";
-    import DataSetService from "../services/DataSetService";
-    import RoleService from "../services/RoleService";
+    // import ProjectService from "../services/ProjectService";
+    // import DataSetService from "../services/DataSetService";
+    // import RoleService from "../services/RoleService";
 
     export default {
         name: "DataView",
         data() {
             return {
                 tab: "closed",
-                x: 0,
-                project: {
-                    project: {},
-                    data: {
-                        headers: [],
-                        items: []
-                    }
-                },
-                dialog: false,
-                userroles: [],
-                edituser: {},
-                search: "",
-                loading: true,
-                dense: false,
-                editedItem: {
-                    name: '',
-                    calories: 0,
-                    fat: 0,
-                    carbs: 0,
-                    protein: 0,
-                },
-                defaultItem: {
-                    name: '',
-                    calories: 0,
-                    fat: 0,
-                    carbs: 0,
-                    protein: 0,
-                },
-                editedIndex: -1
+                scroller: 0,
+                rowlength: 0,
+                sliderload: true,
+                col1: '50px'
             }
         },
         components: {
-            // EditRow,
-            // PeopleChatMenu,
             Chat,
             PeopleList
         },
         methods: {
+            scrollrow: function () {
+                const rows = document.getElementsByClassName("scrollable");
+                for (let i = 0; i < rows.length; i++) {
+                    rows[i].scrollLeft = this.scroller;
+                }
+            },
+            setscrollwidth: function () {
+                const element = document.getElementsByClassName("scrollable").item(0);
+                this.rowlength = element.scrollWidth - element.offsetWidth;
+            },
             close: function () {
                 this.dialog = false;
                 setTimeout(() => {
@@ -181,26 +194,30 @@
             },
         },
         async mounted() {
-            const x = this;
-            const token = this.$session.get("jwt");
-            const projectid = this.$route.params.projectid;
+            this.setscrollwidth();
+            this.sliderload = false;
 
-            await ProjectService.getProject(projectid, token).then((request) => {
-                x.project.project = request.data;
-            });
 
-            DataSetService.getdata(projectid, token).then((req) => {
-                x.project.data = req.data;
-                x.loading = false;
-            })
-            RoleService.getusers(projectid, token).then((request) => {
-                x.userroles = request.data;
-            })
-
-            UpdateService.connect(this.project.project.projectid, token);
-            UpdateService.setadddata(this.adddata);
-            UpdateService.setupdatedata(this.editdata);
-            UpdateService.setdeletedata(this.deletedata);
+            // const x = this;
+            // const token = this.$session.get("jwt");
+            // const projectid = this.$route.params.projectid;
+            //
+            // await ProjectService.getProject(projectid, token).then((request) => {
+            //     x.project.project = request.data;
+            // });
+            //
+            // DataSetService.getdata(projectid, token).then((req) => {
+            //     x.project.data = req.data;
+            //     x.loading = false;
+            // })
+            // RoleService.getusers(projectid, token).then((request) => {
+            //     x.userroles = request.data;
+            // })
+            //
+            // UpdateService.connect(this.project.project.projectid, token);
+            // UpdateService.setadddata(this.adddata);
+            // UpdateService.setupdatedata(this.editdata);
+            // UpdateService.setdeletedata(this.deletedata);
         }
     }
 </script>
