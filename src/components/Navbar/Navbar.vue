@@ -19,20 +19,23 @@
                                              v-on:click="redirectProject(data.item.projectid, comp)"></v-list-item-content>
                     </template>
                     <template v-slot:no-data>
-                        <v-card-text class="black--text">Start searching</v-card-text>
+                        <v-list-item>
+                            <v-list-item-content>No datasets found</v-list-item-content>
+                        </v-list-item>
                     </template>
                 </v-autocomplete>
             </v-col>
             <v-col cols="3" class="pa-0">
                 <v-row justify="end">
-                    <v-card-title v-on:click="logOut()" class="py-0" :class="textColor">
+                    <v-card-title v-on:click="logOut()" class="pa-0 mx-1" :class="textColor">
                         {{uName}}
-                        <v-avatar class="mr-4 ml-4">
+                        <v-avatar class="mx-4">
                             <v-img v-bind:src="pfp"></v-img>
                         </v-avatar>
                     </v-card-title>
                 </v-row>
             </v-col>
+            <Settings></Settings>
         </v-row>
     </v-app-bar>
 </template>
@@ -42,14 +45,16 @@
     import "firebase/auth";
     import {redirectProject} from "../../mixins/RedirectProject";
     import {mapGetters} from "vuex";
+    import Settings from "../../views/Settings";
 
     export default {
         name: "Navbar",
+        components: {Settings},
         computed: {
             ...mapGetters("theme", {
-                textColor: 'textColor',
-                level0: 'level0',
-                level1: 'level1',
+                textColor: "textColor",
+                level0: "level0",
+                level1: "level1",
             })
         },
         data() {
@@ -84,7 +89,7 @@
                 this.uname = this.$session.get("userdata").unm;
                 this.pfp = this.$session.get('userdata').pfp;
             } catch (e) {
-                alert("You are not logged in")
+                // alert("You are not logged in")
             }
         }
     }

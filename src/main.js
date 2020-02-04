@@ -22,13 +22,13 @@ Vue.use(VueSession, {
 const auth = require("firebase/auth");
 Vue.use(auth);
 
-// router.beforeEach((to, from, next) => {
-//     if (!Vue.prototype.$session.exists() && to.name !== 'login') {
-//         next({name: 'login'});
-//     } else {
-//         next();
-//     }
-// })
+router.beforeEach((to, from, next) => {
+    if (!Vue.prototype.$session.exists() && to.name !== 'login') {
+        next({name: 'login'});
+    } else {
+        next();
+    }
+})
 
 new Vue({
     router,

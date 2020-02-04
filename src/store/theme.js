@@ -1,8 +1,13 @@
 export default {
     namespaced: true,
     state: {
+        overlayOpacity: 0.8,
+        btnAccept: "green darken-4",
+        btnDeny: "red darken-4",
+        btnInfo: "blue darken-4",
+        gradient: "black-gradient",
         dark: true,
-        divider: 'white',
+        divider: "white",
         textColor: "white--text ",
         level0: "black",
         level1: "grey darken-4",
@@ -11,12 +16,94 @@ export default {
         level4: "grey darken-1",
     },
     mutations: {
-
+        SET_OVERLAY_OPACITY(state, payload) {
+            state.overlayOpacity = payload;
+        },
+        SET_BTN_ACCEPT(state, payload) {
+            state.btnAccept = payload;
+        },
+        SET_BTN_DENY(state, payload) {
+            state.btnDeny = payload;
+        },
+        SET_BTN_INFO(state, payload) {
+            state.btnInfo = payload;
+        },
+        SET_GRADIENT(state, payload) {
+            state.gradient = payload;
+        },
+        SET_DARK(state, payload) {
+            state.dark = payload
+        },
+        SET_DIVIDER(state, payload) {
+            state.divider = payload
+        },
+        SET_TEXT_COLOR(state, payload) {
+            state.textColor = payload;
+        },
+        SET_LEVEL0(state, payload) {
+            state.level0 = payload;
+        },
+        SET_LEVEL1(state, payload) {
+            state.level1 = payload;
+        },
+        SET_LEVEL2(state, payload) {
+            state.level2 = payload;
+        },
+        SET_LEVEL3(state, payload) {
+            state.level3 = payload;
+        },
+        SET_LEVEL4(state, payload) {
+            state.level4 = payload;
+        },
     },
     actions: {
-
+        setDarkTheme({commit}) {
+            commit("SET_OVERLAY_OPACITY", 0.8);
+            commit("SET_BTN_ACCEPT", "green darken-4");
+            commit("SET_BTN_DENY", "red darken-4");
+            commit("SET_BTN_INFO", "blue darken-4");
+            commit("SET_GRADIENT", "black-gradient");
+            commit("SET_DARK", true);
+            commit("SET_DIVIDER", "white");
+            commit("SET_TEXT_COLOR", "white--text ");
+            commit("SET_LEVEL0", "black");
+            commit("SET_LEVEL1", "grey darken-4");
+            commit("SET_LEVEL2", "grey darken-3");
+            commit("SET_LEVEL3", "grey darken-2");
+            commit("SET_LEVEL4", "grey darken-1");
+        },
+        setWhiteTheme({commit}) {
+            commit("SET_OVERLAY_OPACITY", 0.0);
+            commit("SET_BTN_ACCEPT", "green lighten-2");
+            commit("SET_BTN_DENY", "red lighten-2");
+            commit("SET_BTN_INFO", "blue lighten-2");
+            commit("SET_GRADIENT", "white-gradient");
+            commit("SET_DARK", false);
+            commit("SET_DIVIDER", "black");
+            commit("SET_TEXT_COLOR", "black--text ");
+            commit("SET_LEVEL0", "white");
+            commit("SET_LEVEL1", "grey lighten-4");
+            commit("SET_LEVEL2", "grey lighten-3");
+            commit("SET_LEVEL3", "grey lighten-2");
+            commit("SET_LEVEL4", "grey lighten-1");
+        }
     },
     getters: {
+        overlayOpacity: state => {
+            return state.overlayOpacity;
+        },
+        btnAccept: state => {
+            return state.btnAccept;
+        },
+        btnDeny: state => {
+            return state.btnDeny;
+        },
+        btnInfo: state => {
+            return state.btnInfo;
+        },
+        gradient: state => {
+            return state.gradient;
+        },
         dark: state => {
             return state.dark;
         },
