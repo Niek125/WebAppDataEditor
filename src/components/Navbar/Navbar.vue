@@ -78,16 +78,17 @@
             },
             toOverview: function () {
                 if (this.$route.name === 'overview') {
-                    location.reload();
+                    // location.reload();
+                    this.$router.push('/login');
                 } else {
-                    this.$router.push('/overview')
+                    this.$router.push('/overview');
                 }
             }
         },
         created() {
             try {
-                this.uname = this.$session.get("userdata").unm;
-                this.pfp = this.$session.get('userdata').pfp;
+                this.uName = this.$session.get("userData").unm;
+                this.pfp = this.$session.get('userData').pfp;
             } catch (e) {
                 // alert("You are not logged in")
             }

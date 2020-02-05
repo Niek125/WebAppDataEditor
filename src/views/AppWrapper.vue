@@ -2,7 +2,7 @@
     <v-container fluid class="fill-height pa-0">
         <Cookie></Cookie>
         <v-row class="ma-0">
-            <Navbar class="navbar"></Navbar>
+            <Navbar></Navbar>
         </v-row>
         <v-row class="ma-0">
             <v-sheet

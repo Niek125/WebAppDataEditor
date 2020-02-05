@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-row v-if="senderid == this.$session.get('userdata').uid">
+        <v-row v-if="senderid == this.$session.get('userData').uid">
             <v-spacer></v-spacer>
             <v-col cols="10" class="px-2 py-1">
                 <Message v-bind:content="this.content" v-bind:sendtime="this.sendtime" v-bind:senderid="this.senderid"

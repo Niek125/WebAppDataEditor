@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "axios"
 import EurekaServer from "./EurekaServer";
 
 let tokenService = null;
@@ -17,7 +17,7 @@ export default {
         if (tokenService == null) {
             await load();
         }
-        tokenService.get('token/token', {headers: {gtoken: GToken}}).then(response => {
+        tokenService.get("token/token", {headers: {gtoken: GToken}}).then(response => {
             setToken(response.data)
         });
     }

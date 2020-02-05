@@ -44,13 +44,10 @@
         components: {LogInProviderBtn},
         computed: {
             ...mapGetters("theme", {
-                textColor: 'textColor',
-                level0: 'level0',
-                level2: 'level2',
+                textColor: "textColor",
+                level0: "level0",
+                level2: "level2",
             })
-        },
-        props: {
-            sessionSet: Function
         },
         data() {
             return {

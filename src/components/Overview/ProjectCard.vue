@@ -21,9 +21,9 @@
         name: "ProjectCard",
         computed: {
             ...mapGetters("theme", {
-                textColor: 'textColor',
-                divider: 'divider',
-                level3: 'level3',
+                textColor: "textColor",
+                divider: "divider",
+                level3: "level3",
             })
         },
         props: {

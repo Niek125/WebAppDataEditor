@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "axios"
 import EurekaServer from "./EurekaServer";
 
 let datasetservice = null;
@@ -17,9 +17,9 @@ export default {
         if (datasetservice == null) {
             await load();
         }
-        return datasetservice.get('data/get/' + projectid, {
+        return datasetservice.get("data/get/" + projectid, {
             headers: {
-                Authorization: 'Bearer ' + token
+                Authorization: "Bearer " + token
             }
         })
     }

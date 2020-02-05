@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "axios"
 import EurekaServer from "./EurekaServer";
 
 let messageservice = null;
@@ -17,11 +17,11 @@ export default {
         if (messageservice == null) {
             await load();
         }
-        return messageservice.get('chat/messages/' + projectid, {
+        return messageservice.get("chat/messages/" + projectid, {
             headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + token
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token
             }
         })
     }

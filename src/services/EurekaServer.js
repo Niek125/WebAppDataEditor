@@ -1,7 +1,7 @@
-import axios from 'axios'
+import axios from "axios"
 
 const eurekaServer = axios.create({
-    baseURL: 'http://localhost:8101/server-instances/',
+    baseURL: "http://localhost:8101/server-instances/",
     withCredentials: false
 });
 

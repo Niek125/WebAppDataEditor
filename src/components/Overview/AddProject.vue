@@ -57,7 +57,7 @@
     import ProjectService from "../../services/ProjectService";
     import {mapGetters} from "vuex";
 
-    const uuidv1 = require('uuid/v1');
+    const uuidv1 = require("uuid/v1");
 
     export default {
         name: "AddUser",
@@ -68,7 +68,7 @@
                 btnDeny: "btnDeny",
                 textColor: "textColor",
                 dark: "dark",
-                divider: 'divider',
+                divider: "divider",
                 level0: "level0",
                 level1: "level1",
                 level2: "level2",

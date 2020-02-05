@@ -1,8 +1,8 @@
 <template>
     <v-row justify="center">
         <v-col cols="8">
-            <v-hover v-slot:default="{ btnhover }">
-                <v-btn :class="textColor + level4" ripple v-on:click="signin()" :elevation="btnhover ? 4:12" width="100%">
+            <v-hover v-slot:default="{ btnHover }">
+                <v-btn :class="textColor + level4" ripple v-on:click="signIn()" :elevation="btnHover ? 4:12" width="100%">
                     <v-spacer></v-spacer>
                     <v-col cols="2" class="pa-0">
                         <v-icon :class="textColor">{{icon}}</v-icon>
@@ -22,15 +22,15 @@
     import * as firebase from "firebase/app";
     import {mapGetters} from "vuex";
 
-    const base64url = require('base64url');
+    const base64url = require("base64url");
 
 
     export default {
         name: "LogInProviderBtn",
         computed: {
             ...mapGetters("theme", {
-                textColor: 'textColor',
-                level4: 'level4',
+                textColor: "textColor",
+                level4: "level4",
             })
         },
         props: {
@@ -39,7 +39,7 @@
             provider: Object
         },
         methods: {
-            signin: function () {
+            signIn: function () {
                 const x = this;
                 let first = false;
 
@@ -58,7 +58,7 @@
                                 TokenService.getToken(idToken, function (token) {
                                     x.$session.start();
                                     x.$session.set("jwt", token);
-                                    x.$session.set("userdata", JSON.parse(base64url.decode(token.split(".")[1])));
+                                    x.$session.set("userData", JSON.parse(base64url.decode(token.split(".")[1])));
                                     if(first){
                                         first = false;
                                         x.$router.back();

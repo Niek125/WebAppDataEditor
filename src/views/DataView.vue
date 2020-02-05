@@ -97,7 +97,7 @@
                 scroller: 0,
                 rowlength: 0,
                 sliderload: true,
-                col1: '50px'
+                col1: "50px"
             }
         },
         components: {
@@ -106,7 +106,7 @@
         },
         computed: {
             ...mapGetters("project", {
-                project: 'project'
+                project: "project"
             })
         },
         methods: {

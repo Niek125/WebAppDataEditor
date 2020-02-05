@@ -49,7 +49,7 @@
         data() {
             return {
                 dialog: false,
-                themes: [{themeName: 'Dark', themeId: 0}, {themeName: 'White', themeId: 1}]
+                themes: [{themeName: "Dark", themeId: 0}, {themeName: "White", themeId: 1}]
             }
         },
         mixins: [setTheme]

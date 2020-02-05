@@ -46,10 +46,10 @@
         data() {
             return {
                 roles: [
-                    {text: 'Guest', value: 'GUEST'},
-                    {text: 'Member', value: 'MEMBER'},
-                    {text: 'Admin', value: 'ADMIN'},
-                    {text: 'Owner', value: null}
+                    {text: "Guest", value: "GUEST"},
+                    {text: "Member", value: "MEMBER"},
+                    {text: "Admin", value: "ADMIN"},
+                    {text: "Owner", value: null}
                 ],
                 startrole: {}
             }

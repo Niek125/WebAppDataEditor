@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "axios"
 import EurekaServer from "./EurekaServer";
 
 let roleService = null;
@@ -19,9 +19,9 @@ export default {
         }
         return roleService.get("user/getusers/" + projectid, {
             headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + token
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token
             }
         });
     },
@@ -31,9 +31,9 @@ export default {
         }
         return roleService.get("user/users/" + start, {
             headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + token
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token
             }
         });
     },
@@ -49,7 +49,7 @@ export default {
         }
         roleService.post("role/save", JSON.stringify(r), {
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             }
         });
     },
@@ -59,7 +59,7 @@ export default {
         }
         roleService.post("role/save", JSON.stringify(role), {
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             }
         });
     }

@@ -48,7 +48,7 @@ export default {
                     token: token
                 }
                 socket.send(JSON.stringify(pay));
-                window.console.log('opened');
+                window.console.log("opened");
             }
 
             socket.onmessage = function (event) {

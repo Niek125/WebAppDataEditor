@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "axios"
 import EurekaServer from "./EurekaServer";
 
 let projectService = null;
@@ -27,11 +27,11 @@ export default {
         if (projectService == null) {
             await loadService();
         }
-        return projectService.get('project/read/projects', {
+        return projectService.get("project/read/projects", {
             headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + token
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token
             }
         });
     },
@@ -39,11 +39,11 @@ export default {
         if (projectService == null) {
             await loadService();
         }
-        return projectService.get('project/read/project/' + projectid, {
+        return projectService.get("project/read/project/" + projectid, {
             headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + token
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token
             }
         });
     },
@@ -52,12 +52,12 @@ export default {
             await loadProducer();
         }
         const fdata = new FormData();
-        fdata.append('file', file);
-        fdata.append('project', JSON.stringify(project))
-        await projectProducer.post('/project/create', fdata, {
+        fdata.append("file", file);
+        fdata.append("project", JSON.stringify(project))
+        await projectProducer.post("/project/create", fdata, {
             headers: {
                 contentType: false,
-                Authorization: 'Bearer ' + token
+                Authorization: "Bearer " + token
             }
         });
     }

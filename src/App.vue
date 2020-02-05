@@ -12,7 +12,7 @@
     export default {
         computed: {
             ...mapGetters("theme", {
-                gradient: 'gradient',
+                gradient: "gradient",
             })
         },
         data() {

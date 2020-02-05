@@ -25,7 +25,7 @@
     import MessageService from "../../../services/MessageService";
     import RoleService from "../../../services/RoleService";
 
-    const uuidv1 = require('uuid/v1');
+    const uuidv1 = require("uuid/v1");
 
     export default {
         name: "Chat",

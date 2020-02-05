@@ -33,7 +33,7 @@
 </template>
 
 <script>
-    import ProjectCard from '../components/Overview/ProjectCard';
+    import ProjectCard from "../components/Overview/ProjectCard";
     import AddProject from "../components/Overview/AddProject";
     import ProjectService from "../services/ProjectService";
     import {mapGetters} from "vuex";
@@ -43,7 +43,7 @@
         components: {ProjectCard, AddProject},
         computed: {
             ...mapGetters("theme", {
-                level2: 'level2',
+                level2: "level2",
             })
         },
         data() {
@@ -58,7 +58,7 @@
             })
                 // eslint-disable-next-line no-console
                 .catch(error => console.log(error.response))
-            const recs = JSON.parse(this.$cookie.get('recent'))
+            const recs = JSON.parse(this.$cookie.get("recent"))
             this.recent = this.projects.filter(function (x) {
                 try {
                     return recs.includes(x.projectid);

@@ -5,7 +5,7 @@
                 <v-card-text class="px-1 py-0 my-1 body-1">{{content}}</v-card-text>
             </v-row>
             <v-row class="ma-0">
-                <v-card-text class="pa-1 caption">{{getuser() + ' at ' + sendtime}}</v-card-text>
+                <v-card-text class="pa-1 caption">{{getuser() + " at " + sendtime}}</v-card-text>
             </v-row>
         </v-card>
     </v-hover>
