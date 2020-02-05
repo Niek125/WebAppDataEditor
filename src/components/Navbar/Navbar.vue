@@ -81,7 +81,7 @@
                 }).catch(function (error) {
                     window.console.log(error);
                 });
-                location.reload();
+                this.$router.push("login")
             },
             toOverview: function () {
                 if (this.$route.name === "overview") {
@@ -96,7 +96,7 @@
                 this.uName = this.$session.get("userData").unm;
                 this.pfp = this.$session.get("userData").pfp;
             } catch (e) {
-                // alert("You are not logged in")
+                alert("You are not logged in")
             }
         }
     }

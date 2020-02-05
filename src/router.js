@@ -26,7 +26,7 @@ export default new Router({
                     component: Overview
                 },
                 {
-                    path: "/dataView/:projectId",
+                    path: "/dataView:projectId",
                     name: "dataView",
                     component: DataView
                 }

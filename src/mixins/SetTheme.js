@@ -12,7 +12,7 @@ export const setTheme = {
                     store.dispatch("theme/setWhiteTheme");
                     break;
             }
-            if(Vue.prototype.$cookie.exists("theme")){
+            if(Vue.prototype.$cookie.get("theme") != null){
                 Vue.prototype.$cookie.set("theme", id);
             }
         }

@@ -2,20 +2,18 @@
     <v-container fluid class="pa-0 fill-height">
         <v-row justify="center" align="center">
             <v-col cols="3">
-                <v-hover v-slot:default="{ hover }">
-                    <v-card :elevation="hover ? 16: 4" :class="level2">
-                        <v-toolbar flat :class="level0">
-                            <v-toolbar-title :class="textColor">Log in</v-toolbar-title>
-                        </v-toolbar>
-                        <v-card-actions>
-                            <v-col class="pa-0">
-                                <log-in-provider-btn v-for="provider in providers" v-bind:text="provider.text"
-                                                     v-bind:icon="provider.icon" v-bind:key="provider.text"
-                                                     v-bind:provider="provider.provider"></log-in-provider-btn>
-                            </v-col>
-                        </v-card-actions>
-                    </v-card>
-                </v-hover>
+                <v-card :class="level2">
+                    <v-toolbar flat :class="level0">
+                        <v-toolbar-title :class="textColor">Log in</v-toolbar-title>
+                    </v-toolbar>
+                    <v-card-actions>
+                        <v-col class="pa-0">
+                            <log-in-provider-btn v-for="provider in providers" v-bind:text="provider.text"
+                                                 v-bind:icon="provider.icon" v-bind:key="provider.text"
+                                                 v-bind:provider="provider.provider"></log-in-provider-btn>
+                        </v-col>
+                    </v-card-actions>
+                </v-card>
             </v-col>
         </v-row>
     </v-container>
