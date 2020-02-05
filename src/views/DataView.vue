@@ -1,7 +1,7 @@
 <template>
     <v-row class="ma-0">
         <v-sheet tile height="calc(100vh - 64px)" class="transparent overflow-x-auto" id="table"
-                 :width="tab != 'closed' ? 'calc(100vw - 72px - (3.5 * (100vw /12)))' : 'calc(100vw - 72px)'">
+                 :width="tab != 'closed' ? 'calc(100vw - 64px - (3.5 * (100vw /12)))' : 'calc(100vw - 64px)'">
             <v-row class="ma-0">
                 <v-toolbar class="grey darken-4" flat>
                     <v-row class="ma-0">
@@ -44,12 +44,12 @@
                 </v-col>
             </v-row>
         </v-sheet>
-        <v-sheet tile height="calc(100vh - 72px)" width="calc(3.5 * (100vw /12))" v-if="tab != 'closed'"
+        <v-sheet tile height="calc(100vh - 64px)" width="calc(3.5 * (100vw /12))" v-if="tab != 'closed'"
                  class="grey darken-4">
             <chat v-if="tab == 'chat'"></chat>
             <PeopleList v-else-if="tab == 'users'"></PeopleList>
         </v-sheet>
-        <SideBar :set-tab="setTab" width="72px"></SideBar>
+        <SideBar :set-tab="setTab" width="64px"></SideBar>
     </v-row>
 </template>
 

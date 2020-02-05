@@ -1,5 +1,5 @@
 <template>
-    <v-list-item class="px-3">
+    <v-list-item class="px-2">
         <v-hover v-slot:default="{ hover }">
             <v-btn icon :class="hover ? level1 : level0" width="48px" height="48px">
                 <v-icon :class="textColor">{{icon}}</v-icon>

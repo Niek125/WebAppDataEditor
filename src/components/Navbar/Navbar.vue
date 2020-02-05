@@ -1,5 +1,5 @@
 <template>
-    <v-app-bar :class="level0" elevate-on-scroll scroll-target="#app-scroll" class="navbar">
+    <v-app-bar :class="level0" elevate-on-scroll scroll-target="#app-scroll" class="navigationBarDataEditor">
         <v-row align="center" justify="center" class="ma-0">
             <v-col cols="2" class="pa-0">
                 <v-card-title :class="textColor" v-on:click="toOverview()">
@@ -39,6 +39,12 @@
         </v-row>
     </v-app-bar>
 </template>
+
+<style>
+    .navigationBarDataEditor div{
+        padding: 0px !important;
+    }
+</style>
 
 <script>
     import * as firebase from "firebase";

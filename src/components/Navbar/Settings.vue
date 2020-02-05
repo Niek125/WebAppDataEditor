@@ -2,7 +2,7 @@
     <v-dialog fullscreen hide-overlay v-model="dialog" transition="dialog-bottom-transition">
         <template v-slot:activator="{on}">
             <v-hover v-slot:default="{hover}">
-                <v-btn icon v-on="on" :class="hover ? level1 : level0">
+                <v-btn icon v-on="on" :class="hover ? level1 : level0" class="mx-2">
                     <v-icon :class="textColor">mdi-settings</v-icon>
                 </v-btn>
             </v-hover>
