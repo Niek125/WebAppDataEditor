@@ -45,7 +45,7 @@
     import "firebase/auth";
     import {redirectProject} from "../../mixins/RedirectProject";
     import {mapGetters} from "vuex";
-    import Settings from "../../views/Settings";
+    import Settings from "./Settings";
 
     export default {
         name: "Navbar",

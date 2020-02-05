@@ -1,20 +1,9 @@
 <template>
     <v-dialog v-model="dialog" :overlay-opacity="overlayOpacity" width="60%">
         <template v-slot:activator="{on}">
-            <v-hover v-slot:default="{ hover }">
-                <v-card v-on="on" class="ml-4 mr-4 pa-2" :class="level3"
-                        height="170px" width="150px" :elevation="hover ? 16: 4">
-                    <v-row justify="center" align="center">
-                        <v-icon class="ma-4" :class="textColor">mdi-plus</v-icon>
-                    </v-row>
-                    <v-divider :class="divider"></v-divider>
-                    <v-row>
-                        <v-card-title style="word-break: break-word" :class="textColor">
-                            Start new project
-                        </v-card-title>
-                    </v-row>
-                </v-card>
-            </v-hover>
+            <div v-on="on">
+                <ProjectCard icon="mdi-plus" content="Start new project"></ProjectCard>
+            </div>
         </template>
         <v-card :class="level2">
             <v-col cols="12">
@@ -56,11 +45,13 @@
 <script>
     import ProjectService from "../../services/ProjectService";
     import {mapGetters} from "vuex";
+    import ProjectCard from "./ProjectCard";
 
     const uuidv1 = require("uuid/v1");
 
     export default {
         name: "AddUser",
+        components: {ProjectCard},
         computed: {
             ...mapGetters("theme", {
                 overlayOpacity: "overlayOpacity",

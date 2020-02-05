@@ -1,9 +1,9 @@
 <template>
     <v-hover v-slot:default="{ hover }">
-        <v-card v-on:click="redirectProject(projectid, comp)" class="ml-4 mr-4 pa-2" :class="level3"
+        <v-card class="ml-4 mr-4 pa-2" :class="level3"
                 height="170px" width="150px" :elevation="hover ? 16: 4">
             <v-row justify="center" align="center">
-                <v-icon class="ma-4" :class="textColor">mdi-xml</v-icon>
+                <v-icon class="ma-4" :class="textColor">{{icon}}</v-icon>
             </v-row>
             <v-divider :class="divider"></v-divider>
             <v-row>
@@ -14,7 +14,6 @@
 </template>
 
 <script>
-    import {redirectProject} from "../../mixins/RedirectProject";
     import {mapGetters} from "vuex";
 
     export default {
@@ -27,14 +26,13 @@
             })
         },
         props: {
-            content: String,
-            projectid: String
+            icon: String,
+            content: String
         },
         data() {
             return {
                 comp: this
             }
         },
-        mixins: [redirectProject]
     }
 </script>

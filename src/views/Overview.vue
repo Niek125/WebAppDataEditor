@@ -8,8 +8,8 @@
                             <v-row class="pa-4">
                                 <AddProject></AddProject>
                                 <project-card v-for="data in recent" v-bind:key="data.projectid"
-                                              v-bind:projectid="data.projectid"
-                                              v-bind:content="data.projectname"></project-card>
+                                              v-bind:content="data.projectname" icon="mdi-xml"
+                                              v-on:click.native="redirectProject(data.projectid)"></project-card>
                             </v-row>
                         </v-card>
                     </v-col>
@@ -19,9 +19,9 @@
                         <v-card class="mr-8 ml-8 mt-4" :class="level2" outlined v-if="projects.length > 0">
                             <v-card-actions>
                                 <v-row class="pa-4">
-                                    <project-card v-for="data in projects" v-bind:key="data.projectid"
-                                                  v-bind:projectid="data.projectid"
-                                                  v-bind:content="data.projectname"></project-card>
+                                    <project-card v-for="data in projects" :key="data.projectid"
+                                                  :content="data.projectname" icon="mdi-xml"
+                                                  v-on:click.native="redirectProject(data.projectid)"></project-card>
                                 </v-row>
                             </v-card-actions>
                         </v-card>
@@ -37,10 +37,12 @@
     import AddProject from "../components/Overview/AddProject";
     import ProjectService from "../services/ProjectService";
     import {mapGetters} from "vuex";
+    import {redirectProject} from "../mixins/RedirectProject"
 
     export default {
         name: "Overview",
         components: {ProjectCard, AddProject},
+        mixins: [redirectProject],
         computed: {
             ...mapGetters("theme", {
                 level2: "level2",
@@ -55,9 +57,7 @@
         async created() {
             await ProjectService.getProjects(this.$session.get("jwt")).then(response => {
                 this.projects = response.data;
-            })
-                // eslint-disable-next-line no-console
-                .catch(error => console.log(error.response))
+            }).catch(error => window.console.log(error.response))
             const recs = JSON.parse(this.$cookie.get("recent"))
             this.recent = this.projects.filter(function (x) {
                 try {

@@ -32,7 +32,7 @@
 </template>
 
 <script>
-    import {setTheme} from "../mixins/SetTheme";
+    import {setTheme} from "../../mixins/SetTheme";
     import {mapGetters} from "vuex";
 
     export default {

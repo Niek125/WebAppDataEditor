@@ -16,8 +16,8 @@ export default new Router({
             redirect: "/overview"
         },
         {
-            path: "/dataeditor",
-            name: "appwrapper",
+            path: "/dataEditor",
+            name: "appWrapper",
             component: AppWrapper,
             children: [
                 {
@@ -26,8 +26,8 @@ export default new Router({
                     component: Overview
                 },
                 {
-                    path: "/dataview/:projectid",
-                    name: "dataview",
+                    path: "/dataView/:projectId",
+                    name: "dataView",
                     component: DataView
                 }
 
