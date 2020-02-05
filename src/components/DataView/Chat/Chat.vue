@@ -1,7 +1,7 @@
 <template>
     <v-container class="pa-0">
         <v-sheet id="scroll" tile height="calc(100vh - 64px - 66px)" class="transparent">
-            <v-col cols="12" class="pa-0">
+            <v-col cols="12" class="pa-2">
                 <ChatMessage v-for="data in chat" :key="data.messageid" :content="data.content" :this-user="data.senderid == uid"
                              :send-time="data.sendtime" :sender-name="getUserName(data.senderid)" :users="users"></ChatMessage>
             </v-col>
@@ -89,8 +89,8 @@
         },
         async created() {
             const x = this;
-            const token = this.$session.get("jwt");
-            const projectId = this.$route.params.projectId;
+            const token = x.$session.get("jwt");
+            const projectId = x.$route.params.projectId;
             await RoleService.getusers(projectId, token).then((request) => {
                 x.users = request.data.map(x => x.user);
             })
