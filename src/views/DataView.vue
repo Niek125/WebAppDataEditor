@@ -1,7 +1,7 @@
 <template>
     <v-row class="ma-0">
         <v-sheet tile height="calc(100vh - 64px)" class="transparent overflow-x-auto" id="table"
-                 :width="tab != 'closed' ? 'calc(100vw - 64px - (3.5 * (100vw /12)))' : 'calc(100vw - 64px)'">
+                 :width="tab != 'closed' ? 'calc(100vw - ' + sideBarWidthExpanded +  ')' : 'calc(100vw - ' + sideBarWidth + ')'">
             <v-row class="ma-0">
                 <v-toolbar class="grey darken-4" flat>
                     <v-row class="ma-0">
@@ -44,12 +44,7 @@
                 </v-col>
             </v-row>
         </v-sheet>
-        <v-sheet tile height="calc(100vh - 64px)" width="calc(3.5 * (100vw /12))" v-if="tab != 'closed'"
-                 :class="level1">
-            <chat v-if="tab == 'chat'"></chat>
-            <PeopleList v-else-if="tab == 'users'"></PeopleList>
-        </v-sheet>
-        <SideBar :set-tab="setTab" width="64px"></SideBar>
+        <SideBar></SideBar>
     </v-row>
 </template>
 
@@ -60,14 +55,7 @@
 </style>
 
 <script>
-    import Chat from "../components/DataView/Chat/Chat";
-    import PeopleList from "../components/DataView/UserList/PeopleList";
-
     import UpdateService from "../services/UpdateService";
-    // import ProjectService from "../services/ProjectService";
-    // import DataSetService from "../services/DataSetService";
-    // import RoleService from "../services/RoleService";
-
     import { mapGetters } from "vuex"
     import SideBar from "../components/DataView/SideBar/SideBar";
 
@@ -75,17 +63,13 @@
         name: "DataView",
         data() {
             return {
-                tab: "closed",
                 scroller: 0,
                 rowlength: 0,
                 sliderload: true,
-                col1: "50px"
             }
         },
         components: {
             SideBar,
-            Chat,
-            PeopleList
         },
         computed: {
             ...mapGetters("project", {
@@ -93,12 +77,14 @@
             }),
             ...mapGetters("theme", {
                 level1: "level1",
+            }),
+            ...mapGetters("dataView", {
+                tab: "tab",
+                sideBarWidth: "sideBarWidth",
+                sideBarWidthExpanded: "sideBarWidthExpanded",
             })
         },
         methods: {
-            setTab: function(nTab){
-                this.tab == nTab ? this.tab = 'closed' : this.tab = nTab;
-            },
             scrollrow: function () {
                 const rows = document.getElementsByClassName("scrollable");
                 for (let i = 0; i < rows.length; i++) {
@@ -108,13 +94,6 @@
             setscrollwidth: function () {
                 // const element = document.getElementsByClassName("scrollable").item(0);
                 // this.rowlength = element.scrollWidth - element.offsetWidth;
-            },
-            close: function () {
-                this.dialog = false;
-                setTimeout(() => {
-                    this.editedItem = Object.assign({}, this.defaultItem)
-                    this.editedIndex = -1
-                }, 300)
             },
             editdata: function (data) {
                 Object.assign(this.project.data.items[data.rownumber], data.row)

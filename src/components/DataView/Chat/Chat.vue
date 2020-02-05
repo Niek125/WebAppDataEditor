@@ -1,6 +1,6 @@
 <template>
     <v-container class="pa-0">
-        <v-sheet id="scroll" tile height="calc(100vh - 64px - 66px)" class="transparent">
+        <v-sheet id="scroll" tile :height="'calc(' + height + ' - 66px)'" class="transparent">
             <v-col cols="12" class="pa-2">
                 <ChatMessage v-for="data in chat" :key="data.messageid" :content="data.content" :this-user="data.senderid == uid"
                              :send-time="data.sendtime" :sender-name="getUserName(data.senderid)" :users="users"></ChatMessage>
@@ -34,7 +34,10 @@
                 dark: "dark",
                 level0: "level0",
                 level1: "level1",
-            })
+            }),
+            ...mapGetters("dataView", {
+                height: "height",
+            }),
         },
         components: {
             ChatMessage
@@ -47,7 +50,7 @@
                 uid: this.$session.get('userData').uid,
                 input: "",
                 chat: [],
-                messagedelta: Infinity
+                messageDelta: Infinity
             }
         },
         methods: {
@@ -74,7 +77,7 @@
                 const x = this;
                 const element = document.getElementById("scroll");
                 const scroll = (element.scrollTop - element.scrollHeight) >= this.messagedelta;
-                x.messagedelta = element.scrollTop - element.scrollHeight - 1;
+                x.messageDelta = element.scrollTop - element.scrollHeight - 1;
                 x.chat.push(message);
                 if (scroll) {
                     setTimeout(function () {
@@ -100,7 +103,7 @@
 
             const element = document.getElementById("scroll");
             x.updateScroll();
-            x.messagedelta = element.scrollTop - element.scrollHeight - 1;
+            x.messageDelta = element.scrollTop - element.scrollHeight - 1;
 
             UpdateService.setaddmessage(x.addmessage);
         }
