@@ -1,6 +1,6 @@
 <template>
-    <v-app-bar :class="level0" elevate-on-scroll scroll-target="#app-scroll">
-        <v-row align="center" justify="center">
+    <v-app-bar :class="level0" elevate-on-scroll scroll-target="#app-scroll" class="navbar">
+        <v-row align="center" justify="center" class="ma-0">
             <v-col cols="2" class="pa-0">
                 <v-card-title :class="textColor" v-on:click="toOverview()">
                     <v-icon class="mr-4" :class="textColor">mdi-file-document-edit-outline</v-icon>

@@ -1,7 +1,7 @@
 <template>
     <v-row class="ma-0">
         <v-sheet tile height="calc(100vh - 64px)" class="transparent overflow-x-auto" id="table"
-                 :width="tab != 'closed' ? 'calc(100vw - 64px - (3.5 * (100vw /12)))' : 'calc(100vw - 64px)'">
+                 :width="tab != 'closed' ? 'calc(100vw - 72px - (3.5 * (100vw /12)))' : 'calc(100vw - 72px)'">
             <v-row class="ma-0">
                 <v-toolbar class="grey darken-4" flat>
                     <v-row class="ma-0">
@@ -44,31 +44,12 @@
                 </v-col>
             </v-row>
         </v-sheet>
-        <v-sheet tile height="calc(100vh - 64px)" width="calc(3.5 * (100vw /12))" v-if="tab != 'closed'"
+        <v-sheet tile height="calc(100vh - 72px)" width="calc(3.5 * (100vw /12))" v-if="tab != 'closed'"
                  class="grey darken-4">
             <chat v-if="tab == 'chat'"></chat>
             <PeopleList v-else-if="tab == 'users'"></PeopleList>
         </v-sheet>
-        <v-sheet class="black" width="64px" height="calc(100vh - 64px)" tile>
-            <v-list class="black">
-                <v-list-item class="px-3">
-                    <v-hover v-slot:default="{ hover }">
-                        <v-list-item-avatar v-on:click="tab == 'chat' ? tab = 'closed' : tab = 'chat'"
-                                            :class="hover ? 'grey darken-3' : 'black'">
-                            <v-icon>mdi-message</v-icon>
-                        </v-list-item-avatar>
-                    </v-hover>
-                </v-list-item>
-                <v-list-item class="px-3">
-                    <v-hover v-slot:default="{ hover }">
-                        <v-list-item-avatar v-on:click="tab == 'users' ? tab = 'closed' : tab = 'users'"
-                                            :class="hover ? 'grey darken-3' : 'black'">
-                            <v-icon>mdi-account-group</v-icon>
-                        </v-list-item-avatar>
-                    </v-hover>
-                </v-list-item>
-            </v-list>
-        </v-sheet>
+        <SideBar :set-tab="setTab" width="72px"></SideBar>
     </v-row>
 </template>
 
@@ -88,6 +69,7 @@
     // import RoleService from "../services/RoleService";
 
     import { mapGetters } from "vuex"
+    import SideBar from "../components/DataView/SideBar/SideBar";
 
     export default {
         name: "DataView",
@@ -101,6 +83,7 @@
             }
         },
         components: {
+            SideBar,
             Chat,
             PeopleList
         },
@@ -110,6 +93,9 @@
             })
         },
         methods: {
+            setTab: function(nTab){
+                this.tab == nTab ? this.tab = 'closed' : this.tab = nTab;
+            },
             scrollrow: function () {
                 const rows = document.getElementsByClassName("scrollable");
                 for (let i = 0; i < rows.length; i++) {
