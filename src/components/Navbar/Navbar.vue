@@ -3,16 +3,16 @@
         <v-row align="center" justify="center" class="ma-0">
             <v-col cols="2" class="pa-0">
                 <v-card-title :class="textColor" v-on:click="toOverview()">
-                    <v-icon class="mr-4" :class="textColor">mdi-file-document-edit-outline</v-icon>
+                    <v-icon class="mx-4" :class="textColor">mdi-file-document-edit-outline</v-icon>
                     DataEditor
                 </v-card-title>
             </v-col>
             <v-spacer></v-spacer>
             <v-col cols="4">
-                <v-autocomplete :items="projects" item-text="projectName" outlined dense shaped label="search"
-                                :hide-details="true" :class="level1">
+                <v-autocomplete :items="projects" item-text="projectName" outlined dense shaped
+                                :hide-details="true" :class="level1" :dark="dark" style="outline: transparent !important;">
                     <template v-slot:label>
-                        <span :class="textColor">Search</span>
+                        <div :class="textColor" class="mx-2">Search</div>
                     </template>
                     <template v-slot:item="data">
                         <v-list-item-content v-text="data.item.projectname" class="black--text"
@@ -20,7 +20,7 @@
                     </template>
                     <template v-slot:no-data>
                         <v-list-item>
-                            <v-list-item-content>No projects found</v-list-item-content>
+                            <v-list-item-title class="black--text">No projects found</v-list-item-title>
                         </v-list-item>
                     </template>
                 </v-autocomplete>
@@ -59,6 +59,7 @@
         computed: {
             ...mapGetters("theme", {
                 textColor: "textColor",
+                dark: "dark",
                 level0: "level0",
                 level1: "level1",
             })

@@ -1,9 +1,10 @@
 import Vue from "vue"
+import router from "../router";
 
 export const redirectProject = {
     methods: {
         redirectProject: function (id) {
-            Vue.prototype.$router.push({name: "dataView", params: {projectId: id}});
+            router.push({name: "dataView", params: {projectId: id}});
             let cookie = JSON.parse(Vue.prototype.$cookie.get("recent"));
             if (cookie != null) {
                 for (let i = 0; i < cookie.length; i++) {

@@ -45,7 +45,7 @@
             </v-row>
         </v-sheet>
         <v-sheet tile height="calc(100vh - 64px)" width="calc(3.5 * (100vw /12))" v-if="tab != 'closed'"
-                 class="grey darken-4">
+                 :class="level1">
             <chat v-if="tab == 'chat'"></chat>
             <PeopleList v-else-if="tab == 'users'"></PeopleList>
         </v-sheet>
@@ -90,6 +90,9 @@
         computed: {
             ...mapGetters("project", {
                 project: "project"
+            }),
+            ...mapGetters("theme", {
+                level1: "level1",
             })
         },
         methods: {
