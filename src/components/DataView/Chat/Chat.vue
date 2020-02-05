@@ -1,17 +1,15 @@
 <template>
     <v-container class="pa-0">
-        <v-sheet id="scroll" tile height="calc(100vh - 64px - 66px)" width="calc(3.5 * (100vw /12))" class="transparent">
+        <v-sheet id="scroll" tile height="calc(100vh - 64px - 66px)" class="transparent">
             <v-col cols="12" class="pa-0">
-                <ChatMessage v-for="data in chat" v-bind:key="data.messageid"
-                             v-bind:content="data.content" v-bind:sendtime="data.sendtime"
-                             v-bind:senderid="data.senderid"
-                             v-bind:users="users"></ChatMessage>
+                <ChatMessage v-for="data in chat" :key="data.messageid" :content="data.content" :this-user="data.senderid == uid"
+                             :send-time="data.sendtime" :sender-name="getUserName(data.senderid)" :users="users"></ChatMessage>
             </v-col>
         </v-sheet>
         <v-row justify="center">
             <v-col cols="10" class="pa-0">
                 <v-text-field v-model="input" @keyup.enter.native="send(input)" full-width
-                              @click:append="send()" counter maxlength="256"
+                              @click:append="send()" counter maxlength="256" :dark="dark"
                               label="Message..." outlined filled dense rounded
                               append-icon="fas fa-paper-plane"></v-text-field>
             </v-col>
@@ -24,11 +22,20 @@
     import UpdateService from "../../../services/UpdateService";
     import MessageService from "../../../services/MessageService";
     import RoleService from "../../../services/RoleService";
+    import {mapGetters} from "vuex";
 
     const uuidv1 = require("uuid/v1");
 
     export default {
         name: "Chat",
+        computed: {
+            ...mapGetters("theme", {
+                textColor: "textColor",
+                dark: "dark",
+                level0: "level0",
+                level1: "level1",
+            })
+        },
         components: {
             ChatMessage
         },
@@ -37,12 +44,18 @@
         },
         data() {
             return {
+                uid: this.$session.get('userData').uid,
                 input: "",
                 chat: [],
                 messagedelta: Infinity
             }
         },
         methods: {
+            getUserName: function (senderid) {
+                return this.users.find(function (user) {
+                    return (user.userid).toString() == senderid;
+                }).username;
+            },
             send: function () {
                 if (this.input.length > 0) {
                     const message = {
@@ -77,11 +90,11 @@
         async created() {
             const x = this;
             const token = this.$session.get("jwt");
-            const projectid = this.$route.params.projectid;
-            await RoleService.getusers(projectid, token).then((request) => {
+            const projectId = this.$route.params.projectId;
+            await RoleService.getusers(projectId, token).then((request) => {
                 x.users = request.data.map(x => x.user);
             })
-            await MessageService.getmessages(projectid, token).then((res) => {
+            await MessageService.getmessages(projectId, token).then((res) => {
                 x.chat = res.data;
             })
 

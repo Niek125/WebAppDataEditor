@@ -1,15 +1,15 @@
 <template>
     <div>
-        <v-row v-if="senderid == this.$session.get('userData').uid">
+        <v-row v-if="thisUser">
             <v-spacer></v-spacer>
             <v-col cols="10" class="px-2 py-1">
-                <Message v-bind:content="this.content" v-bind:sendtime="this.sendtime" v-bind:senderid="this.senderid"
+                <Message v-bind:content="this.content" v-bind:send-time="sendTime" v-bind:sender-name="senderName"
                          v-bind:users="this.users"></Message>
             </v-col>
         </v-row>
         <v-row v-else>
             <v-col cols="10" class="px-2 py-1">
-                <Message v-bind:content="this.content" v-bind:sendtime="this.sendtime" v-bind:senderid="this.senderid"
+                <Message v-bind:content="this.content" v-bind:send-time="sendTime" v-bind:sender-name="senderName"
                          v-bind:users="this.users"></Message>
             </v-col>
             <v-spacer></v-spacer>
@@ -24,9 +24,9 @@
         name: "ChatMessage",
         props: {
             content: String,
-            sendtime: String,
-            senderid: String,
-            users: Array
+            sendTime: String,
+            senderName: String,
+            thisUser: Boolean
         },
         components: {
             Message
