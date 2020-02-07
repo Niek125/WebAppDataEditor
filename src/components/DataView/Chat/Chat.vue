@@ -54,9 +54,9 @@
             }
         },
         methods: {
-            getUserName: function (senderid) {
+            getUserName: function (senderId) {
                 return this.users.find(function (user) {
-                    return (user.userid).toString() == senderid;
+                    return (user.userid).toString() == senderId;
                 }).username;
             },
             send: function () {

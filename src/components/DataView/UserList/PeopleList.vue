@@ -61,7 +61,7 @@
         async created() {
             const x = this;
             const token = this.$session.get("jwt");
-            const projectid = this.$route.params.projectid;
+            const projectid = this.$route.params.projectId;
             await RoleService.getusers(projectid, token).then((request) => {
                 x.userroles = request.data;
             })

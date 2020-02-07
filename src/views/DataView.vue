@@ -56,7 +56,7 @@
 
 <script>
     import UpdateService from "../services/UpdateService";
-    import { mapGetters } from "vuex"
+    import {mapGetters} from "vuex"
     import SideBar from "../components/DataView/SideBar/SideBar";
 
     export default {
