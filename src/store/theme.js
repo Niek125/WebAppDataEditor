@@ -38,7 +38,7 @@ export default {
             state.divider = payload
         },
         SET_TEXT_COLOR(state, payload) {
-            state.textColor = payload;
+            state.textColor = payload + " ";
         },
         SET_LEVEL0(state, payload) {
             state.level0 = payload;
@@ -65,7 +65,7 @@ export default {
             commit("SET_GRADIENT", "black-gradient");
             commit("SET_DARK", true);
             commit("SET_DIVIDER", "white");
-            commit("SET_TEXT_COLOR", "white--text ");
+            commit("SET_TEXT_COLOR", "white--text");
             commit("SET_LEVEL0", "black");
             commit("SET_LEVEL1", "grey darken-4");
             commit("SET_LEVEL2", "grey darken-3");
@@ -80,7 +80,7 @@ export default {
             commit("SET_GRADIENT", "white-gradient");
             commit("SET_DARK", false);
             commit("SET_DIVIDER", "black");
-            commit("SET_TEXT_COLOR", "black--text ");
+            commit("SET_TEXT_COLOR", "black--text");
             commit("SET_LEVEL0", "white");
             commit("SET_LEVEL1", "grey lighten-4");
             commit("SET_LEVEL2", "grey lighten-3");
