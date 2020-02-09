@@ -1,17 +1,17 @@
 <template>
     <v-row justify="center">
         <v-col cols="8">
-            <v-hover v-slot:default="{ btnHover }">
-                <v-btn :class="textColor + level4" ripple v-on:click="signIn()" :elevation="btnHover ? 4:12" width="100%">
-                    <v-spacer></v-spacer>
-                    <v-col cols="2" class="pa-0">
+            <v-hover v-slot:default="{ hover }">
+                <v-card class="py-2 transition-fast-out-slow-in" :class="hover ? textColor + level5 : textColor + level4" v-on:click="signIn()"
+                        :elevation="hover ? 12 : 4" width="100%">
+                    <v-row class="ma-0" justify="center" align="center">
+                        <v-spacer></v-spacer>
                         <v-icon :class="textColor">{{icon}}</v-icon>
-                    </v-col>
-                    <v-spacer></v-spacer>
-                    <v-spacer></v-spacer>
-                    {{text}}
-                    <v-spacer></v-spacer>
-                </v-btn>
+                        <v-spacer></v-spacer>
+                        {{text}}
+                        <v-spacer></v-spacer>
+                    </v-row>
+                </v-card>
             </v-hover>
         </v-col>
     </v-row>
@@ -31,6 +31,7 @@
             ...mapGetters("theme", {
                 textColor: "textColor",
                 level4: "level4",
+                level5: "level5",
             })
         },
         props: {
@@ -54,12 +55,12 @@
                 firebase.auth().onIdTokenChanged(
                     function () {
                         if (firebase.auth().currentUser !== null) {
-                            firebase.auth().currentUser.getIdToken( true).then(function (idToken) {
+                            firebase.auth().currentUser.getIdToken(true).then(function (idToken) {
                                 TokenService.getToken(idToken, function (token) {
                                     x.$session.start();
                                     x.$session.set("jwt", token);
                                     x.$session.set("userData", JSON.parse(base64url.decode(token.split(".")[1])));
-                                    if(first){
+                                    if (first) {
                                         first = false;
                                         x.$router.back();
                                     }

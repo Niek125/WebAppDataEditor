@@ -14,6 +14,7 @@ export default {
         level2: "grey darken-3",
         level3: "grey darken-2",
         level4: "grey darken-1",
+        level5: "grey",
     },
     mutations: {
         SET_OVERLAY_OPACITY(state, payload) {
@@ -55,6 +56,9 @@ export default {
         SET_LEVEL4(state, payload) {
             state.level4 = payload;
         },
+        SET_LEVEL5(state, payload) {
+            state.level5 = payload;
+        },
     },
     actions: {
         setDarkTheme({commit}) {
@@ -71,6 +75,7 @@ export default {
             commit("SET_LEVEL2", "grey darken-3");
             commit("SET_LEVEL3", "grey darken-2");
             commit("SET_LEVEL4", "grey darken-1");
+            commit("SET_LEVEL5", "grey");
         },
         setWhiteTheme({commit}) {
             commit("SET_OVERLAY_OPACITY", 0.0);
@@ -86,6 +91,7 @@ export default {
             commit("SET_LEVEL2", "grey lighten-3");
             commit("SET_LEVEL3", "grey lighten-2");
             commit("SET_LEVEL4", "grey lighten-1");
+            commit("SET_LEVEL5", "grey");
         }
     },
     getters: {
@@ -127,6 +133,9 @@ export default {
         },
         level4: state => {
             return state.level4;
+        },
+        level5: state => {
+            return state.level5;
         },
     }
 }
