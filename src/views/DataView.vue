@@ -1,49 +1,6 @@
 <template>
     <v-row class="ma-0">
-        <v-sheet tile height="calc(100vh - 64px)" class="transparent overflow-x-auto" :class="gradient"
-                 :width="tab != 'closed' ? 'calc(100vw - ' + sideBarWidthExpanded +  ')' : 'calc(100vw - ' + sideBarWidth + ')'">
-            <v-row class="ma-0">
-                <v-toolbar class="grey darken-4" flat>
-                    <v-row class="ma-0">
-                        <v-toolbar-title>{{project.projectName}}</v-toolbar-title>
-                    </v-row>
-                </v-toolbar>
-            </v-row>
-            <v-row class="ma-0">
-                <v-toolbar flat class="grey darken-3">
-                    <v-col cols="12" class="pa-0">
-                        <v-row class="ma-0">
-                            <v-slider v-on:input="scrollrow()" class="mx-4" dense color="white" track-color="black"
-                                      v-model="scroller" min="0" :max="rowlength" :loading="sliderload"
-                                      hide-details v-resize="setscrollwidth"></v-slider>
-                        </v-row>
-                        <v-row class="ma-0">
-                            <v-hover v-slot:default="{ hover }">
-                                <v-chip class="transparent transition-fast-out-slow-in"
-                                        :class="hover ? 'grey darken-2' : ''">
-                                    <v-flex class="flex-nowrap scrollable overflow-x-auto">
-                                        <input autocomplete="off" :value="rowlength" type="text"
-                                               style="outline: transparent;">
-                                    </v-flex>
-                                </v-chip>
-                            </v-hover>
-                        </v-row>
-                    </v-col>
-                </v-toolbar>
-            </v-row>
-            <v-row class="ma-0">
-                <v-col cols="12" class="py-0 px-4">
-                    <v-hover v-slot:default="{ hover }">
-                        <v-chip :class="hover ? 'grey darken-2 my-1' : 'transparent'"
-                                class="transition-fast-out-slow-in">
-                            <v-flex class="flex-nowrap scrollable overflow-x-auto">
-                                <input autocomplete="off" :value="rowlength" type="text" style="outline: transparent;">
-                            </v-flex>
-                        </v-chip>
-                    </v-hover>
-                </v-col>
-            </v-row>
-        </v-sheet>
+        <DataTable></DataTable>
         <SideBar></SideBar>
     </v-row>
 </template>
@@ -60,46 +17,16 @@
 
 <script>
     import UpdateService from "../services/UpdateService";
-    import {mapGetters} from "vuex"
     import SideBar from "../components/DataView/SideBar/SideBar";
+    import DataTable from "../components/DataView/DataTable/DataTable";
 
     export default {
         name: "DataView",
-        data() {
-            return {
-                scroller: 0,
-                rowlength: 0,
-                sliderload: true,
-            }
-        },
         components: {
+            DataTable,
             SideBar,
         },
-        computed: {
-            ...mapGetters("project", {
-                project: "project"
-            }),
-            ...mapGetters("theme", {
-                gradient: "gradient",
-                level1: "level1",
-            }),
-            ...mapGetters("dataView", {
-                tab: "tab",
-                sideBarWidth: "sideBarWidth",
-                sideBarWidthExpanded: "sideBarWidthExpanded",
-            })
-        },
         methods: {
-            scrollrow: function () {
-                const rows = document.getElementsByClassName("scrollable");
-                for (let i = 0; i < rows.length; i++) {
-                    rows[i].scrollLeft = this.scroller;
-                }
-            },
-            setscrollwidth: function () {
-                // const element = document.getElementsByClassName("scrollable").item(0);
-                // this.rowlength = element.scrollWidth - element.offsetWidth;
-            },
             editdata: function (data) {
                 Object.assign(this.project.data.items[data.rownumber], data.row)
             },

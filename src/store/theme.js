@@ -6,6 +6,7 @@ export default {
         btnDeny: "red darken-4",
         btnInfo: "blue darken-4",
         gradient: "black-gradient",
+        scrollStyle: "grey-white-grey",
         dark: true,
         divider: "white",
         textColor: "white--text ",
@@ -31,6 +32,9 @@ export default {
         },
         SET_GRADIENT(state, payload) {
             state.gradient = payload;
+        },
+        SET_SCROLL_STYLE(state, payload) {
+            state.scrollStyle = payload;
         },
         SET_DARK(state, payload) {
             state.dark = payload
@@ -67,6 +71,7 @@ export default {
             commit("SET_BTN_DENY", "red darken-4");
             commit("SET_BTN_INFO", "blue darken-4");
             commit("SET_GRADIENT", "black-gradient");
+            commit("SET_SCROLL_STYLE", "grey-white-grey");
             commit("SET_DARK", true);
             commit("SET_DIVIDER", "white");
             commit("SET_TEXT_COLOR", "white--text");
@@ -83,6 +88,7 @@ export default {
             commit("SET_BTN_DENY", "red lighten-2");
             commit("SET_BTN_INFO", "blue lighten-2");
             commit("SET_GRADIENT", "white-gradient");
+            commit("SET_SCROLL_STYLE", "grey-black-grey");
             commit("SET_DARK", false);
             commit("SET_DIVIDER", "black");
             commit("SET_TEXT_COLOR", "black--text");
@@ -109,6 +115,9 @@ export default {
         },
         gradient: state => {
             return state.gradient;
+        },
+        scrollStyle: state => {
+            return state.scrollStyle;
         },
         dark: state => {
             return state.dark;
