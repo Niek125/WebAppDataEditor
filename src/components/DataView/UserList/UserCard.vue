@@ -32,7 +32,7 @@
                     <v-card-text class="px-0 mx-4" :class="textColor">{{user.email}}</v-card-text>
                 </v-row>
                 <v-row align="center" justify="center">
-                    <v-select v-model="currentRole" :items="roles" :dark="dark" class="mx-4">
+                    <v-select v-model="currentRole" :items="roles" :dark="dark" class="mx-4 my-2" :rules="[(value) => value != null || 'The owner of a dataset cannot change or have multiple']">
                         <template v-slot:item="data">
                             <v-list-item-content v-text="data.item.text" class="black--text">HI</v-list-item-content>
                         </template>
