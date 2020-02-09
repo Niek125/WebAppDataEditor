@@ -1,6 +1,6 @@
 <template>
     <v-row class="ma-0">
-        <v-sheet tile height="calc(100vh - 64px)" class="transparent overflow-x-auto" id="table"
+        <v-sheet tile height="calc(100vh - 64px)" class="transparent overflow-x-auto" :class="gradient"
                  :width="tab != 'closed' ? 'calc(100vw - ' + sideBarWidthExpanded +  ')' : 'calc(100vw - ' + sideBarWidth + ')'">
             <v-row class="ma-0">
                 <v-toolbar class="grey darken-4" flat>
@@ -49,8 +49,12 @@
 </template>
 
 <style scoped>
-    #table {
+    .black-gradient {
         background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+    }
+
+    .white-gradient {
+        background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.35));
     }
 </style>
 
@@ -76,6 +80,7 @@
                 project: "project"
             }),
             ...mapGetters("theme", {
+                gradient: "gradient",
                 level1: "level1",
             }),
             ...mapGetters("dataView", {
