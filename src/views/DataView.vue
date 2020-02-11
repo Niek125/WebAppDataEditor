@@ -77,10 +77,6 @@
             },
         },
         async mounted() {
-            this.setscrollwidth();
-            this.sliderload = false;
-
-
             // const x = this;
             // const token = this.$session.get("jwt");
             // const projectid = this.$route.params.projectid;

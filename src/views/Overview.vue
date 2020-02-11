@@ -1,11 +1,11 @@
 <template>
     <v-container fluid class="pa-0">
-        <v-row justify="center">
+        <v-row justify="center" class="ma-0">
             <v-container class="fill-height ma-2" fluid>
-                <v-row justify="center">
+                <v-row justify="center" class="ma-0">
                     <v-col cols="11">
                         <v-card class="mr-8 ml-8 mb-4" :class="level2" outlined>
-                            <v-row class="pa-4">
+                            <v-row class="pa-4 ma-0">
                                 <AddProject></AddProject>
                                 <project-card v-for="data in recent" v-bind:key="data.projectid"
                                               v-bind:content="data.projectname" icon="mdi-xml"

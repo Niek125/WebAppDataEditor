@@ -1,19 +1,14 @@
 <template>
     <v-sheet tile height="calc(100vh - 64px)" class="transparent overflow-x-auto" :class="gradient"
              :width="tab != 'closed' ? 'calc(100vw - ' + sideBarWidthExpanded +  ')' : 'calc(100vw - ' + sideBarWidth + ')'">
-        <v-data-table :headers="headers" :items="desserts" fixed-header hide-default-footer class="transparent data-table"
+        <v-data-table :headers="headers" :items="desserts" fixed-header hide-default-footer
+                      class="transparent data-table" multi-sort hide-default-header
                       :height="'calc(' + height + ')'" :class="scrollStyle">
+            <template v-slot:header="{props, on}">
+                <TableHeader :props="props" :on="on"></TableHeader>
+            </template>
             <template v-slot:item="{item, select, isSelected, expand, isExpanded, headers, index}">
-                <tr>
-                    <td>
-                        <v-edit-dialog>
-                            <v-card-text>{{item.name}}</v-card-text>
-                            <template v-slot:input>
-                                <v-text-field :value="item.name"></v-text-field>
-                            </template>
-                        </v-edit-dialog>
-                    </td>
-                </tr>
+                <DataRow :item="item" :headers="headers" :index="index"></DataRow>
             </template>
         </v-data-table>
     </v-sheet>
@@ -21,13 +16,21 @@
 
 <style>
     .data-table div::-webkit-scrollbar-track {
-        border-radius: 8px;
-        background-color: transparent;
+        border-radius: 9px;
     }
 
     .data-table div::-webkit-scrollbar {
         height: 18px;
+        width: 18px;
         background-color: transparent;
+    }
+
+    .data-table div::-webkit-scrollbar-corner {
+        display: none;
+    }
+
+    .grey-white-grey div::-webkit-scrollbar-track {
+        background-color: black;
     }
 
     .grey-white-grey div::-webkit-scrollbar-thumb {
@@ -40,9 +43,13 @@
         grey 100%);
     }
 
+    .grey-black-grey div::-webkit-scrollbar-track {
+        background-color: white;
+    }
+
     .grey-black-grey div::-webkit-scrollbar-thumb {
         border-radius: 9px;
-        background-color: white;
+        background-color: black;
         background-image: -webkit-linear-gradient(right,
         grey 0%,
         black 25%,
@@ -53,9 +60,12 @@
 
 <script>
     import {mapGetters} from "vuex";
+    import DataRow from "./DataRow";
+    import TableHeader from "./TableHeader";
 
     export default {
         name: "DataTable",
+        components: {TableHeader, DataRow},
         computed: {
             ...mapGetters("dataView", {
                 tab: "tab",
@@ -71,24 +81,12 @@
         data() {
             return {
                 headers: [
-                    {text: 'Dessert (100g serving)', value: 'name'},
-                    {text: 'Calories', value: 'calories'},
-                    {text: 'Fat (g)', value: 'fat'},
-                    {text: 'Carbs (g)', value: 'carbs'},
-                    {text: 'Protein (g)', value: 'protein'},
-                    {text: 'Iron (%)', value: 'iron'},
-                    {text: 'Dessert (100g serving)', value: 'name'},
-                    {text: 'Calories', value: 'calories'},
-                    {text: 'Fat (g)', value: 'fat'},
-                    {text: 'Carbs (g)', value: 'carbs'},
-                    {text: 'Protein (g)', value: 'protein'},
-                    {text: 'Iron (%)', value: 'iron'},
-                    {text: 'Dessert (100g serving)', value: 'name'},
-                    {text: 'Calories', value: 'calories'},
-                    {text: 'Fat (g)', value: 'fat'},
-                    {text: 'Carbs (g)', value: 'carbs'},
-                    {text: 'Protein (g)', value: 'protein'},
-                    {text: 'Iron (%)', value: 'iron'},
+                    {text: 'Dessert (100g serving)', value: 'name', width: 100},
+                    {text: 'Calories', value: 'calories', width: 100},
+                    {text: 'Fat (g)', value: 'fat', width: 100},
+                    {text: 'Carbs (g)', value: 'carbs', width: 100},
+                    {text: 'Protein (g)', value: 'protein', width: 100},
+                    {text: 'Iron (%)', value: 'iron', width: 100},
                 ],
                 desserts: [
                     {
