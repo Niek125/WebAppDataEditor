@@ -1,8 +1,15 @@
 <template>
     <tr>
         <td :class="textColor" v-for="header in headers" :key="'row' + index + header.value">
-            <input :value="item[header.value]" type="text" style="outline: transparent; min-width: 20px;"
-                   :style="'width: calc(' + header.width + 'px);'">
+            <v-hover v-slot:default="{hover}">
+                <v-sheet tile :class="hover ? level1: 'transparent'" :width="header.width">
+<!--                    <input :value="item[header.value]" type="text"-->
+<!--                            style="outline: transparent; min-width: 20px;"-->
+<!--                            :style="'width: calc(' + header.width + 'px);'">-->
+                    <v-text-field :dark="dark" :value="item[header.value]" dense hide-details full-width></v-text-field>
+                    <v-divider vertical :dark="dark"></v-divider>
+                </v-sheet>
+            </v-hover>
         </td>
     </tr>
 </template>
@@ -19,7 +26,9 @@
         },
         computed: {
             ...mapGetters("theme", {
+                dark: "dark",
                 textColor: "textColor",
+                level1: "level1",
             }),
         },
     }
