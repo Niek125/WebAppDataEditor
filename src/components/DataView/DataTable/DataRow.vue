@@ -1,6 +1,6 @@
 <template>
-    <tr>
-        <td :class="textColor" v-for="header in headers" :key="'row' + index + header.value">
+    <div style="display: table-row">
+        <div style="display: table-cell" :class="textColor" v-for="header in headers" :key="'field' + index + header.value">
             <v-hover v-slot:default="{hover}">
                 <v-sheet tile :class="hover ? level1: 'transparent'" :width="header.width">
 <!--                    <input :value="item[header.value]" type="text"-->
@@ -10,8 +10,8 @@
                     <v-divider vertical :dark="dark"></v-divider>
                 </v-sheet>
             </v-hover>
-        </td>
-    </tr>
+        </div>
+    </div>
 </template>
 
 <script>
