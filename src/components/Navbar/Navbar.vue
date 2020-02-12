@@ -1,5 +1,5 @@
 <template>
-    <v-app-bar :class="level0" elevate-on-scroll scroll-target="#app-scroll" class="navigationBarDataEditor">
+    <v-app-bar :class="level0" elevate-on-scroll scroll-target="#app-scroll" class="navigationBarDataEditor" tile>
         <v-row align="center" justify="center" class="ma-0">
             <v-col cols="2" class="pa-0">
                 <v-card-title :class="textColor" v-on:click="toOverview()">

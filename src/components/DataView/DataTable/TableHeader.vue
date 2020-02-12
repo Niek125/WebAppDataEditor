@@ -1,25 +1,43 @@
 <template>
-    <v-sheet style="display: table-row; position: sticky;" min-width="">
-        <div style="display: table-cell;" v-for="header in headers" :key="'header' + header.name + header.value"
-            v-on:mouseup="mouseDown = false" class="pr-0">
-            <v-row class="ma-0">
-                <v-sheet :width="header.width" tile>
-                    <v-row class="ma-0" align="center" justify="center">
-                        <v-btn icon v-on:mousedown="() => {mouseDown = true; setHeaderWidth(header, -scrollPace);}">
-                            <v-icon>mdi-chevron-left</v-icon>
-                        </v-btn>
-                        <v-sheet tile :width="header.width - (2 * buttonWidth)">
-                            <div class="text-no-wrap overflow-x-hidden">{{header.text}}</div>
-                        </v-sheet>
-                        <v-btn icon v-on:mousedown="() => {mouseDown = true; setHeaderWidth(header, scrollPace);}" :width="buttonWidth">
-                            <v-icon>mdi-chevron-right</v-icon>
-                        </v-btn>
-                    </v-row>
-                </v-sheet>
-            </v-row>
-        </div>
-    </v-sheet>
+    <v-app-bar elevate-on-scroll scroll-target="#data-table" tile class="table-header" :height="headerHeight">
+        <v-hover v-slot:default="{hover}" v-for="header in headers" :key="'header' + header.name + header.value">
+            <v-sheet tile v-on:mouseup="mouseDown = false" class="transparent">
+                <v-row class="ma-0" justify="center">
+                    <v-sheet :width="header.width" tile class="transparent">
+                        <v-row class="ma-0" align="center">
+                            <v-btn v-if="hover" icon
+                                   v-on:mousedown="() => {mouseDown = true; setHeaderWidth(header, -scrollPace);}"
+                                   :width="buttonWidth" :height="buttonWidth">
+                                <v-icon>mdi-chevron-left</v-icon>
+                            </v-btn>
+                            <v-sheet tile :width="hover ? header.width - (2 * buttonWidth) : header.width">
+                                <v-row class="ma-0" justify="center">
+                                    <v-toolbar-title class="text-no-wrap overflow-hidden">{{header.text}}
+                                    </v-toolbar-title>
+                                </v-row>
+                            </v-sheet>
+                            <v-btn v-if="hover" icon
+                                   v-on:mousedown="() => {mouseDown = true; setHeaderWidth(header, scrollPace);}"
+                                   :width="buttonWidth" :height="buttonWidth">
+                                <v-icon>mdi-chevron-right</v-icon>
+                            </v-btn>
+                        </v-row>
+                    </v-sheet>
+                </v-row>
+            </v-sheet>
+        </v-hover>
+    </v-app-bar>
 </template>
+
+<style>
+    .table-header div {
+        padding: 0px !important;
+    }
+</style>
+
+<style scoped>
+
+</style>
 
 <script>
     import {mapGetters} from "vuex";
@@ -32,10 +50,7 @@
                 level1: "level1",
             }),
             ...mapGetters("dataView", {
-                tab: "tab",
-                height: "height",
-                sideTabWidth: "sideTabWidth",
-                sideBarWidth: "sideBarWidth",
+                headerHeight: "headerHeight",
             }),
         },
         props: {
@@ -44,7 +59,7 @@
         data() {
             return {
                 mouseDown: false,
-                buttonWidth: 36,
+                buttonWidth: 32,
                 scrollPace: 4,
             }
         },
@@ -63,7 +78,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>

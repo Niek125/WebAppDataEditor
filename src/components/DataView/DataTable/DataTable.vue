@@ -1,9 +1,12 @@
 <template>
-    <v-sheet tile :height="'calc(' + height + ')'" class="data-table transparent" :class="gradient + ' ' + scrollStyle"
+    <v-sheet tile class="transparent overflow-hidden" :height="'calc(' + height + ')'"
              :width="tab != 'closed' ? 'calc(100vw - ' + sideBarWidthExpanded +  ')' : 'calc(100vw - ' + sideBarWidth + ')'">
         <TableHeader :headers="headers"></TableHeader>
-        <DataRow v-for="(item, index) in desserts" :key="'row' + item + index" :index="index" :item="item"
-                 :headers="headers"></DataRow>
+        <v-sheet tile class="data-table transparent" :height="'calc(' + height + ' - ' + headerHeight + ')'"
+                 :class="gradient + ' ' + scrollStyle" id="data-table">
+            <DataRow v-for="(item, index) in desserts" :key="'row' + item + index" :index="index" :item="item"
+                     :headers="headers"></DataRow>
+        </v-sheet>
     </v-sheet>
 </template>
 
@@ -21,6 +24,7 @@
                 sideBarWidth: "sideBarWidth",
                 sideBarWidthExpanded: "sideBarWidthExpanded",
                 height: "height",
+                headerHeight: "headerHeight",
             }),
             ...mapGetters("theme", {
                 gradient: "gradient",

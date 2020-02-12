@@ -5,6 +5,7 @@ export default {
         height: "(100vh - 64px)",
         sideBarWidth: "64px",
         sideTabWidth: "(3.5 * (100vw /12))",
+        headerHeight: "40px",
     },
     mutations: {
         SET_TAB(state, payload){
@@ -31,6 +32,9 @@ export default {
         },
         height: state => {
             return state.height;
+        },
+        headerHeight: state => {
+            return state.headerHeight;
         }
     }
 }
