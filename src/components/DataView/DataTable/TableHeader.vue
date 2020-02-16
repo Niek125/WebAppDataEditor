@@ -1,26 +1,23 @@
 <template>
-    <v-app-bar elevate-on-scroll scroll-target="#data-table" tile class="table-header" :height="headerHeight">
+    <v-app-bar elevate-on-scroll scroll-target="#data-table" tile :class="level1"
+               :height="headerHeight">
         <v-hover v-slot:default="{hover}" v-for="header in headers" :key="'header' + header.name + header.value">
             <v-sheet tile v-on:mouseup="mouseDown = false" class="transparent">
                 <v-row class="ma-0" justify="center">
                     <v-sheet :width="header.width" tile class="transparent">
                         <v-row class="ma-0" align="center">
-                            <v-btn v-if="hover" icon
-                                   v-on:mousedown="() => {mouseDown = true; setHeaderWidth(header, -scrollPace);}"
-                                   :width="buttonWidth" :height="buttonWidth">
-                                <v-icon>mdi-chevron-left</v-icon>
-                            </v-btn>
-                            <v-sheet tile :width="hover ? header.width - (2 * buttonWidth) : header.width">
+                            <ColumnResizeButton :active="hover" :length="buttonWidth" icon="mdi-chevron-left"
+                                                v-on:mousedown.native="() => {mouseDown = true; setHeaderWidth(header, -scrollPace);}"></ColumnResizeButton>
+                            <v-sheet tile :width="hover ? header.width - (2 * buttonWidth) : header.width"
+                                     class="transparent">
                                 <v-row class="ma-0" justify="center">
-                                    <v-toolbar-title class="text-no-wrap overflow-hidden">{{header.text}}
+                                    <v-toolbar-title class="text-no-wrap overflow-hidden" :class="textColor">
+                                        {{header.text}}
                                     </v-toolbar-title>
                                 </v-row>
                             </v-sheet>
-                            <v-btn v-if="hover" icon
-                                   v-on:mousedown="() => {mouseDown = true; setHeaderWidth(header, scrollPace);}"
-                                   :width="buttonWidth" :height="buttonWidth">
-                                <v-icon>mdi-chevron-right</v-icon>
-                            </v-btn>
+                            <ColumnResizeButton :active="hover" :length="buttonWidth" icon="mdi-chevron-right"
+                                                v-on:mousedown.native="() => {mouseDown = true; setHeaderWidth(header, scrollPace);}"></ColumnResizeButton>
                         </v-row>
                     </v-sheet>
                 </v-row>
@@ -29,24 +26,20 @@
     </v-app-bar>
 </template>
 
-<style>
-    .table-header div {
-        padding: 0px !important;
-    }
-</style>
-
 <style scoped>
 
 </style>
 
 <script>
     import {mapGetters} from "vuex";
+    import ColumnResizeButton from "./ColumnResizeButton";
 
     export default {
         name: "TableHeader",
+        components: {ColumnResizeButton},
         computed: {
             ...mapGetters("theme", {
-                level0: "level0",
+                textColor: "textColor",
                 level1: "level1",
             }),
             ...mapGetters("dataView", {
@@ -59,7 +52,7 @@
         data() {
             return {
                 mouseDown: false,
-                buttonWidth: 32,
+                buttonWidth: 28,
                 scrollPace: 4,
             }
         },
@@ -73,7 +66,7 @@
                     if (this.mouseDown) {
                         this.setHeaderWidth(header, value);
                     }
-                }, 20);
+                }, 30);
             }
         }
     }

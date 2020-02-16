@@ -2,11 +2,11 @@
     <v-sheet tile class="transparent overflow-hidden" :height="'calc(' + height + ')'"
              :width="tab != 'closed' ? 'calc(100vw - ' + sideBarWidthExpanded +  ')' : 'calc(100vw - ' + sideBarWidth + ')'">
         <TableHeader :headers="headers"></TableHeader>
-        <v-sheet tile class="data-table transparent" :height="'calc(' + height + ' - ' + headerHeight + ')'"
+        <v-list tile class="data-table transparent" :height="'calc(' + height + ' - ' + headerHeight + ')'"
                  :class="gradient + ' ' + scrollStyle" id="data-table">
             <DataRow v-for="(item, index) in desserts" :key="'row' + item + index" :index="index" :item="item"
                      :headers="headers"></DataRow>
-        </v-sheet>
+        </v-list>
     </v-sheet>
 </template>
 
@@ -214,10 +214,6 @@
         overflow: scroll;
     }
 
-    .data-table::-webkit-scrollbar-track {
-        border-radius: 9px;
-    }
-
     .data-table::-webkit-scrollbar {
         height: 18px;
         width: 18px;
@@ -228,8 +224,8 @@
         display: none;
     }
 
-    .grey-white-grey::-webkit-scrollbar-track {
-        background-color: black;
+    .data-table::-webkit-scrollbar-track {
+        display: none;
     }
 
     .grey-white-grey::-webkit-scrollbar-thumb {
@@ -240,10 +236,6 @@
         white 25%,
         white 75%,
         grey 100%);
-    }
-
-    .grey-black-grey::-webkit-scrollbar-track {
-        background-color: white;
     }
 
     .grey-black-grey::-webkit-scrollbar-thumb {

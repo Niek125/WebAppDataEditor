@@ -1,8 +1,10 @@
 <template>
-    <v-row class="ma-0">
-        <DataTable></DataTable>
-        <SideBar></SideBar>
-    </v-row>
+    <v-sheet :class="gradient" tile class="transparent">
+        <v-row class="ma-0">
+            <DataTable></DataTable>
+            <SideBar></SideBar>
+        </v-row>
+    </v-sheet>
 </template>
 
 <style scoped>
@@ -11,7 +13,7 @@
     }
 
     .white-gradient {
-        background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.35));
+        background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.65));
     }
 </style>
 
@@ -19,9 +21,15 @@
     import UpdateService from "../services/UpdateService";
     import SideBar from "../components/DataView/SideBar/SideBar";
     import DataTable from "../components/DataView/DataTable/DataTable";
+    import {mapGetters} from "vuex";
 
     export default {
         name: "DataView",
+        computed: {
+            ...mapGetters("theme", {
+                gradient: "gradient",
+            })
+        },
         components: {
             DataTable,
             SideBar,
