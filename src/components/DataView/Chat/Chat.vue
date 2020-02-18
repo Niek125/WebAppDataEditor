@@ -10,7 +10,7 @@
             <v-col cols="10" class="pa-0">
                 <v-text-field v-model="input" @keyup.enter.native="send(input)" full-width
                               @click:append="send()" counter maxlength="256" :dark="dark"
-                              label="Message..." outlined filled dense rounded
+                              label="Message..." outlined dense rounded hide-details
                               append-icon="fas fa-paper-plane"></v-text-field>
             </v-col>
         </v-row>
@@ -20,8 +20,8 @@
 <script>
     import ChatMessage from "./ChatMessage";
     import UpdateService from "../../../services/UpdateService";
-    import MessageService from "../../../services/MessageService";
-    import RoleService from "../../../services/RoleService";
+    // import MessageService from "../../../services/MessageService";
+    // import RoleService from "../../../services/RoleService";
     import {mapGetters} from "vuex";
 
     const uuidv1 = require("uuid/v1");
@@ -91,21 +91,21 @@
             }
         },
         async created() {
-            const x = this;
-            const token = x.$session.get("jwt");
-            const projectId = x.$route.params.projectId;
-            await RoleService.getusers(projectId, token).then((request) => {
-                x.users = request.data.map(x => x.user);
-            })
-            await MessageService.getmessages(projectId, token).then((res) => {
-                x.chat = res.data;
-            })
-
-            const element = document.getElementById("scroll");
-            x.updateScroll();
-            x.messageDelta = element.scrollTop - element.scrollHeight - 1;
-
-            UpdateService.setaddmessage(x.addmessage);
+            // const x = this;
+            // const token = x.$session.get("jwt");
+            // const projectId = x.$route.params.projectId;
+            // await RoleService.getusers(projectId, token).then((request) => {
+            //     x.users = request.data.map(x => x.user);
+            // })
+            // await MessageService.getmessages(projectId, token).then((res) => {
+            //     x.chat = res.data;
+            // })
+            //
+            // const element = document.getElementById("scroll");
+            // x.updateScroll();
+            // x.messageDelta = element.scrollTop - element.scrollHeight - 1;
+            //
+            // UpdateService.setaddmessage(x.addmessage);
         }
     }
 </script>
