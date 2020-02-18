@@ -3,7 +3,7 @@
              :width="tab != 'closed' ? 'calc(100vw - ' + sideBarWidthExpanded +  ')' : 'calc(100vw - ' + sideBarWidth + ')'">
         <TableHeader :headers="headers"></TableHeader>
         <v-sheet tile class="data-table transparent" :height="'calc(' + height + ' - ' + headerHeight + ')'"
-                 :class="gradient + ' ' + scrollStyle" id="data-table" >
+                 :class="gradient + ' ' + scrollStyle" id="data-table" v-on:scroll="syncScroll">
             <DataRow v-for="(item, index) in desserts" :key="'row' + item + index" :index="index" :item="item"
                      :headers="headers"></DataRow>
         </v-sheet>
@@ -30,6 +30,11 @@
                 gradient: "gradient",
                 scrollStyle: "scrollStyle",
             }),
+        },
+        methods: {
+            syncScroll: function () {
+                document.getElementById("table-header").children[0].scrollLeft = document.getElementById("data-table").scrollLeft;
+            }
         },
         data() {
             return {
