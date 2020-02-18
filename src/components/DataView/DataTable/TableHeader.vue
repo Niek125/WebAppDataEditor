@@ -11,9 +11,8 @@
                             <v-sheet tile :width="hover ? header.width - (2 * buttonWidth) : header.width"
                                      class="transparent">
                                 <v-row class="ma-0" justify="center">
-                                    <v-toolbar-title class="text-no-wrap overflow-hidden" :class="textColor">
-                                        {{header.text}}
-                                    </v-toolbar-title>
+                                    <v-text-field :dark="dark" hide-details dense
+                                                  :value.sync="header.text" full-width></v-text-field>
                                 </v-row>
                             </v-sheet>
                             <ColumnResizeButton :active="hover" :length="buttonWidth" icon="mdi-chevron-right"
@@ -39,6 +38,7 @@
         components: {ColumnResizeButton},
         computed: {
             ...mapGetters("theme", {
+                dark: "dark",
                 textColor: "textColor",
                 level1: "level1",
             }),
@@ -66,7 +66,7 @@
                     if (this.mouseDown) {
                         this.setHeaderWidth(header, value);
                     }
-                }, 30);
+                }, 20);
             }
         }
     }

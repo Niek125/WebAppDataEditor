@@ -1,13 +1,13 @@
 <template>
     <v-list-item>
-        <div style="display: table-cell" :class="textColor" v-for="header in headers" :key="'field' + index + header.value">
-            <v-hover v-slot:default="{hover}">
-                <v-sheet tile :class="hover ? level1: 'transparent'" :width="header.width">
-                    <v-text-field :dark="dark" :value="item[header.value]" dense hide-details full-width></v-text-field>
-                    <v-divider vertical :dark="dark"></v-divider>
+        <v-hover v-slot:default="{hover}">
+            <v-chip :class="hover ? level2 : 'transparent'">
+                <v-sheet tile class="transparent" :width="'calc(' + header.width + 'px)'"
+                         :class="textColor" v-for="header in headers" :key="'field' + index + header.value">
+                    <v-text-field :dark="dark" :value="item[header.value]" dense hide-details></v-text-field>
                 </v-sheet>
-            </v-hover>
-        </div>
+            </v-chip>
+        </v-hover>
     </v-list-item>
 </template>
 
@@ -25,7 +25,7 @@
             ...mapGetters("theme", {
                 dark: "dark",
                 textColor: "textColor",
-                level1: "level1",
+                level2: "level2",
             }),
         },
     }

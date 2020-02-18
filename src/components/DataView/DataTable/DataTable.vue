@@ -2,11 +2,11 @@
     <v-sheet tile class="transparent overflow-hidden" :height="'calc(' + height + ')'"
              :width="tab != 'closed' ? 'calc(100vw - ' + sideBarWidthExpanded +  ')' : 'calc(100vw - ' + sideBarWidth + ')'">
         <TableHeader :headers="headers"></TableHeader>
-        <v-list tile class="data-table transparent" :height="'calc(' + height + ' - ' + headerHeight + ')'"
-                 :class="gradient + ' ' + scrollStyle" id="data-table">
+        <v-sheet tile class="data-table transparent" :height="'calc(' + height + ' - ' + headerHeight + ')'"
+                 :class="gradient + ' ' + scrollStyle" id="data-table" >
             <DataRow v-for="(item, index) in desserts" :key="'row' + item + index" :index="index" :item="item"
                      :headers="headers"></DataRow>
-        </v-list>
+        </v-sheet>
     </v-sheet>
 </template>
 
@@ -210,13 +210,13 @@
 
 <style scoped>
     .data-table {
-        display: block;
-        overflow: scroll;
+        display: grid;
+        overflow: auto;
     }
 
     .data-table::-webkit-scrollbar {
-        height: 18px;
-        width: 18px;
+        height: 16px;
+        width: 16px;
         background-color: transparent;
     }
 
