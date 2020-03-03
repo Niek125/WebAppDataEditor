@@ -3,8 +3,13 @@ import App from "./App.vue"
 import router from "./router"
 import vuetify from "./plugins/vuetify";
 import store from "./store/store";
+import { makeServer } from "./server"
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = false
+
+if (process.env.NODE_ENV === "development") {
+    makeServer()
+}
 
 const VueCookie = require("vue-cookie");
 Vue.use(VueCookie);
@@ -20,13 +25,13 @@ Vue.use(VueSession, {
 const auth = require("firebase/auth");
 Vue.use(auth);
 
-router.beforeEach((to, from, next) => {
-    if (!Vue.prototype.$session.exists() && to.name !== "login") {
-        next({name: "login"});
-    } else {
-        next();
-    }
-})
+// router.beforeEach((to, from, next) => {
+//     if (!Vue.prototype.$session.exists() && to.name !== "login") {
+//         next({name: "login"});
+//     } else {
+//         next();
+//     }
+// })
 
 new Vue({
     router,

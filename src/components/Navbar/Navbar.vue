@@ -9,14 +9,14 @@
             </v-col>
             <v-spacer></v-spacer>
             <v-col cols="4">
-                <v-autocomplete :items="projects" item-text="projectName" outlined dense shaped
+                <v-autocomplete :items="projects" item-text="projectName" dense shaped outlined
                                 :hide-details="true" :class="level1" :dark="dark" style="outline: transparent !important;">
                     <template v-slot:label>
                         <div :class="textColor" class="mx-2">Search</div>
                     </template>
                     <template v-slot:item="data">
-                        <v-list-item-content v-text="data.item.projectname" class="black--text"
-                                             v-on:click="redirectProject(data.item.projectid)"></v-list-item-content>
+                        <v-list-item-content v-text="data.item.projectName" class="black--text"
+                                             v-on:click="redirectProject(data.item.projectId)"></v-list-item-content>
                     </template>
                     <template v-slot:no-data>
                         <v-list-item>
@@ -52,6 +52,7 @@
     import {redirectProject} from "../../mixins/RedirectProject";
     import {mapGetters} from "vuex";
     import Settings from "./Settings";
+    import store from "../../store/store";
 
     export default {
         name: "Navbar",
@@ -62,11 +63,14 @@
                 dark: "dark",
                 level0: "level0",
                 level1: "level1",
-            })
+            }),
+            ...mapGetters("projects", {
+                projects: "projects",
+            }),
         },
         data() {
             return {
-                projects: [],
+                // projects: [],
                 comp: this,
                 searchProject: "",
                 uName: "Not Found",
@@ -92,6 +96,7 @@
             }
         },
         created() {
+            store.dispatch("projects/load");
             try {
                 this.uName = this.$session.get("userData").unm;
                 this.pfp = this.$session.get("userData").pfp;
