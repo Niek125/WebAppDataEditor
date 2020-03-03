@@ -1,9 +1,11 @@
 <template>
     <v-hover v-slot:default="{hover}">
-        <v-btn v-if="active" icon :class="hover ? level2 : level1"
-               :width="length" :height="length">
-            <v-icon :class="textColor">{{icon}}</v-icon>
-        </v-btn>
+        <div>
+            <v-btn v-if="active" icon :class="hover ? level3 : level2"
+                   :width="length" :height="length" class="mx-1">
+                <v-icon :class="textColor">{{icon}}</v-icon>
+            </v-btn>
+        </div>
     </v-hover>
 </template>
 
@@ -20,8 +22,8 @@
         computed: {
             ...mapGetters("theme", {
                 textColor: "textColor",
-                level1: "level1",
                 level2: "level2",
+                level3: "level3",
             }),
         },
     }

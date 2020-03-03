@@ -10,7 +10,7 @@
                                 <v-row class="ma-0" align="center">
                                     <ColumnResizeButton :active="hover" :length="buttonWidth" icon="mdi-chevron-left"
                                                         v-on:mousedown.native="() => {mouseDown = true; setHeaderWidth(header, -scrollPace);}"></ColumnResizeButton>
-                                    <v-sheet tile :width="hover ? header.width - (2 * buttonWidth) : header.width"
+                                    <v-sheet tile :width="hover ? header.width - (2 * buttonWidth) - 16 : header.width"
                                              class="transparent">
                                         <v-row class="ma-0" justify="center">
                                             <v-text-field :dark="dark" hide-details dense
