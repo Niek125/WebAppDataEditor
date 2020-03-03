@@ -14,7 +14,7 @@
                         </v-card>
                     </v-col>
                 </v-row>
-                <v-row justify="center" no-gutters>
+                <v-row justify="center" no-gutters v-if="projects.length > 0">
                     <v-col cols="11" class="pa-0">
                         <v-card class="mr-8 ml-8 mt-8" :class="level2" outlined>
                             <v-row no-gutters>

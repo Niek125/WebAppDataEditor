@@ -22,6 +22,7 @@
     import SideBar from "../components/DataView/SideBar/SideBar";
     import DataTable from "../components/DataView/DataTable/DataTable";
     import {mapGetters} from "vuex";
+    import store from "../store/store";
 
     export default {
         name: "DataView",
@@ -85,6 +86,7 @@
             },
         },
         async mounted() {
+            store.dispatch("project/load", {id: this.$route.params.projectId,});
             // const x = this;
             // const token = this.$session.get("jwt");
             // const projectid = this.$route.params.projectid;

@@ -234,7 +234,7 @@
     }
 
     .grey-white-grey::-webkit-scrollbar-thumb {
-        border-radius: 9px;
+        border-radius: 8px;
         background-color: white;
         background-image: -webkit-linear-gradient(right,
         grey 0%,
@@ -244,7 +244,7 @@
     }
 
     .grey-black-grey::-webkit-scrollbar-thumb {
-        border-radius: 9px;
+        border-radius: 8px;
         background-color: black;
         background-image: -webkit-linear-gradient(right,
         grey 0%,

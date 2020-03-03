@@ -10,7 +10,7 @@ export default {
     },
     actions: {
         load({commit}) {
-            fetch("api/project")
+            fetch("/api/projects")
                 .then(res => res.json())
                 .then(json => {
                     commit("SET_PROJECTS", json.projects);

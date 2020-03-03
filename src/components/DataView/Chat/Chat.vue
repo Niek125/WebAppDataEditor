@@ -1,27 +1,50 @@
 <template>
     <v-container class="pa-0">
-        <v-sheet id="scroll" tile :height="'calc(' + height + ' - 66px)'" class="transparent">
-            <v-col cols="12" class="pa-2">
-                <ChatMessage v-for="data in chat" :key="data.messageid" :content="data.content" :this-user="data.senderid == uid"
-                             :send-time="data.sendtime" :sender-name="getUserName(data.senderid)" :users="users"></ChatMessage>
-            </v-col>
+        <v-sheet tile :height="'calc(' + height + ' - 66px)'" class="transparent chat pl-1">
+            <ChatMessage v-for="data in messages" :key="data.id" :content="data.content"
+                         :this-user="data.senderid == uid"
+                         :send-time="data.sendtime" :sender-name="getUserName(data.userid)"
+                         :users="users"></ChatMessage>
         </v-sheet>
-        <v-row justify="center">
+        <v-row justify="center" align="center">
             <v-col cols="10" class="pa-0">
-                <v-text-field v-model="input" @keyup.enter.native="send(input)" full-width
-                              @click:append="send()" counter maxlength="256" :dark="dark"
+                <v-text-field v-model="input" @keyup.enter.native="send" full-width class="my-3"
+                              @click:append="send" counter maxlength="256" :dark="dark"
                               label="Message..." outlined dense rounded hide-details
-                              append-icon="fas fa-paper-plane"></v-text-field>
+                              append-icon="mdi-send"></v-text-field>
             </v-col>
         </v-row>
     </v-container>
 </template>
 
+<style scoped>
+    .chat {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .chat::-webkit-scrollbar {
+        width: 16px;
+        background-color: transparent;
+    }
+
+    .chat::-webkit-scrollbar-corner {
+        display: none;
+    }
+
+    .chat::-webkit-scrollbar-track {
+        display: none;
+    }
+
+    .chat::-webkit-scrollbar-thumb {
+        border-radius: 8px;
+        background-color: grey;
+    }
+</style>
+
 <script>
     import ChatMessage from "./ChatMessage";
     import UpdateService from "../../../services/UpdateService";
-    // import MessageService from "../../../services/MessageService";
-    // import RoleService from "../../../services/RoleService";
     import {mapGetters} from "vuex";
 
     const uuidv1 = require("uuid/v1");
@@ -37,27 +60,32 @@
             }),
             ...mapGetters("dataView", {
                 height: "height",
+                sideTabWidth: "sideTabWidth",
+            }),
+            ...mapGetters("project", {
+                messages: "messages",
+                users: "users",
             }),
         },
         components: {
             ChatMessage
         },
-        props: {
-            users: Array
-        },
         data() {
             return {
-                uid: this.$session.get('userData').uid,
+                uid: "XXX",
                 input: "",
-                chat: [],
                 messageDelta: Infinity
             }
         },
         methods: {
             getUserName: function (senderId) {
-                return this.users.find(function (user) {
-                    return (user.userid).toString() == senderId;
-                }).username;
+                try {
+                    return this.users.find(function (user) {
+                        return (user.userid).toString() == senderId;
+                    }).username;
+                } catch (e) {
+                    return "removed user";
+                }
             },
             send: function () {
                 if (this.input.length > 0) {
@@ -90,7 +118,12 @@
                 element.scrollTop = element.scrollHeight;
             }
         },
-        async created() {
+        created() {
+            try {
+                this.uid = this.$session.get('userData').uid;
+            } catch (e) {
+                alert("There is no session");
+            }
             // const x = this;
             // const token = x.$session.get("jwt");
             // const projectId = x.$route.params.projectId;

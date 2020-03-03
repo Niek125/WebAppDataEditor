@@ -1,45 +1,40 @@
 export default {
     namespaced: true,
     state: {
-        project: {
             projectId: "",
             projectName: "",
-            chatMessages: [],
+            messages: [],
             users: [],
-        }
     },
     mutations: {
-        SET_PROJECT(state, payload){
-            state.project = payload;
-        },
         SET_PROJECT_NAME(state, payload){
-            state.project.projectName = payload;
+            state.projectName = payload;
         },
-        ADD_CHAT_MESSAGE(state, payload){
-            state.project.chatMessages.push(payload);
+        SET_MESSAGES(state, payload){
+          state.messages = payload;
+        },
+        ADD_MESSAGE(state, payload){
+            state.messages.push(payload);
         },
         ADD_USER(state, payload){
-            state.project.users.push(payload);
+            state.users.push(payload);
         }
     },
     actions: {
-        loadStore({commit}, {id}){
-            fetch("api/project/" + id)
+        load({commit}, payload){
+            fetch("/api/projects/" + payload.id)
                 .then(res => res.json())
                 .then(json => {
-                    commit("SET_PROJECT", json);
+                    commit("SET_MESSAGES", json.project.messages);
                 });
         },
     },
     getters: {
-        project: state => {
-            return state.project;
-        },
-        chatMessages: state => {
-            state.project.chatMessages;
+        messages: state => {
+            return state.messages;
         },
         users: state => {
-            return state.project.users;
+            return state.users;
         }
     }
 }
