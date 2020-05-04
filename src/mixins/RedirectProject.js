@@ -13,7 +13,7 @@ export const redirectProject = {
                         i--;
                     }
                 }
-                cookie.unshift(JSON.parse(Vue.prototype.$session.get("userData").pms).find(x => x.projectid == id).projectid);
+                cookie.unshift(id);
                 Vue.prototype.$cookie.set("recent", JSON.stringify(cookie), {expires: "1M"});
             }
         }

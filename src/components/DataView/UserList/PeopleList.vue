@@ -1,16 +1,17 @@
 <template>
     <div>
         <AddUser></AddUser>
-        <UserCard v-for="data in userroles"
-                  v-bind:key="data.user.userid"
-                  v-bind:user="data.user"></UserCard>
+        <UserCard v-for="data in users"
+                  v-bind:key="data.id"
+                  v-bind:user="data"></UserCard>
     </div>
 </template>
 
 <script>
     import UserCard from "./UserCard";
     import AddUser from "./AddUser";
-    import RoleService from "../../../services/RoleService";
+    // import RoleService from "../../../services/RoleService";
+    import {mapGetters} from "vuex";
 
     export default {
         name: "PeopleList",
@@ -18,8 +19,10 @@
             UserCard,
             AddUser,
         },
-        props: {
-            userroles: Array
+        computed: {
+            ...mapGetters("project", {
+                users: "users",
+            }),
         },
         data() {
             return {
@@ -32,12 +35,12 @@
             }
         },
         async created() {
-            const x = this;
-            const token = this.$session.get("jwt");
-            const projectid = this.$route.params.projectId;
-            await RoleService.getusers(projectid, token).then((request) => {
-                x.userroles = request.data;
-            })
+            // const x = this;
+            // const token = this.$session.get("jwt");
+            // const projectid = this.$route.params.projectId;
+            // await RoleService.getusers(projectid, token).then((request) => {
+            //     x.userroles = request.data;
+            // })
         }
     }
 </script>

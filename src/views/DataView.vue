@@ -86,7 +86,9 @@
             },
         },
         async mounted() {
-            store.dispatch("project/load", {id: this.$route.params.projectId,});
+            let params = {id: this.$route.params.projectId,};
+            store.dispatch("project/load", params);
+            store.dispatch("data/load", params);
             // const x = this;
             // const token = this.$session.get("jwt");
             // const projectid = this.$route.params.projectid;

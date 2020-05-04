@@ -13,6 +13,9 @@ export default {
         SET_MESSAGES(state, payload){
           state.messages = payload;
         },
+        SET_USERS(state, payload){
+            state.users = payload;
+        },
         ADD_MESSAGE(state, payload){
             state.messages.push(payload);
         },
@@ -21,11 +24,13 @@ export default {
         }
     },
     actions: {
-        load({commit}, payload){
-            fetch("/api/projects/" + payload.id)
+        load({commit}, params){
+            fetch("/api/projects/" + params.id)
                 .then(res => res.json())
                 .then(json => {
-                    commit("SET_MESSAGES", json.project.messages);
+                    window.console.log(json);
+                    commit("SET_MESSAGES", json.messages);
+                    commit("SET_USERS", json.users);
                 });
         },
     },

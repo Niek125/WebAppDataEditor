@@ -1,7 +1,7 @@
 <template>
     <v-app-bar elevate-on-scroll scroll-target="#data-table" tile :class="level2" :height="headerHeight"
                id="table-header">
-        <v-hover v-slot:default="{hover}" v-for="header in headers" :key="'header' + header.name + header.value">
+        <v-hover v-slot:default="{hover}" v-for="(header, index) in headers" :key="'header' + index">
             <div class="data-border fill-height" :class="'border-' + divider">
                 <v-row class="ma-0" align="center">
                     <v-sheet tile v-on:mouseup="mouseDown = false" class="transparent">
@@ -10,11 +10,12 @@
                                 <v-row class="ma-0" align="center">
                                     <ColumnResizeButton :active="hover" :length="buttonWidth" icon="mdi-chevron-left"
                                                         v-on:mousedown.native="() => {mouseDown = true; setHeaderWidth(header, -scrollPace);}"></ColumnResizeButton>
-                                    <v-sheet tile :width="hover ? header.width - (2 * buttonWidth) - 16 : header.width"
+                                    <v-sheet tile
+                                             :width="hover ? header.width - (2 * buttonWidth) - 16 : header.width"
                                              class="transparent">
                                         <v-row class="ma-0" justify="center">
                                             <v-text-field :dark="dark" hide-details dense
-                                                          :value.sync="header.text" full-width></v-text-field>
+                                                          :value.sync="header.value" full-width></v-text-field>
                                         </v-row>
                                     </v-sheet>
                                     <ColumnResizeButton :active="hover" :length="buttonWidth" icon="mdi-chevron-right"
@@ -53,7 +54,7 @@
         margin-right: 16px;
     }
 
-    #table-header .v-toolbar__content::-webkit-scrollbar{
+    #table-header .v-toolbar__content::-webkit-scrollbar {
         display: none;
     }
 </style>
@@ -66,15 +67,8 @@
         name: "TableHeader",
         components: {ColumnResizeButton},
         computed: {
-            ...mapGetters("theme", {
-                dark: "dark",
-                divider: "divider",
-                textColor: "textColor",
-                level2: "level2",
-            }),
-            ...mapGetters("dataView", {
-                headerHeight: "headerHeight",
-            }),
+            ...mapGetters("theme", ["dark", "divider", "textColor", "level2",]),
+            ...mapGetters("dataView", ["headerHeight",]),
         },
         props: {
             headers: Array,
@@ -87,17 +81,17 @@
             }
         },
         methods: {
-            setHeaderWidth: function (header, value) {
-                if (value < 0 && header.width <= (this.buttonWidth * 2)) {
+            setHeaderWidth: async function (header, delta) {
+                if (delta < 0 && header.width <= ((this.buttonWidth * 2) + 16)) {
                     return;
                 }
-                header.width += value;
+                header.width += delta;
                 setTimeout(() => {
                     if (this.mouseDown) {
-                        this.setHeaderWidth(header, value);
+                        this.setHeaderWidth(header, delta);
                     }
                 }, 15);
             }
-        }
+        },
     }
 </script>

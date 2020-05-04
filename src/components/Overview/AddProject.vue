@@ -50,7 +50,7 @@
     const uuidv1 = require("uuid/v1");
 
     export default {
-        name: "AddUser",
+        name: "AddProject",
         components: {ProjectCard},
         computed: {
             ...mapGetters("theme", {
@@ -75,10 +75,12 @@
         },
         methods: {
             addProject: function () {
-                ProjectService.addProject({
+                ProjectService.addProject(
+                    {
                     projectid: uuidv1(),
                     projectname: this.name
-                }, this.file, this.$session.get("jwt"));
+                }
+                , this.file, this.$session.get("jwt"));
                 this.dialog = false;
             }
         }

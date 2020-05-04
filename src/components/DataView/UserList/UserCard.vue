@@ -13,7 +13,7 @@
                         </v-col>
                         <v-col cols="10" class="pa-0">
                             <v-row class="ma-0 ml-2">
-                                <v-card-text style="padding: 0px;" :class="textColor">{{user.username}}</v-card-text>
+                                <v-card-text style="padding: 0px;" :class="textColor">{{user.userName}}</v-card-text>
                             </v-row>
                             <v-row class="ma-0 ml-2">
                                 <v-card-text style="padding: 0px;" :class="textColor">{{user.email}}</v-card-text>
@@ -34,7 +34,7 @@
                 <v-row align="center" justify="center">
                     <v-select v-model="currentRole" :items="roles" :dark="dark" class="mx-4 my-2" :rules="[(value) => value != null || 'The owner of a dataset cannot change or have multiple']">
                         <template v-slot:item="data">
-                            <v-list-item-content v-text="data.item.text" class="black--text">HI</v-list-item-content>
+                            <v-list-item-content v-text="data.item.text" class="black--text"></v-list-item-content>
                         </template>
                     </v-select>
                 </v-row>
@@ -62,17 +62,15 @@
         props: {
             user: {
                 userName: String,
-                userId: String,
+                id: String,
                 email: String,
                 profilePicture: String,
-
+                role: {
+                    roleId: String,
+                    role: String,
+                },
             },
-            role: {
-                roleId: String,
-                role: String,
-                userId: String,
-                projectId: String,
-            }
+
         },
         computed: {
             ...mapGetters("theme", {
@@ -88,12 +86,12 @@
         data() {
             return {
                 dialog: false,
-                currentRole: {text: "Owner", value: null},
+                currentRole: {},
                 roles: [
                     {text: "Guest", value: "GUEST"},
                     {text: "Member", value: "MEMBER"},
                     {text: "Admin", value: "ADMIN"},
-                    {text: "Owner", value: null}
+                    {text: "Owner", value: null},
                 ],
             }
         },
@@ -102,5 +100,16 @@
 
             }
         },
+        created() {
+            window.console.log(this.user);
+            try {
+                this.currentRole = this.roles.find(function (role) {
+                    return (role.value).toString() == this.user.role.role;
+                }).userName;
+            } catch (e) {
+                this.currentRole =  {text: "Guest", value: "GUEST"};
+            }
+
+        }
     }
 </script>

@@ -28,3 +28,9 @@
         }
     }
 </script>
+
+<style scoped>
+    #app-scroll::-webkit-scrollbar{
+        display: none;
+    }
+</style>

@@ -16,6 +16,9 @@ export default {
         setTab({commit}, nTab){
             commit("SET_TAB", nTab);
         },
+        scrollColumn({commit}, {index, delta}){
+            commit("SCROLL_COLUMN", {index, delta})
+        },
     },
     getters: {
         tab: state => {
@@ -35,6 +38,6 @@ export default {
         },
         headerHeight: state => {
             return state.headerHeight;
-        }
+        },
     }
 }

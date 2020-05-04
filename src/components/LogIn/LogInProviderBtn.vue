@@ -18,11 +18,11 @@
 </template>
 
 <script>
-    import TokenService from "../../services/TokenService";
+    // import TokenService from "../../services/TokenService";
     import * as firebase from "firebase/app";
     import {mapGetters} from "vuex";
 
-    const base64url = require("base64url");
+    // const base64url = require("base64url");
 
 
     export default {
@@ -42,12 +42,12 @@
         methods: {
             signIn: function () {
                 const x = this;
-                let first = false;
+                // let first = false;
 
                 firebase.auth().signOut().catch();
 
                 firebase.auth().signInWithPopup(x.provider).then(function () {
-                    first = true;
+                    // first = true;
                 }).catch(function (error) {
                     window.console.error(error);
                 });
@@ -56,15 +56,16 @@
                     function () {
                         if (firebase.auth().currentUser !== null) {
                             firebase.auth().currentUser.getIdToken(true).then(function (idToken) {
-                                TokenService.getToken(idToken, function (token) {
-                                    x.$session.start();
-                                    x.$session.set("jwt", token);
-                                    x.$session.set("userData", JSON.parse(base64url.decode(token.split(".")[1])));
-                                    if (first) {
-                                        first = false;
-                                        x.$router.back();
-                                    }
-                                });
+                                window.console.log(idToken);
+                                // TokenService.getToken(idToken, function (token) {
+                                //     x.$session.start();
+                                //     x.$session.set("jwt", token);
+                                //     x.$session.set("userData", JSON.parse(base64url.decode(token.split(".")[1])));
+                                //     if (first) {
+                                //         first = false;
+                                //         x.$router.back();
+                                //     }
+                                // });
                             })
                         }
                     }
