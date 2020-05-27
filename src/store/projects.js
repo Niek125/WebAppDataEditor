@@ -1,3 +1,5 @@
+import ApiService from "../services/ApiService";
+
 export default {
     namespaced: true,
     state: {
@@ -9,11 +11,13 @@ export default {
         }
     },
     actions: {
-        load({commit}) {
-            fetch("/api/projects")
-                .then(res => res.json())
+        load({commit}, params) {
+            ApiService.getProjects(params.token)
+                .then(res => {
+                    return res.data;
+                })
                 .then(json => {
-                    commit("SET_PROJECTS", json.projects);
+                    commit("SET_PROJECTS", json);
                 })
         }
     },

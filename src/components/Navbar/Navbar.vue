@@ -10,7 +10,8 @@
             <v-spacer></v-spacer>
             <v-col cols="4">
                 <v-autocomplete :items="projects" item-text="projectName" dense shaped outlined
-                                :hide-details="true" :class="level1" :dark="dark" style="outline: transparent !important;">
+                                :hide-details="true" :class="level1" :dark="dark"
+                                style="outline: transparent !important;">
                     <template v-slot:label>
                         <div :class="textColor" class="mx-2">Search</div>
                     </template>
@@ -26,13 +27,14 @@
                 </v-autocomplete>
             </v-col>
             <v-col cols="3" class="pa-0">
-                <v-row justify="end">
-                    <v-card-title v-on:click="logOut()" class="pa-0 mx-1" :class="textColor">
-                        {{uName}}
+                <v-row justify="end" class="ma-0">
+                    <v-card-title v-on:click="logOut()" class="pa-0 mx-1" :class="textColor" v-if="user != null">
+                        {{user.username}}
                         <v-avatar class="mx-4">
-                            <v-img v-bind:src="pfp"></v-img>
+                            <v-img v-bind:src="user.pfp"></v-img>
                         </v-avatar>
                     </v-card-title>
+                    <v-btn v-else :class="textColor + level2" v-on:click="$router.push('login')">Log In</v-btn>
                 </v-row>
             </v-col>
             <Settings></Settings>
@@ -41,7 +43,7 @@
 </template>
 
 <style>
-    .navigationBarDataEditor div{
+    .navigationBarDataEditor div {
         padding: 0px !important;
     }
 </style>
@@ -50,9 +52,8 @@
     import * as firebase from "firebase";
     import "firebase/auth";
     import {redirectProject} from "../../mixins/RedirectProject";
-    import {mapGetters} from "vuex";
+    import {mapGetters, mapActions} from "vuex";
     import Settings from "./Settings";
-    import store from "../../store/store";
 
     export default {
         name: "Navbar",
@@ -63,6 +64,7 @@
                 dark: "dark",
                 level0: "level0",
                 level1: "level1",
+                level2: "level2",
             }),
             ...mapGetters("projects", {
                 projects: "projects",
@@ -70,15 +72,13 @@
         },
         data() {
             return {
-                // projects: [],
-                comp: this,
                 searchProject: "",
-                uName: "Not Found",
-                pfp: "https://pbs.twimg.com/profile_images/1008735104070381570/WbceqBkX_400x400.jpg"
+                user: null,
             }
         },
         mixins: [redirectProject],
         methods: {
+            ...mapActions("projects", ["load"]),
             logOut: function () {
                 this.$session.destroy();
                 firebase.auth().signOut().then(function () {
@@ -96,12 +96,18 @@
             }
         },
         created() {
-            store.dispatch("projects/load");
+            this.load({token: this.$session.get("jwt")});
+            // store.dispatch("projects/load", {this.$session.get("jwt")});
             try {
                 this.uName = this.$session.get("userData").unm;
                 this.pfp = this.$session.get("userData").pfp;
+
+                this.user = {
+                    username: this.$session.get("userData").unm,
+                    pfp: this.$session.get("userData").pfp,
+                }
             } catch (e) {
-                alert("You are not logged in")
+                // alert("You are not logged in")
             }
         }
     }
