@@ -19,5 +19,11 @@ export default {
                 Authorization: "Bearer " + token
             }
         })
+    },
+    getWebsocketAddress(){
+        return api.get("/websocket")
+    },
+    getProject(id){
+        return api.get("project/" + id)
     }
 }

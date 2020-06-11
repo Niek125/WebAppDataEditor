@@ -2,8 +2,8 @@
     <v-container class="pa-0">
         <v-sheet tile :height="'calc(' + height + ' - 66px)'" class="transparent chat pl-1">
             <ChatMessage v-for="data in messages" :key="data.id" :content="data.content"
-                         :this-user="data.senderid == uid"
-                         :send-time="data.sendTime" :sender-name="getUserName(data.userId)"
+                         :this-user="data.senderId === uid"
+                         :send-time="data.sendTime" :sender-name="getUserName(data.senderId)"
                          :users="users"></ChatMessage>
         </v-sheet>
         <v-row justify="center" align="center">
@@ -82,7 +82,7 @@
                 try {
                     return this.users.find(function (user) {
                         return (user.id).toString() == senderId;
-                    }).userName;
+                    }).username;
                 } catch (e) {
                     return "removed user";
                 }
